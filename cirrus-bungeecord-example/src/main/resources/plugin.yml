@@ -1,0 +1,10 @@
+name: CirrusExample
+author: Exceptionflug
+version: 1.0
+main: dev.simplix.cirrus.bungeecord.example.CirrusExamplePlugin
+softdepend:
+  - simplixcore
+
+commands:
+  test:
+    description: hi

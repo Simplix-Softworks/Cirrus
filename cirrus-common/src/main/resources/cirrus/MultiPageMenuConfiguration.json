@@ -1,0 +1,49 @@
+{
+  "title": {
+    "en": "§bCirrus Menu {page} / {pageCount}",
+    "de": "§bCirrus Menü {page} / {pageCount}"
+  },
+  "type": "GENERIC_9X6",
+  "placeholderItem": {
+    "itemType": "GRAY_STAINED_GLASS_PANE",
+    "displayName": {
+      "en": "§0",
+      "de": "§0"
+    },
+    "lore": {
+      "en": [],
+      "de": []
+    },
+    "amount": 1,
+    "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 49, 50,
+      51, 52, 53]
+  },
+  "reservedSlots": [],
+  "nextPageItem": {
+    "itemType": "LIME_STAINED_GLASS_PANE",
+    "displayName": {
+      "en": "§aNext page",
+      "de": "§aNächste Seite"
+    },
+    "lore": {
+      "en": [],
+      "de": []
+    },
+    "amount": 1,
+    "slots": [17, 26, 35, 44]
+  },
+  "previousPageItem": {
+    "itemType": "LIME_STAINED_GLASS_PANE",
+    "displayName": {
+      "en": "§cPrevious page",
+      "de": "§cVorherige Seite"
+    },
+    "lore": {
+      "en": [],
+      "de": []
+    },
+    "amount": 1,
+    "slots": [9, 18, 27, 36]
+  },
+  "items": []
+}

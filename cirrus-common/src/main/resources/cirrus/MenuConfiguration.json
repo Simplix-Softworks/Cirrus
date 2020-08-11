@@ -1,0 +1,49 @@
+{
+  "title": {
+    "en": "§bCirrus Menu",
+    "de": "§bCirrus Menü"
+  },
+  "type": "GENERIC_9X4",
+  "placeholderItem": {
+    "itemType": "GRAY_STAINED_GLASS_PANE",
+    "displayName": {
+      "en": "§0",
+      "de": "§0"
+    },
+    "lore": {
+      "en": [],
+      "de": []
+    },
+    "amount": 1,
+    "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+  },
+  "reservedSlots": [],
+  "items": [
+    {
+      "itemType": "PLAYER_HEAD",
+      "displayName": {
+        "en": "§6Example Item",
+        "de": "§6Beispielitem"
+      },
+      "lore": {
+        "en": [
+          "§7Hello §6{viewer}§7,",
+          "§7this is an example item to show",
+          "§7how Cirrus menus and items are configured."
+        ],
+        "de": [
+          "§7Hallo §6{viewer}§7,",
+          "§7das ist ein Beispiel, um zu zeigen",
+          "§7wie man Cirrus Menüs und Items konfiguriert."
+        ]
+      },
+      "amount": 1,
+      "actionHandler": "noAction",
+      "actionArguments": [],
+      "slots": [13],
+      "nbt": {
+        "SkullOwner": "Exceptionflug"
+      }
+    }
+  ]
+}
