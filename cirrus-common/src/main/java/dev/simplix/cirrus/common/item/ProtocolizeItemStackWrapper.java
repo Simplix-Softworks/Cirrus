@@ -1,4 +1,4 @@
-package dev.simplix.cirrus.bungeecord.item;
+package dev.simplix.cirrus.common.item;
 
 import de.exceptionflug.protocolize.items.ItemStack;
 import de.exceptionflug.protocolize.items.ItemType;
