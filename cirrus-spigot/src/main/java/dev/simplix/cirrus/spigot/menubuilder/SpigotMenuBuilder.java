@@ -7,10 +7,12 @@ import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.Map.Entry;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 
-public class SpigotMenuBuilder implements MenuBuilder {
+public final class SpigotMenuBuilder implements MenuBuilder {
 
   private final Map<UUID, Map.Entry<Menu, Long>> buildMap = new LinkedHashMap<>();
   private final List<Menu> menus = new LinkedList<>();
@@ -34,6 +36,7 @@ public class SpigotMenuBuilder implements MenuBuilder {
     boolean reopen = false;
     boolean register = prebuild == null;
     if(prebuild instanceof InventoryView) {
+      InventoryView inventoryView = (InventoryView) prebuild;
       // TODO
     }
     return null;
