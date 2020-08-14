@@ -1,5 +1,6 @@
 package dev.simplix.cirrus.spigot;
 
+import de.exceptionflug.protocolize.inventory.InventoryType;
 import de.exceptionflug.protocolize.items.ItemStack;
 import de.exceptionflug.protocolize.items.ItemType;
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.querz.nbt.tag.CompoundTag;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.material.MaterialData;
 
 @InjectorModule("Cirrus")
@@ -52,6 +54,15 @@ public class SpigotCirrusModule extends AbstractSimplixModule {
           LocalizedItemStackModel.class,
           InventoryItemWrapper.class,
           new ItemModelConverter());
+      Converters.register(
+          InventoryType.class,
+          org.bukkit.event.inventory.InventoryType.class,
+          new SpigotInventoryTypeConverter());
+
+      Converters.register(
+          ClickType.class,
+          de.exceptionflug.protocolize.api.ClickType.class,
+          new SpigotClickTypeConverter());
 
       // NBT
       Converters.register( // Querz ----> NMS

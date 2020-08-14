@@ -28,6 +28,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>de.exceptionflug</groupId>
+            <artifactId>protocolize-inventory</artifactId>
+            <version>1.6.2-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <artifactId>simplixcore-common-implementation</artifactId>
             <groupId>dev.simplix</groupId>
             <scope>provided</scope>

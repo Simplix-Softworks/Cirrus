@@ -34,7 +34,7 @@ public class SpigotPlayerWrapper implements PlayerWrapper {
   }
 
   public int protocolVersion() {
-    return ProtocolVersionUtil.protocolVersion();
+    return ProtocolVersionUtil.serverProtocolVersion();
   }
 
   public <T> T handle() {

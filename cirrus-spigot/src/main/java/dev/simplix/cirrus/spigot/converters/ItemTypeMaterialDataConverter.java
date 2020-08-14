@@ -14,11 +14,11 @@ public class ItemTypeMaterialDataConverter implements Converter<ItemType, Materi
     public MaterialData convert(ItemType src) {
         if(src == null)
             return null;
-        ItemIDMapping applicableMapping = src.getApplicableMapping(ProtocolVersionUtil.protocolVersion());
+        ItemIDMapping applicableMapping = src.getApplicableMapping(ProtocolVersionUtil.serverProtocolVersion());
         if(applicableMapping == null) {
             return null;
         }
-        if(ProtocolVersionUtil.protocolVersion() >= ProtocolVersions.MINECRAFT_1_13) {
+        if(ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_13) {
             return new MaterialData(Material.valueOf(src.name()));
         }
         return new MaterialData(applicableMapping.getId(), (byte) applicableMapping.getData());

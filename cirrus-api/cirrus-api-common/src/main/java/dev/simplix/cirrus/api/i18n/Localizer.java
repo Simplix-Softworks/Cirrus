@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import lombok.NonNull;
 import net.querz.nbt.io.SNBTUtil;
 import net.querz.nbt.tag.CompoundTag;
 import dev.simplix.cirrus.api.model.ItemStackModel;
@@ -13,16 +14,16 @@ import dev.simplix.cirrus.api.model.ItemStackModel;
 public final class Localizer {
 
   public static List<String> localize(
-      LocalizedStringList localizedStringList,
-      Locale locale,
+      @NonNull LocalizedStringList localizedStringList,
+      @NonNull Locale locale,
       String... replacements) {
     return Arrays.asList(Replacer.of(localizedStringList.translated(locale))
         .replaceAll((Object[]) replacements).replacedMessage());
   }
 
   public static String localize(
-      LocalizedString localizedString,
-      Locale locale,
+      @NonNull LocalizedString localizedString,
+      @NonNull Locale locale,
       String... replacements) {
     return Replacer
         .of(localizedString.translated(locale))
@@ -31,8 +32,8 @@ public final class Localizer {
   }
 
   public static LocalizedItemStackModel localize(
-      ItemStackModel model,
-      Locale locale,
+      @NonNull ItemStackModel model,
+      @NonNull Locale locale,
       String... replacements) {
     return LocalizedItemStackModel.builder()
         .actionArguments(Arrays.asList(Replacer

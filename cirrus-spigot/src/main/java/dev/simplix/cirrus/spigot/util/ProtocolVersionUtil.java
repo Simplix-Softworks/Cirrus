@@ -12,7 +12,7 @@ public final class ProtocolVersionUtil {
 
   private static int protocolVersion;
 
-  public static int protocolVersion() {
+  public static int serverProtocolVersion() {
     if (protocolVersion == 0) {
       protocolVersion = detectVersion();
     }

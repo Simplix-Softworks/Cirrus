@@ -103,7 +103,7 @@ public abstract class AbstractMenu implements Menu {
         replacements().get());
     for (int slot : localizedItemStackModel.slots()) {
       if (slot > topContainer().capacity() - 1) {
-        bottomContainer().set(slot, localizedItemStackModel);
+        bottomContainer().set(slot - bottomContainer().baseSlot(), localizedItemStackModel);
       } else {
         topContainer().set(slot, localizedItemStackModel);
       }

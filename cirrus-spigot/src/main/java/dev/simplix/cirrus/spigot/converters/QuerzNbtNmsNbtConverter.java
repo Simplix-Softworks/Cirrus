@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.util.zip.GZIPOutputStream;
 import net.querz.nbt.io.NBTOutputStream;
 import net.querz.nbt.tag.CompoundTag;
 
@@ -27,7 +28,9 @@ public class QuerzNbtNmsNbtConverter implements Converter<CompoundTag, Object> {
     public Object convert(final CompoundTag src) {
         byte[] data = null;
         try(final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-            new NBTOutputStream(byteArrayOutputStream).writeTag(src, 99);
+            GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream);
+            new NBTOutputStream(gzipOutputStream).writeTag(src, 99);
+            gzipOutputStream.close();
             data = byteArrayOutputStream.toByteArray();
         } catch (final IOException e) {
             e.printStackTrace();

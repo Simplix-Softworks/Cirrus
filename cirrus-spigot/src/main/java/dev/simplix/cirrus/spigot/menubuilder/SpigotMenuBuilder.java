@@ -7,14 +7,10 @@ import dev.simplix.cirrus.api.menu.Menu;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.common.CirrusSimplixModule;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
-import dev.simplix.cirrus.spigot.util.ReflectionUtil;
-
-import java.lang.reflect.Field;
-import java.util.*;
-import java.util.Map.Entry;
-
 import dev.simplix.core.common.aop.Component;
 import dev.simplix.core.common.converter.Converters;
+import java.util.*;
+import java.util.Map.Entry;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -23,25 +19,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
-@Component(value = CirrusSimplixModule.class, parent=MenuBuilder.class)
+@Component(value = CirrusSimplixModule.class, parent = MenuBuilder.class)
 public final class SpigotMenuBuilder implements MenuBuilder {
 
   private final Map<UUID, Map.Entry<Menu, Long>> buildMap = new LinkedHashMap<>();
   private final List<Menu> menus = new LinkedList<>();
-
-  private static Class<?> minecraftInventoryClass;
-  private static Field titleField;
-
-  static {
-    try {
-      minecraftInventoryClass = ReflectionUtil.getClass(
-              "{obc}.inventory.CraftInventoryCustom$MinecraftInventory");
-      titleField = minecraftInventoryClass.getDeclaredField("title");
-      titleField.setAccessible(true);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
 
   @Override
   public <T> T build(T prebuild, Menu menu) {
@@ -50,10 +32,10 @@ public final class SpigotMenuBuilder implements MenuBuilder {
     if (prebuild instanceof InventoryView) {
       InventoryView inventoryView = (InventoryView) prebuild;
       if (!inventoryView.getTitle().equals(menu.title())
-              || inventoryView.getTopInventory().getSize() != menu.inventoryType()
-              .getTypicalSize(ProtocolVersionUtil.protocolVersion())
-              || inventoryView.getTopInventory().getType() != Converters
-              .convert(menu.inventoryType(), org.bukkit.event.inventory.InventoryType.class)) {
+          || inventoryView.getTopInventory().getSize() != menu.inventoryType()
+          .getTypicalSize(ProtocolVersionUtil.serverProtocolVersion())
+          || inventoryView.getTopInventory().getType() != Converters
+          .convert(menu.inventoryType(), org.bukkit.event.inventory.InventoryType.class)) {
         prebuild = (T) makeView(menu);
         reopen = true;
       }
@@ -61,25 +43,35 @@ public final class SpigotMenuBuilder implements MenuBuilder {
       prebuild = (T) makeView(menu);
     }
     InventoryView view = (InventoryView) prebuild;
-    buildContainer(view.getTopInventory(), menu.topContainer());
-    buildContainer(view.getBottomInventory(), menu.bottomContainer());
-
-    if(register) {
+    buildContainer(view.getTopInventory(), menu.topContainer(), false);
+    buildContainer(view.getBottomInventory(), menu.bottomContainer(), true);
+    buildMap.put(
+        menu.player().uniqueId(),
+        new AbstractMap.SimpleEntry<>(menu, System.currentTimeMillis()));
+    if (register) {
       menus.add(menu);
     }
-    if(reopen) {
+    if (reopen) {
       open(menu.player(), prebuild);
     }
     return prebuild;
   }
 
-  private void buildContainer(Inventory inventory, Container container) {
-    for (int i = container.baseSlot(); i < container.baseSlot()+container.capacity(); i++) {
-      InventoryItemWrapper item = container.itemMap().get(i);
+  private void buildContainer(Inventory inventory, Container container, boolean bottom) {
+    for (int i = 0; i < container.capacity(); i++) {
+      InventoryItemWrapper item = container.itemMap().get(i + container.baseSlot());
       ItemStack currentStack = inventory.getItem(i);
       if (item == null) {
         if (currentStack != null) {
-          inventory.setItem(i, null);
+          if (bottom) {
+            inventory.setItem(
+                container.baseSlot() + container.capacity() - 1 - (
+                    i
+                    + container.baseSlot()),
+                null);
+          } else {
+            inventory.setItem(i, null);
+          }
         }
       }
       if (item != null) {
@@ -87,13 +79,29 @@ public final class SpigotMenuBuilder implements MenuBuilder {
         if (currentStack == null) {
           if (item.handle() == null) {
             Bukkit.getLogger()
-                    .severe("InventoryItem's ItemStackWrapper is null @ slot " + i);
+                .severe("InventoryItem's ItemStackWrapper is null @ slot " + i);
             continue;
           }
-          inventory.setItem(i, bukkitItemStack);
+          if (bottom) {
+            inventory.setItem(
+                container.baseSlot() + container.capacity() - 1 - (
+                    i
+                    + container.baseSlot()),
+                bukkitItemStack);
+          } else {
+            inventory.setItem(i, bukkitItemStack);
+          }
         } else {
           if (!currentStack.equals(bukkitItemStack)) {
-            inventory.setItem(i, bukkitItemStack);
+            if (bottom) {
+              inventory.setItem(
+                  container.baseSlot() + container.capacity() - 1 - (
+                      i
+                      + container.baseSlot()),
+                  bukkitItemStack);
+            } else {
+              inventory.setItem(i, bukkitItemStack);
+            }
           }
         }
       }
@@ -103,16 +111,23 @@ public final class SpigotMenuBuilder implements MenuBuilder {
   private InventoryView makeView(Menu menu) {
     Inventory top;
     if (menu.inventoryType().isChest()) {
-      top = Bukkit.createInventory(menu.player().handle(),
-              menu.inventoryType().getTypicalSize(ProtocolVersionUtil.protocolVersion()), menu.title());
+      top = Bukkit.createInventory(
+          menu.player().handle(),
+          menu.inventoryType().getTypicalSize(ProtocolVersionUtil.serverProtocolVersion()),
+          menu.title());
     } else {
-      top = Bukkit.createInventory(menu.player().handle(), Converters
-              .convert(menu.inventoryType(), org.bukkit.event.inventory.InventoryType.class), menu.title());
+      top = Bukkit.createInventory(
+          menu.player().handle(),
+          Converters
+              .convert(menu.inventoryType(), org.bukkit.event.inventory.InventoryType.class),
+          menu.title());
     }
     return new InventoryView() {
 
       private final Inventory topInventory = top;
-      private final Inventory bottomInventory = Bukkit.createInventory(menu.player().handle(), InventoryType.PLAYER);
+      private final Inventory bottomInventory = Bukkit.createInventory(
+          menu.player().handle(),
+          InventoryType.PLAYER);
 
       @Override
       public Inventory getTopInventory() {
@@ -131,7 +146,9 @@ public final class SpigotMenuBuilder implements MenuBuilder {
 
       @Override
       public InventoryType getType() {
-        return Converters.convert(menu.inventoryType(), org.bukkit.event.inventory.InventoryType.class);
+        return Converters.convert(
+            menu.inventoryType(),
+            org.bukkit.event.inventory.InventoryType.class);
       }
     };
   }
@@ -157,7 +174,7 @@ public final class SpigotMenuBuilder implements MenuBuilder {
   @Override
   public void destroyMenusOfPlayer(UUID uniqueId) {
     menus.removeIf(
-            wrapper -> ((Player) wrapper.player().handle()).getUniqueId().equals(uniqueId));
+        wrapper -> ((Player) wrapper.player().handle()).getUniqueId().equals(uniqueId));
     buildMap.remove(uniqueId);
   }
 
