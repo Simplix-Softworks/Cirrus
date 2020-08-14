@@ -1,0 +1,6 @@
+name: CirrusExample
+author: Exceptionflug
+version: 1.0
+main: dev.simplix.cirrus.spigot.example.CirrusExamplePlugin
+softdepend:
+  - simplixcore
