@@ -1,5 +1,6 @@
 package dev.simplix.cirrus.common.config;
 
+import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -9,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 import dev.simplix.cirrus.api.business.ConfigurationFactory;
 import dev.simplix.cirrus.api.model.MenuConfiguration;
 import dev.simplix.cirrus.common.CirrusSimplixModule;
-import sun.misc.IOUtils;
 
 @Component(value = CirrusSimplixModule.class, parent = ConfigurationFactory.class)
 public class JsonConfigurationFactory implements ConfigurationFactory {
@@ -41,7 +41,7 @@ public class JsonConfigurationFactory implements ConfigurationFactory {
   @Override
   public <T extends MenuConfiguration> T loadResource(String resourcePath, Class<T> type) {
     try (InputStream stream = CirrusSimplixModule.class.getResourceAsStream(resourcePath)) {
-      String contents = new String(IOUtils.readFully(stream, -1, true), StandardCharsets.UTF_8);
+      String contents = new String(ByteStreams.toByteArray(stream), StandardCharsets.UTF_8);
       return gson.fromJson(contents, type);
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -50,8 +50,8 @@ public class JsonConfigurationFactory implements ConfigurationFactory {
 
   private void copyResourceToFile(String resource, File file) {
     try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-      fileOutputStream.write(IOUtils.readFully(
-          CirrusSimplixModule.class.getResourceAsStream(resource), -1, true));
+      fileOutputStream.write(ByteStreams.toByteArray(
+          CirrusSimplixModule.class.getResourceAsStream(resource)));
       fileOutputStream.flush();
     } catch (IOException e) {
       throw new RuntimeException(e);
