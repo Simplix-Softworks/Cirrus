@@ -66,7 +66,7 @@
         <dependency>
             <artifactId>cirrus-spigot</artifactId>
             <groupId>dev.simplix</groupId>
-            <scope>compile</scope>
+            <scope>provided</scope>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -92,19 +92,6 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

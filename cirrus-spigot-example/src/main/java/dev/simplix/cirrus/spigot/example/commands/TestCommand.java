@@ -5,7 +5,6 @@ import dev.simplix.cirrus.api.business.ConfigurationFactory;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.api.model.MultiPageMenuConfiguration;
-import dev.simplix.cirrus.spigot.example.menus.ExampleMenu;
 import dev.simplix.cirrus.spigot.example.menus.ExampleMultiPageMenu;
 import dev.simplix.core.common.aop.Component;
 import dev.simplix.core.common.converter.Converters;

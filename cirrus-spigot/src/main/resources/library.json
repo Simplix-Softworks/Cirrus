@@ -1,0 +1,6 @@
+{
+  "name": "Cirrus",
+  "version": "1.0",
+  "authors": ["SimplixSoftworks"],
+  "mainClass": "dev.simplix.cirrus.spigot.CirrusLibrary"
+}
