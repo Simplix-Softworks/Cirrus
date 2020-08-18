@@ -68,6 +68,7 @@
   </modules>
 
   <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
 
   <properties>
     <java.version>1.8</java.version>
@@ -80,11 +81,24 @@
       <url>https://jitpack.io</url>
     </repository>
     <repository>
+      <id>simplixsoft-public</id>
+      <url>https://repo.simplix.dev/repository/simplixsoft-public/</url>
+    </repository>
+    <repository>
       <id>exceptionflug</id>
       <url>https://mvn.exceptionflug.de/repository/exceptionflug-public/</url>
     </repository>
   </repositories>
 
-  <version>1.0-SNAPSHOT</version>
+  <distributionManagement>
+    <repository>
+      <id>simplixsoft-public</id>
+      <url>https://repo.simplix.dev/repository/simplixsoft-public/</url>
+    </repository>
+    <snapshotRepository>
+      <id>simplixsoft-public</id>
+      <url>https://repo.simplix.dev/repository/simplixsoft-public/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>

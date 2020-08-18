@@ -53,11 +53,19 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
       return new org.bukkit.inventory.ItemStack(Material.AIR);
     }
     MaterialData data = Converters.convert(src.getType(), MaterialData.class);
-    org.bukkit.inventory.ItemStack out = new org.bukkit.inventory.ItemStack(
-        data.getItemType(),
-        src.getAmount(),
-        src.getDurability(),
-        data.getData());
+    org.bukkit.inventory.ItemStack out;
+    if(ProtocolVersionUtil.serverProtocolVersion() < MINECRAFT_1_13) {
+      out = new org.bukkit.inventory.ItemStack(
+          data.getItemType(),
+          src.getAmount(),
+          src.getDurability(),
+          data.getData());
+    } else {
+      out = new org.bukkit.inventory.ItemStack(
+          data.getItemType(),
+          src.getAmount(),
+          src.getDurability());
+    }
 
     if (src.getNBTTag() == null) {
       src.setNBTTag(new CompoundTag());
