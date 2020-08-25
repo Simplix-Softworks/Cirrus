@@ -426,7 +426,10 @@ public class MojangsonWriter extends JsonWriter {
 
   private void string(String value) throws IOException {
     String[] replacements = isHtmlSafe() ? HTML_SAFE_REPLACEMENT_CHARS : REPLACEMENT_CHARS;
-    boolean quotesNeeded = value.contains(" ") || value.contains("'") || value.contains("\"");
+    boolean quotesNeeded = value.contains(" ")
+                           || value.contains("'")
+                           || value.contains("\"")
+                           || value.contains(":");
     if (quotesNeeded) { // Mojangson uses lenient json
       out.write('\"');
     }
