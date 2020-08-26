@@ -8,7 +8,6 @@ import dev.simplix.cirrus.api.menu.Menu;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.common.CirrusSimplixModule;
 import dev.simplix.cirrus.common.prefabs.menu.MultiPageMenu;
-import dev.simplix.cirrus.spigot.modern.ModernInventoryView;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
 import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.core.common.aop.Component;
@@ -129,18 +128,40 @@ public final class SpigotMenuBuilder implements MenuBuilder {
               .convert(menu.inventoryType(), org.bukkit.event.inventory.InventoryType.class),
           menu.title());
     }
-    if(ProtocolVersionUtil.serverProtocolVersion() > ProtocolVersions.MINECRAFT_1_13_2) {
-      return new ModernInventoryView(menu, top, createPlayerInventory(menu.player().handle()));
+    Inventory bottom;
+    if (menu.bottomContainer().itemMap().isEmpty()) {
+      bottom = ((Player) menu.player().handle()).getInventory();
     } else {
-      return legacyView(menu, top);
+      bottom = createPlayerInventory(menu.player().handle());
+    }
+    if (ProtocolVersionUtil.serverProtocolVersion() > ProtocolVersions.MINECRAFT_1_13) {
+      return modernView(menu, top, bottom);
+    } else {
+      return legacyView(menu, top, bottom);
     }
   }
 
-  private InventoryView legacyView(Menu menu, Inventory top) {
+  private InventoryView modernView(Menu menu, Inventory top, Inventory bottom) {
+    // We need to construct this class using reflection since referencing this class in code
+    // would cause a VerifyError while loading the class on non-modern spigot versions.
+    try {
+      Class<?> clazz = getClass()
+          .getClassLoader()
+          .loadClass("dev.simplix.cirrus.spigot.modern.ModernInventoryView");
+      return (InventoryView) clazz
+          .getConstructor(Menu.class, Inventory.class, Inventory.class)
+          .newInstance(menu, top, bottom);
+    } catch (Exception e) {
+      log.error("Unable to construct ModernInventoryView", e);
+    }
+    return null;
+  }
+
+  private InventoryView legacyView(Menu menu, Inventory top, Inventory bottom) {
     return new InventoryView() {
 
       private final Inventory topInventory = top;
-      private final Inventory bottomInventory = createPlayerInventory(menu.player().handle());
+      private final Inventory bottomInventory = bottom;
 
       @Override
       public Inventory getTopInventory() {
