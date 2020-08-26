@@ -1,8 +1,8 @@
 package dev.simplix.cirrus.spigot.example;
 
 import dev.simplix.core.common.aop.AbstractSimplixModule;
-import dev.simplix.core.common.aop.InjectorModule;
+import dev.simplix.core.common.aop.ApplicationModule;
 
-@InjectorModule("Cirrus")
+@ApplicationModule("Cirrus")
 public class CirrusExampleModule extends AbstractSimplixModule {
 }

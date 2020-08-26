@@ -11,7 +11,7 @@ import dev.simplix.cirrus.common.item.ProtocolizeItemStackWrapper;
 import dev.simplix.cirrus.spigot.converters.*;
 import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.core.common.aop.AbstractSimplixModule;
-import dev.simplix.core.common.aop.InjectorModule;
+import dev.simplix.core.common.aop.ApplicationModule;
 import dev.simplix.core.common.converter.Converters;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.material.MaterialData;
 
-@InjectorModule("Cirrus")
+@ApplicationModule("Cirrus")
 @Slf4j
 public class SpigotCirrusModule extends AbstractSimplixModule {
 

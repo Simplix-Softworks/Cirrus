@@ -67,7 +67,11 @@ public abstract class AbstractMenu implements Menu {
 
   @Override
   public void title(String title) {
-    this.title = Replacer.of(title).replaceAll((Object[]) replacements().get()).replacedMessageJoined();
+    this.title = title;
+  }
+
+  public String title() {
+    return Replacer.of(title).replaceAll((Object[]) replacements().get()).replacedMessageJoined();
   }
 
   public void replacements(Supplier<String[]> replacements) {

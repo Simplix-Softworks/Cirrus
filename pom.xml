@@ -63,6 +63,7 @@
     <module>cirrus-common</module>
     <module>cirrus-bungeecord</module>
     <module>cirrus-spigot</module>
+    <module>cirrus-spigot-modern</module>
     <module>cirrus-bungeecord-example</module>
     <module>cirrus-spigot-example</module>
   </modules>

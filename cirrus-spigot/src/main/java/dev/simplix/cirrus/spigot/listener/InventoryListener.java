@@ -10,6 +10,7 @@ import dev.simplix.core.minecraft.spigot.dynamiclisteners.DynamicListenersSimpli
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
@@ -104,6 +105,7 @@ public class InventoryListener implements Listener {
     Menu menu = menuBuilder.menuByHandle(inventoryView);
     if (menu == null)
       return;
+    ((Player)e.getPlayer()).updateInventory();
     Map.Entry<Menu, Long> lastBuild = menuBuilder.lastBuildOfPlayer(e.getPlayer().getUniqueId());
     if (lastBuild == null) {
       log.warn("[Cirrus] Exiting from unbuilt menu? Class = "

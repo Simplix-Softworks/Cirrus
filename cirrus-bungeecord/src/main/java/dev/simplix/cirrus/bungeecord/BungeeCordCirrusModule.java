@@ -4,7 +4,7 @@ import de.exceptionflug.protocolize.items.ItemStack;
 import dev.simplix.cirrus.bungeecord.converters.ItemModelConverter;
 import dev.simplix.cirrus.bungeecord.converters.PlayerUniqueIdConverter;
 import dev.simplix.core.common.aop.AbstractSimplixModule;
-import dev.simplix.core.common.aop.InjectorModule;
+import dev.simplix.core.common.aop.ApplicationModule;
 import dev.simplix.core.common.converter.Converters;
 import java.util.UUID;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -15,7 +15,7 @@ import dev.simplix.cirrus.bungeecord.converters.ItemStackConverter;
 import dev.simplix.cirrus.bungeecord.converters.PlayerConverter;
 import dev.simplix.cirrus.api.i18n.LocalizedItemStackModel;
 
-@InjectorModule("Cirrus")
+@ApplicationModule("Cirrus")
 public class BungeeCordCirrusModule extends AbstractSimplixModule {
 
   static {

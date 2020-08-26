@@ -1,16 +1,22 @@
 package dev.simplix.cirrus.spigot.menubuilder;
 
+import de.exceptionflug.protocolize.api.util.ProtocolVersions;
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.menu.Container;
 import dev.simplix.cirrus.api.menu.Menu;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.common.CirrusSimplixModule;
+import dev.simplix.cirrus.common.prefabs.menu.MultiPageMenu;
+import dev.simplix.cirrus.spigot.modern.ModernInventoryView;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
+import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.core.common.aop.Component;
 import dev.simplix.core.common.converter.Converters;
+import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.Map.Entry;
+import lombok.extern.slf4j.Slf4j;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -20,6 +26,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 @Component(value = CirrusSimplixModule.class, parent = MenuBuilder.class)
+@Slf4j
 public final class SpigotMenuBuilder implements MenuBuilder {
 
   private final Map<UUID, Map.Entry<Menu, Long>> buildMap = new LinkedHashMap<>();
@@ -51,7 +58,7 @@ public final class SpigotMenuBuilder implements MenuBuilder {
     if (register) {
       menus.add(menu);
     }
-    if (reopen) {
+    if (reopen || menu instanceof MultiPageMenu) {
       open(menu.player(), prebuild);
     }
     return prebuild;
@@ -122,12 +129,18 @@ public final class SpigotMenuBuilder implements MenuBuilder {
               .convert(menu.inventoryType(), org.bukkit.event.inventory.InventoryType.class),
           menu.title());
     }
+    if(ProtocolVersionUtil.serverProtocolVersion() > ProtocolVersions.MINECRAFT_1_13_2) {
+      return new ModernInventoryView(menu, top, createPlayerInventory(menu.player().handle()));
+    } else {
+      return legacyView(menu, top);
+    }
+  }
+
+  private InventoryView legacyView(Menu menu, Inventory top) {
     return new InventoryView() {
 
       private final Inventory topInventory = top;
-      private final Inventory bottomInventory = Bukkit.createInventory(
-          menu.player().handle(),
-          InventoryType.PLAYER);
+      private final Inventory bottomInventory = createPlayerInventory(menu.player().handle());
 
       @Override
       public Inventory getTopInventory() {
@@ -151,6 +164,27 @@ public final class SpigotMenuBuilder implements MenuBuilder {
             org.bukkit.event.inventory.InventoryType.class);
       }
     };
+  }
+
+  private Inventory createPlayerInventory(Player player) {
+    try {
+      Class<?> craftPlayerInventoryClass =
+          ReflectionUtil.getClass("{obc}.inventory.CraftInventoryPlayer");
+      Class<?> nmsPlayerInventoryClass =
+          ReflectionUtil.getClass("{nms}.PlayerInventory");
+      Class<?> nmsEntityHumanClass =
+          ReflectionUtil.getClass("{nms}.EntityHuman");
+      Constructor<?> nmsPlayerInventoryConstructor =
+          nmsPlayerInventoryClass.getConstructor(nmsEntityHumanClass);
+      Object nmsPlayerInventory = nmsPlayerInventoryConstructor.newInstance(
+          nmsEntityHumanClass.cast(ReflectionUtil.getNMSPlayer(player)));
+      Constructor<?> craftPlayerInventoryConstructor =
+          craftPlayerInventoryClass.getConstructor(nmsPlayerInventoryClass);
+      return (Inventory) craftPlayerInventoryConstructor.newInstance(nmsPlayerInventory);
+    } catch (ReflectiveOperationException exception) {
+      log.error("Cannot create player inventory", exception);
+    }
+    return null;
   }
 
   @Override
