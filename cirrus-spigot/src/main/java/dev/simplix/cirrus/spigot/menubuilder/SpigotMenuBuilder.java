@@ -28,8 +28,22 @@ import org.bukkit.inventory.ItemStack;
 @Slf4j
 public final class SpigotMenuBuilder implements MenuBuilder {
 
+  private static Constructor<?> modernInventoryViewConstructor;
+
+  static {
+    try {
+      Class<?> modernInventoryViewClass = SpigotMenuBuilder.class.getClassLoader()
+          .loadClass("dev.simplix.cirrus.spigot.modern.ModernInventoryView");
+      modernInventoryViewConstructor =
+          modernInventoryViewClass.getConstructor(Menu.class, Inventory.class, Inventory.class);
+    } catch (ReflectiveOperationException exception) {
+      log.error("SpigotMenuBuilder won't work", exception);
+    }
+  }
+
   private final Map<UUID, Map.Entry<Menu, Long>> buildMap = new LinkedHashMap<>();
   private final List<Menu> menus = new LinkedList<>();
+
 
   @Override
   public <T> T build(T prebuild, Menu menu) {
@@ -145,11 +159,7 @@ public final class SpigotMenuBuilder implements MenuBuilder {
     // We need to construct this class using reflection since referencing this class in code
     // would cause a VerifyError while loading the class on non-modern spigot versions.
     try {
-      Class<?> clazz = getClass()
-          .getClassLoader()
-          .loadClass("dev.simplix.cirrus.spigot.modern.ModernInventoryView");
-      return (InventoryView) clazz
-          .getConstructor(Menu.class, Inventory.class, Inventory.class)
+      return (InventoryView) modernInventoryViewConstructor
           .newInstance(menu, top, bottom);
     } catch (Exception e) {
       log.error("Unable to construct ModernInventoryView", e);
