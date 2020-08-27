@@ -19,11 +19,17 @@ public class ReflectionUtil {
     private ReflectionUtil(){}
 
     private static final Map<Map.Entry<Class, String>, Field> CACHED_FIELDS = new HashMap<>();
+    private static final Map<String, Class> CACHED_CLASSES = new HashMap<>();
 
     public static Class<?> getClass(String classname) throws ClassNotFoundException {
         String path = classname.replace("{nms}", "net.minecraft.server." + getVersion()).replace("{obc}", "org.bukkit.craftbukkit." + getVersion())
                 .replace("{nm}", "net.minecraft." + getVersion());
-        return Class.forName(path);
+        Class<?> out = CACHED_CLASSES.get(path);
+        if(out == null) {
+            out = Class.forName(path);
+            CACHED_CLASSES.put(path, out);
+        }
+        return out;
     }
 
     public static String getVersion() {
