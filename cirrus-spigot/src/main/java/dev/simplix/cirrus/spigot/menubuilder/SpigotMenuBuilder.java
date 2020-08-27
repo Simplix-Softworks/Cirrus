@@ -9,9 +9,9 @@ import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.common.CirrusSimplixModule;
 import dev.simplix.cirrus.common.prefabs.menu.MultiPageMenu;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
-import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.core.common.aop.Component;
 import dev.simplix.core.common.converter.Converters;
+import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.Map.Entry;
@@ -208,7 +208,7 @@ public final class SpigotMenuBuilder implements MenuBuilder {
       Constructor<?> nmsPlayerInventoryConstructor =
           nmsPlayerInventoryClass.getConstructor(nmsEntityHumanClass);
       Object nmsPlayerInventory = nmsPlayerInventoryConstructor.newInstance(
-          nmsEntityHumanClass.cast(ReflectionUtil.getNMSPlayer(player)));
+          nmsEntityHumanClass.cast(ReflectionUtil.nmsPlayer(player)));
       Constructor<?> craftPlayerInventoryConstructor =
           craftPlayerInventoryClass.getConstructor(nmsPlayerInventoryClass);
       return (Inventory) craftPlayerInventoryConstructor.newInstance(nmsPlayerInventory);

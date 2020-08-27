@@ -22,6 +22,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>dev.simplix</groupId>
+      <artifactId>simplixcore-minecraft-spigot-implementation</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <artifactId>simplixcore-minecraft-spigot-dynamiclisteners</artifactId>
       <groupId>dev.simplix</groupId>
       <scope>provided</scope>

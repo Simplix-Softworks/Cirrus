@@ -1,9 +1,9 @@
 package dev.simplix.cirrus.spigot.converters;
 
 import de.exceptionflug.protocolize.items.ItemType;
-import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.core.common.converter.Converter;
 import dev.simplix.core.common.converter.Converters;
+import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import net.querz.nbt.tag.CompoundTag;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,7 +28,7 @@ public class BukkitItemStackConverter implements Converter<ItemStack, de.excepti
           Converters.convert(src.getData(), ItemType.class),
           src.getAmount(),
           src.getDurability());
-      Object handle = ReflectionUtil.getFieldValue(craftItemStackClass, src, "handle");
+      Object handle = ReflectionUtil.fieldValue(craftItemStackClass, src, "handle");
       out.setNBTTag(Converters.convert(
           itemStackNMSClass.getMethod("getTag").invoke(handle),
           CompoundTag.class));

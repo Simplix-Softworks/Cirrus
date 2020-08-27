@@ -1,6 +1,7 @@
 package dev.simplix.cirrus.spigot.util;
 
 import de.exceptionflug.protocolize.api.util.ProtocolVersions;
+import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.lang.reflect.Field;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,13 +22,13 @@ public final class ProtocolVersionUtil {
 
   private static int detectVersion() {
     String majorVersion = ReflectionUtil
-        .getVersion()
-        .substring(1, ReflectionUtil.getVersion().indexOf('_', 3));
+        .serverVersion()
+        .substring(1, ReflectionUtil.serverVersion().indexOf('_', 3));
     try {
       Field field = ProtocolVersions.class.getField("MINECRAFT_"+majorVersion);
       return field.getInt(null);
     } catch (NoSuchFieldException e) {
-      throw new RuntimeException("Cirrus is not compatible with server version "+ReflectionUtil.getVersion());
+      throw new RuntimeException("Cirrus is not compatible with server version "+ReflectionUtil.serverVersion());
     } catch (IllegalAccessException e) {
       log.error("[Cirrus] Unable to detect protocol version", e);
       return ProtocolVersions.MINECRAFT_1_8;

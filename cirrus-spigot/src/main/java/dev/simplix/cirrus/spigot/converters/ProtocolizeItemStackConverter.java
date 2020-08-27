@@ -6,9 +6,9 @@ import static de.exceptionflug.protocolize.api.util.ProtocolVersions.MINECRAFT_1
 import de.exceptionflug.protocolize.items.ItemStack;
 import de.exceptionflug.protocolize.items.ItemType;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
-import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.core.common.converter.Converter;
 import dev.simplix.core.common.converter.Converters;
+import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.stream.Collectors;

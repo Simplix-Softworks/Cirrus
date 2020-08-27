@@ -2,12 +2,12 @@ package dev.simplix.cirrus.spigot;
 
 import dev.simplix.cirrus.spigot.CirrusLibrary.ModuleSupplier;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
-import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.core.common.aop.AbstractSimplixModule;
 import dev.simplix.core.common.aop.RequireModules;
 import dev.simplix.core.common.aop.ScanComponents;
 import dev.simplix.core.common.aop.SimplixApplication;
 import dev.simplix.core.minecraft.spigot.dynamiclisteners.DynamicListenersSimplixModule;
+import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 import org.bukkit.Bukkit;
@@ -22,7 +22,7 @@ public class CirrusLibrary {
 
     {
       log.info("[Cirrus] Detected server version: "
-               + ReflectionUtil.getVersion()
+               + ReflectionUtil.serverVersion()
                + " (protocol "
                + ProtocolVersionUtil.serverProtocolVersion()
                + ")");
