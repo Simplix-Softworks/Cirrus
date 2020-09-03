@@ -1,0 +1,12 @@
+{
+  "localVersion": "${project.version}",
+  "repository": {
+    "id": "exceptionflug",
+    "url": "https://mvn.exceptionflug.de/repository/exceptionflug-public/"
+  },
+  "dependency": {
+    "groupId": "dev.simplix",
+    "artifactId": "cirrus-bungeecord",
+    "version": "LATEST"
+  }
+}

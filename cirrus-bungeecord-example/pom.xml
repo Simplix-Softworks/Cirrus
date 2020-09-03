@@ -5,55 +5,55 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>dev.simplix</groupId>
+        <groupId>dev.simplix.core</groupId>
         <artifactId>cirrus</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>dev.simplix</groupId>
+    <groupId>dev.simplix.core</groupId>
     <artifactId>cirrus-bungeecord-example</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <artifactId>simplixcore-common-implementation</artifactId>
-            <groupId>dev.simplix</groupId>
+            <groupId>dev.simplix.core</groupId>
             <scope>provided</scope>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>simplixcore-minecraft-bungeecord-implementation</artifactId>
-            <groupId>dev.simplix</groupId>
+            <groupId>dev.simplix.core</groupId>
             <scope>provided</scope>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>simplixcore-minecraft-bungeecord-dynamiclisteners</artifactId>
-            <groupId>dev.simplix</groupId>
+            <groupId>dev.simplix.core</groupId>
             <scope>provided</scope>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>simplixcore-minecraft-bungeecord-dynamiccommands</artifactId>
-            <groupId>dev.simplix</groupId>
+            <groupId>dev.simplix.core</groupId>
             <scope>provided</scope>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>cirrus-common</artifactId>
-            <groupId>dev.simplix</groupId>
-            <scope>compile</scope>
+            <groupId>dev.simplix.core</groupId>
+            <scope>provided</scope>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>cirrus-bungeecord</artifactId>
-            <groupId>dev.simplix</groupId>
-            <scope>compile</scope>
+            <groupId>dev.simplix.core</groupId>
+            <scope>provided</scope>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>simplixcore-common-api</artifactId>
-            <groupId>dev.simplix</groupId>
+            <groupId>dev.simplix.core</groupId>
             <scope>provided</scope>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>

@@ -44,11 +44,11 @@
     </plugins>
   </build>
 
-  <groupId>dev.simplix</groupId>
+  <groupId>dev.simplix.core</groupId>
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>cirrus-api</artifactId>
-    <groupId>dev.simplix</groupId>
+    <groupId>dev.simplix.core</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
