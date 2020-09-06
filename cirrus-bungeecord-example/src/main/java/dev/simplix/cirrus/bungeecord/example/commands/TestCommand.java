@@ -36,7 +36,6 @@ public class TestCommand extends Command {
               "plugins/Cirrus/example.json",
               MultiPageMenuConfiguration.class)).open(menuBuilder);
     }
-    https://github.com/Exceptionflug/protocolize/releases/download/v1.6.3/protocolize-plugin.jar
   }
 
 }
