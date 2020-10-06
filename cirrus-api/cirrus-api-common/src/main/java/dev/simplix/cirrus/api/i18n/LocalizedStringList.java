@@ -2,13 +2,14 @@ package dev.simplix.cirrus.api.i18n;
 
 import java.util.*;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @NoArgsConstructor
 public class LocalizedStringList {
 
   private final Map<String, List<String>> translations = new HashMap<>();
 
-  public LocalizedStringList(Map<String, List<String>> stringListMap) {
+  public LocalizedStringList(@NonNull Map<String, List<String>> stringListMap) {
     translations.putAll(stringListMap);
   }
 
@@ -27,7 +28,7 @@ public class LocalizedStringList {
    * @param locale The desired locale
    * @return the localized string list
    */
-  public List<String> translated(Locale locale) {
+  public List<String> translated(@NonNull Locale locale) {
     if(translations.isEmpty()) {
       return Collections.emptyList();
     }

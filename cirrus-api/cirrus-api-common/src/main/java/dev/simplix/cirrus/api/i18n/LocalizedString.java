@@ -3,12 +3,13 @@ package dev.simplix.cirrus.api.i18n;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import lombok.NonNull;
 
 public class LocalizedString {
 
   private final Map<String, String> translations = new HashMap<>();
 
-  public LocalizedString(Map<String, String> stringMap) {
+  public LocalizedString(@NonNull Map<String, String> stringMap) {
     translations.putAll(stringMap);
   }
 

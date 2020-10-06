@@ -4,10 +4,12 @@ import de.exceptionflug.protocolize.items.ItemStack;
 import dev.simplix.cirrus.api.business.ItemStackWrapper;
 import dev.simplix.cirrus.common.item.ProtocolizeItemStackWrapper;
 import dev.simplix.core.common.converter.Converter;
+import lombok.NonNull;
 
 public class ItemStackConverter implements Converter<ItemStack, ItemStackWrapper> {
 
-  public ItemStackWrapper convert(ItemStack itemStack) {
+  @Override
+  public ItemStackWrapper convert(@NonNull ItemStack itemStack) {
     return new ProtocolizeItemStackWrapper(itemStack);
   }
 

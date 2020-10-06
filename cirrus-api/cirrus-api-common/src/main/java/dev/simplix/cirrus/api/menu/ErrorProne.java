@@ -1,5 +1,6 @@
 package dev.simplix.cirrus.api.menu;
 
+import lombok.NonNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface ErrorProne {
@@ -13,7 +14,7 @@ public interface ErrorProne {
    *
    * @param runnable The runnable to run
    */
-  default void errorProne(SafeRunnable runnable) {
+  default void errorProne(@NonNull SafeRunnable runnable) {
     try {
       runnable.run();
     } catch (Throwable throwable) {

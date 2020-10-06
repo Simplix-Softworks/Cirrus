@@ -7,13 +7,15 @@ import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.Map;
+import lombok.NonNull;
 
 public class LocalizedStringDeserializer implements JsonDeserializer<LocalizedString> {
 
   @Override
   public LocalizedString deserialize(
-      JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
-      throws JsonParseException {
+      @NonNull JsonElement jsonElement,
+      @NonNull Type type,
+      @NonNull JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
     Map<String, String> stringMap = jsonDeserializationContext.deserialize(
         jsonElement,
         new TypeToken<Map<String, String>>() {

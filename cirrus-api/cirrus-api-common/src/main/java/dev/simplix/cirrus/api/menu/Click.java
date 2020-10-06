@@ -1,9 +1,10 @@
 package dev.simplix.cirrus.api.menu;
 
 import de.exceptionflug.protocolize.api.ClickType;
-import java.util.List;
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import dev.simplix.cirrus.api.business.ItemStackWrapper;
+import java.util.List;
+import lombok.NonNull;
 
 /**
  * A click contains information about a click performed on an {@link InventoryItemWrapper}.
@@ -15,7 +16,11 @@ public class Click {
   private final InventoryItemWrapper clickedItem;
   private final int slot;
 
-  public Click(ClickType clickType, Menu clickedMenu, InventoryItemWrapper clickedItem, int slot) {
+  public Click(
+      @NonNull ClickType clickType,
+      @NonNull Menu clickedMenu,
+      @NonNull InventoryItemWrapper clickedItem,
+      int slot) {
     this.clickType = clickType;
     this.clickedMenu = clickedMenu;
     this.clickedItem = clickedItem;

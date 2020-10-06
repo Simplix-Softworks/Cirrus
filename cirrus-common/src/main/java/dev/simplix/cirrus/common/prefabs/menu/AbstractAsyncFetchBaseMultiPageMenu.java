@@ -4,6 +4,7 @@ import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.model.MultiPageMenuConfiguration;
 import java.util.Locale;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.experimental.Accessors;
 
 @Accessors(fluent = true)
@@ -13,9 +14,9 @@ public abstract class AbstractAsyncFetchBaseMultiPageMenu<T> extends MultiPageMe
   private boolean fetching;
 
   public AbstractAsyncFetchBaseMultiPageMenu(
-      PlayerWrapper player,
-      MultiPageMenuConfiguration configuration,
-      Locale locale) {
+      @NonNull PlayerWrapper player,
+      @NonNull MultiPageMenuConfiguration configuration,
+      @NonNull Locale locale) {
     super(player, configuration, locale);
   }
 

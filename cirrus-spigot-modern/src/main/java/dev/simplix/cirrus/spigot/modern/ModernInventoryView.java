@@ -1,11 +1,11 @@
 package dev.simplix.cirrus.spigot.modern;
 
 import dev.simplix.cirrus.api.menu.Menu;
+import lombok.NonNull;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
-import org.jetbrains.annotations.NotNull;
 
 public final class ModernInventoryView extends InventoryView {
 
@@ -13,29 +13,37 @@ public final class ModernInventoryView extends InventoryView {
   private final Inventory top;
   private final Inventory bottom;
 
-  public ModernInventoryView(Menu menu, Inventory top, Inventory bottom) {
+  public ModernInventoryView(
+      @NonNull Menu menu,
+      @NonNull Inventory top,
+      @NonNull Inventory bottom) {
     this.menu = menu;
     this.top = top;
     this.bottom = bottom;
   }
 
-  public @NotNull Inventory getTopInventory() {
+  @Override
+  public Inventory getTopInventory() {
     return top;
   }
 
-  public @NotNull Inventory getBottomInventory() {
+  @Override
+  public Inventory getBottomInventory() {
     return bottom;
   }
 
-  public @NotNull HumanEntity getPlayer() {
+  @Override
+  public HumanEntity getPlayer() {
     return menu.player().handle();
   }
 
-  public @NotNull InventoryType getType() {
+  @Override
+  public InventoryType getType() {
     return top.getType();
   }
 
-  public @NotNull String getTitle() {
+  @Override
+  public String getTitle() {
     return menu.title();
   }
 

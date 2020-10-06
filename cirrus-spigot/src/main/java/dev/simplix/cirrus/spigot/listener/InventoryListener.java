@@ -8,8 +8,8 @@ import dev.simplix.core.common.aop.Component;
 import dev.simplix.core.common.converter.Converters;
 import dev.simplix.core.minecraft.spigot.dynamiclisteners.DynamicListenersSimplixModule;
 import java.util.Map;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,7 +26,7 @@ public class InventoryListener implements Listener {
   private final MenuBuilder menuBuilder;
 
   @Inject
-  public InventoryListener(MenuBuilder menuBuilder) {
+  public InventoryListener(@NonNull MenuBuilder menuBuilder) {
     this.menuBuilder = menuBuilder;
   }
 
@@ -38,8 +38,9 @@ public class InventoryListener implements Listener {
     }
 //    Bukkit.broadcastMessage("Clicked inventoryView");
     Menu menu = menuBuilder.menuByHandle(inventoryView);
-    if (menu == null)
+    if (menu == null) {
       return;
+    }
 //    Bukkit.broadcastMessage("Clicked menu: "
 //                            + menu.getClass().getSimpleName()
 //                            + " @ slot "
@@ -97,28 +98,30 @@ public class InventoryListener implements Listener {
   }
 
   @EventHandler
-  public void onClose(InventoryCloseEvent e) {
-    InventoryView inventoryView = e.getPlayer().getOpenInventory();
+  public void onClose(InventoryCloseEvent inventoryCloseEvent) {
+    InventoryView inventoryView = inventoryCloseEvent.getPlayer().getOpenInventory();
     if (inventoryView == null) {
       return;
     }
     Menu menu = menuBuilder.menuByHandle(inventoryView);
-    if (menu == null)
+    if (menu == null) {
       return;
-    ((Player)e.getPlayer()).updateInventory();
-    Map.Entry<Menu, Long> lastBuild = menuBuilder.lastBuildOfPlayer(e.getPlayer().getUniqueId());
+    }
+    ((Player) inventoryCloseEvent.getPlayer()).updateInventory();
+    Map.Entry<Menu, Long> lastBuild = menuBuilder.lastBuildOfPlayer(inventoryCloseEvent.getPlayer().getUniqueId());
     if (lastBuild == null) {
       log.warn("[Cirrus] Exiting from unbuilt menu? Class = "
                + menu.getClass().getName()
                + ", Player = "
-               + e.getPlayer().getName());
+               + inventoryCloseEvent.getPlayer().getName());
       menu.handleClose(false);
       menuBuilder.invalidate(menu);
       return;
     }
     if (((AbstractMenu) lastBuild.getKey()).internalId() == ((AbstractMenu) menu).internalId()
-        && (System.currentTimeMillis() - lastBuild.getValue()) <= 55)
+        && (System.currentTimeMillis() - lastBuild.getValue()) <= 55) {
       return;
+    }
     menu.handleClose((System.currentTimeMillis() - lastBuild.getValue()) <= 55);
     menuBuilder.invalidate(menu);
   }

@@ -9,6 +9,7 @@ import dev.simplix.cirrus.spigot.example.menus.ExampleMultiPageMenu;
 import dev.simplix.core.common.aop.Component;
 import dev.simplix.core.common.converter.Converters;
 import dev.simplix.minecraft.spigot.dynamiccommands.DynamicCommandsSimplixModule;
+import lombok.NonNull;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,8 +22,8 @@ public class TestCommand extends Command {
 
   @Inject
   public TestCommand(
-      MenuBuilder menuBuilder,
-      ConfigurationFactory configurationFactory) {
+      @NonNull MenuBuilder menuBuilder,
+      @NonNull  ConfigurationFactory configurationFactory) {
     super("test2");
     this.menuBuilder = menuBuilder;
     this.configurationFactory = configurationFactory;
@@ -30,11 +31,11 @@ public class TestCommand extends Command {
 
   @Override
   public boolean execute(
-      CommandSender sender, String s, String[] strings) {
+      CommandSender sender, String commandLabel, String[] strings) {
     if (sender instanceof Player) {
-      Player p = (Player) sender;
+      Player player = (Player) sender;
       new ExampleMultiPageMenu(
-          Converters.convert(p, PlayerWrapper.class),
+          Converters.convert(player, PlayerWrapper.class),
           configurationFactory.loadFile(
               "plugins/Cirrus/example2.json", MultiPageMenuConfiguration.class)).open(menuBuilder);
     }

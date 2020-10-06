@@ -3,16 +3,18 @@ package dev.simplix.cirrus.common.prefabs.menu;
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import dev.simplix.cirrus.api.business.ItemStackWrapper;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.cirrus.api.i18n.LocalizedItemStackModel;
 import dev.simplix.cirrus.api.menu.*;
 import dev.simplix.cirrus.api.model.MenuConfiguration;
 import dev.simplix.cirrus.api.model.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.menu.AbstractConfigurableMenu;
 import dev.simplix.cirrus.common.menu.AbstractMenu;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 import java.util.function.Supplier;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,8 +29,9 @@ public class MultiPageMenu extends AbstractMenu {
   private MenuBuilder menuBuilder;
 
   public MultiPageMenu(
-      PlayerWrapper player,
-      MultiPageMenuConfiguration configuration, Locale locale) {
+      @NonNull PlayerWrapper player,
+      @NonNull MultiPageMenuConfiguration configuration,
+      @NonNull Locale locale) {
     super(player, configuration.type(), locale);
     this.configuration = configuration;
     title(configuration.title().translated(locale));
@@ -50,15 +53,17 @@ public class MultiPageMenu extends AbstractMenu {
 
   private void registerActionHandlers() {
     registerActionHandler("nextPage", click -> {
-      if (currentPage == pages.size())
+      if (currentPage == pages.size()) {
         return CallResult.DENY_GRABBING;
+      }
       currentPage++;
       build();
       return CallResult.DENY_GRABBING;
     });
     registerActionHandler("previousPage", click -> {
-      if (currentPage == 1)
+      if (currentPage == 1) {
         return CallResult.DENY_GRABBING;
+      }
       currentPage--;
       build();
       return CallResult.DENY_GRABBING;
@@ -105,7 +110,7 @@ public class MultiPageMenu extends AbstractMenu {
     currentPage++;
   }
 
-  public void add(InventoryItemWrapper inventoryItemWrapper) {
+  public void add(@NonNull InventoryItemWrapper inventoryItemWrapper) {
     int slot = currentPage().topContainer().nextFreeSlot();
     if (slot == -1) {
       if (pages.size() > currentPage) {
@@ -127,7 +132,9 @@ public class MultiPageMenu extends AbstractMenu {
   }
 
   public void add(
-      ItemStackWrapper itemStackWrapper, String actionHandler, List<String> actionArgs) {
+      @NonNull ItemStackWrapper itemStackWrapper,
+      @NonNull String actionHandler,
+      @NonNull List<String> actionArgs) {
     int slot = currentPage().topContainer().nextFreeSlot();
     if (slot == -1) {
       if (pages.size() > currentPage) {
@@ -151,8 +158,9 @@ public class MultiPageMenu extends AbstractMenu {
   class PageMenu extends AbstractConfigurableMenu<MenuConfiguration> {
 
     public PageMenu(
-        PlayerWrapper player,
-        MenuConfiguration configuration, Locale locale) {
+        @NonNull PlayerWrapper player,
+        @NonNull MenuConfiguration configuration,
+        @NonNull Locale locale) {
       super(player, configuration, locale);
     }
 
@@ -167,12 +175,12 @@ public class MultiPageMenu extends AbstractMenu {
     }
 
     @Override
-    public ActionHandler actionHandler(String name) {
+    public ActionHandler actionHandler(@NonNull String name) {
       return MultiPageMenu.this.actionHandler(name);
     }
 
     @Override
-    protected void nativeInventory(Object nativeInventory) {
+    protected void nativeInventory(@NonNull Object nativeInventory) {
       MultiPageMenu.this.nativeInventory(nativeInventory);
     }
 
@@ -189,8 +197,9 @@ public class MultiPageMenu extends AbstractMenu {
       if (pages.size() > currentPage) {
         set(MultiPageMenu.this.configuration().nextPageItem());
       }
-      if(menuBuilder() == null)
+      if (menuBuilder() == null) {
         return;
+      }
       nativeInventory(menuBuilder().build(nativeInventory(), MultiPageMenu.this));
     }
 

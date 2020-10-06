@@ -4,14 +4,6 @@ import com.google.common.collect.Sets;
 import de.exceptionflug.protocolize.inventory.Inventory;
 import de.exceptionflug.protocolize.inventory.InventoryModule;
 import de.exceptionflug.protocolize.items.ItemStack;
-import dev.simplix.core.common.Replacer;
-import dev.simplix.core.common.aop.Component;
-import java.util.*;
-import java.util.Map.Entry;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.chat.ComponentSerializer;
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.menu.Container;
@@ -19,6 +11,16 @@ import dev.simplix.cirrus.api.menu.Menu;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.bungeecord.BungeeCordCirrusModule;
 import dev.simplix.cirrus.common.menu.AbstractMenu;
+import dev.simplix.core.common.Replacer;
+import dev.simplix.core.common.aop.Component;
+import java.util.*;
+import java.util.Map.Entry;
+import lombok.NonNull;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.chat.ComponentSerializer;
+import org.jetbrains.annotations.Nullable;
 
 @Component(value = BungeeCordCirrusModule.class, parent = MenuBuilder.class)
 public class ProtocolizeMenuBuilder implements MenuBuilder {
@@ -26,7 +28,8 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
   private final Map<UUID, Map.Entry<Menu, Long>> buildMap = new LinkedHashMap<>();
   private final Set<Menu> menus = Sets.newConcurrentHashSet();
 
-  public <T> T build(T prebuild, Menu menu) {
+  @Override
+  public <T> T build(@Nullable T prebuild, @NonNull Menu menu) {
     if (!(menu instanceof AbstractMenu)) {
       throw new IllegalArgumentException("This implementation can only build cirrus menus!");
     }
@@ -60,8 +63,8 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
     return prebuild;
   }
 
-  private void buildContainer(Inventory inventory, Container container) {
-    for (int i = container.baseSlot(); i < container.baseSlot()+container.capacity(); i++) {
+  private void buildContainer(@NonNull Inventory inventory, @NonNull Container container) {
+    for (int i = container.baseSlot(); i < container.baseSlot() + container.capacity(); i++) {
       InventoryItemWrapper item = container.itemMap().get(i);
       ItemStack currentStack = inventory.getItem(i);
       if (item == null) {
@@ -86,17 +89,20 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
     }
   }
 
-  private Inventory makeInv(Menu menu) {
+  private Inventory makeInv(@NonNull Menu menu) {
     return new Inventory(menu.inventoryType(), new TextComponent(Replacer.of(menu.title())
         .replaceAll((Object[]) menu.replacements().get()).replacedMessageJoined()));
   }
 
+  @Override
   public <T> void open(
       PlayerWrapper playerWrapper, T inventoryImpl) {
     InventoryModule
         .sendInventory(playerWrapper.handle(), (Inventory) inventoryImpl);
   }
 
+  @Override
+  @Nullable
   public Menu menuByHandle(Object handle) {
     if (handle == null) {
       return null;
@@ -109,17 +115,20 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
     return null;
   }
 
-  public void destroyMenusOfPlayer(UUID uniqueId) {
+  @Override
+  public void destroyMenusOfPlayer(@NonNull UUID uniqueId) {
     menus.removeIf(
         wrapper -> ((ProxiedPlayer) wrapper.player().handle()).getUniqueId().equals(uniqueId));
     buildMap.remove(uniqueId);
   }
 
-  public Entry<Menu, Long> lastBuildOfPlayer(UUID uniqueId) {
+  @Override
+  public Entry<Menu, Long> lastBuildOfPlayer(@NonNull UUID uniqueId) {
     return buildMap.get(uniqueId);
   }
 
-  public void invalidate(Menu menu) {
+  @Override
+  public void invalidate(@NonNull Menu menu) {
     menus.remove(menu);
   }
 

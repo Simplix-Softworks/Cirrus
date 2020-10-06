@@ -1,19 +1,22 @@
 package dev.simplix.cirrus.api.business;
 
 import dev.simplix.cirrus.api.model.MenuConfiguration;
+import lombok.NonNull;
 
 public interface ConfigurationFactory {
 
-  default MenuConfiguration loadFile(String file) {
-     return loadFile(file, MenuConfiguration.class);
+  default MenuConfiguration loadFile(@NonNull String file) {
+    return loadFile(file, MenuConfiguration.class);
   }
 
-  default MenuConfiguration loadResource(String resourcePath) {
+  default MenuConfiguration loadResource(@NonNull String resourcePath) {
     return loadResource(resourcePath, MenuConfiguration.class);
   }
 
-  <T extends MenuConfiguration> T loadFile(String file, Class<T> type);
+  <T extends MenuConfiguration> T loadFile(@NonNull String file, @NonNull Class<T> type);
 
-  <T extends MenuConfiguration> T loadResource(String resourcePath, Class<T> type);
+  <T extends MenuConfiguration> T loadResource(
+      @NonNull String resourcePath,
+      @NonNull Class<T> type);
 
 }

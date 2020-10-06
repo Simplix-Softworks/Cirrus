@@ -73,8 +73,8 @@ public class SpigotCirrusModule extends AbstractSimplixModule {
           ReflectionUtil.getClass("{nms}.NBTTagCompound"),
           CompoundTag.class,
           new NmsNbtQuerzNbtConverter());
-    } catch (Exception e) {
-      log.error("Cannot register cirrus converters", e);
+    } catch (Exception exception) {
+      log.error("Cannot register cirrus converters", exception);
     }
   }
 

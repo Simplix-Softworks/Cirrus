@@ -15,6 +15,7 @@ import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.Map.Entry;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
@@ -23,6 +24,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 @Component(value = CirrusSimplixModule.class, parent = MenuBuilder.class)
 @Slf4j
@@ -44,9 +46,8 @@ public final class SpigotMenuBuilder implements MenuBuilder {
   private final Map<UUID, Map.Entry<Menu, Long>> buildMap = new LinkedHashMap<>();
   private final List<Menu> menus = new LinkedList<>();
 
-
   @Override
-  public <T> T build(T prebuild, Menu menu) {
+  public <T> T build(@Nullable T prebuild, @NonNull Menu menu) {
     boolean reopen = false;
     boolean register = prebuild == null;
     if (prebuild instanceof InventoryView) {
@@ -219,7 +220,7 @@ public final class SpigotMenuBuilder implements MenuBuilder {
   }
 
   @Override
-  public <T> void open(PlayerWrapper playerWrapper, T inventoryImpl) {
+  public <T> void open(@NonNull PlayerWrapper playerWrapper, @NonNull T inventoryImpl) {
     ((Player) playerWrapper.handle()).openInventory((InventoryView) inventoryImpl);
   }
 
@@ -237,19 +238,19 @@ public final class SpigotMenuBuilder implements MenuBuilder {
   }
 
   @Override
-  public void destroyMenusOfPlayer(UUID uniqueId) {
+  public void destroyMenusOfPlayer(@NonNull UUID uniqueId) {
     menus.removeIf(
         wrapper -> ((Player) wrapper.player().handle()).getUniqueId().equals(uniqueId));
     buildMap.remove(uniqueId);
   }
 
   @Override
-  public Entry<Menu, Long> lastBuildOfPlayer(UUID uniqueId) {
+  public Entry<Menu, Long> lastBuildOfPlayer(@NonNull UUID uniqueId) {
     return buildMap.get(uniqueId);
   }
 
   @Override
-  public void invalidate(Menu menu) {
+  public void invalidate(@NonNull Menu menu) {
     menus.remove(menu);
   }
 

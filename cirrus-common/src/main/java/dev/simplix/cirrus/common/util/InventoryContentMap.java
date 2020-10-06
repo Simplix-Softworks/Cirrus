@@ -1,5 +1,6 @@
 package dev.simplix.cirrus.common.util;
 
+import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -8,9 +9,9 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 
 public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItemWrapper> {
 
@@ -29,23 +30,23 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
   }
 
   @Override
-  public boolean containsKey(Object key) {
+  public boolean containsKey(@NonNull Object key) {
     return value.containsKey(key);
   }
 
   @Override
-  public boolean containsValue(Object value) {
+  public boolean containsValue(@NonNull Object value) {
     return this.value.containsValue(value);
   }
 
   @Override
-  public InventoryItemWrapper get(Object key) {
+  public InventoryItemWrapper get(@NonNull Object key) {
     return value.get(key);
   }
 
   @Nullable
   @Override
-  public InventoryItemWrapper put(Integer key, InventoryItemWrapper value) {
+  public InventoryItemWrapper put(@NonNull Integer key,@NonNull  InventoryItemWrapper value) {
     return this.value.put(key, value);
   }
 
@@ -83,8 +84,8 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
   }
 
   @Override
-  public boolean equals(Object o) {
-    return value.equals(o);
+  public boolean equals(Object obj) {
+    return value.equals(obj);
   }
 
   @Override

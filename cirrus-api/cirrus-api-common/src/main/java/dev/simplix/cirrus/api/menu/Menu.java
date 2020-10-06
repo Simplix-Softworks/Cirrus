@@ -1,11 +1,12 @@
 package dev.simplix.cirrus.api.menu;
 
 import de.exceptionflug.protocolize.inventory.InventoryType;
+import dev.simplix.cirrus.api.business.ItemStackWrapper;
+import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.core.common.converter.Converters;
 import java.util.Locale;
 import java.util.function.Supplier;
-import dev.simplix.cirrus.api.business.ItemStackWrapper;
-import dev.simplix.cirrus.api.business.PlayerWrapper;
+import lombok.NonNull;
 
 public interface Menu extends ErrorProne {
 
@@ -20,20 +21,20 @@ public interface Menu extends ErrorProne {
    * @param name          the name
    * @param actionHandler the action handler
    */
-  void registerActionHandler(String name, ActionHandler actionHandler);
+  void registerActionHandler(@NonNull String name,@NonNull  ActionHandler actionHandler);
 
   /**
    * ActionHandler which handles clicks in empty space
    *
    * @param actionHandler the action handler
    */
-  void customActionHandler(ActionHandler actionHandler);
+  void customActionHandler(@NonNull ActionHandler actionHandler);
 
   /**
    * This opens the menu for the specified player
    * @param menuBuilder The menu builder which should be used
    */
-  void open(MenuBuilder menuBuilder);
+  void open(@NonNull MenuBuilder menuBuilder);
 
   /**
    * This builds the menu
@@ -53,7 +54,7 @@ public interface Menu extends ErrorProne {
    * @param name the name of the desired action handler
    * @return the action handler or null if not found
    */
-  ActionHandler actionHandler(String name);
+  ActionHandler actionHandler(@NonNull String name);
 
   /**
    * Returns the {@link Container} for the upper inventory.
@@ -81,7 +82,7 @@ public interface Menu extends ErrorProne {
    *
    * @param title title
    */
-  void title(String title);
+  void title(@NonNull String title);
 
   /**
    * @return The locale the menu is in
@@ -120,7 +121,7 @@ public interface Menu extends ErrorProne {
    * @param object the object to convert
    * @return the wrapper object
    */
-  default ItemStackWrapper wrapItemStack(Object object) {
+  default ItemStackWrapper wrapItemStack(@NonNull Object object) {
     return Converters.convert(object, ItemStackWrapper.class);
   }
 

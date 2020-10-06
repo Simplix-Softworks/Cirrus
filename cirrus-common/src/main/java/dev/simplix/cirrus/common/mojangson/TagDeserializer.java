@@ -4,6 +4,7 @@ import com.google.gson.*;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
+import lombok.NonNull;
 import net.querz.nbt.io.SNBTUtil;
 import net.querz.nbt.tag.Tag;
 
@@ -11,7 +12,11 @@ public final class TagDeserializer implements JsonDeserializer<Tag<?>> {
 
   private static final Gson GSON = new GsonBuilder().create();
 
-  public Tag<?> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+  @Override
+  public Tag<?> deserialize(
+      @NonNull JsonElement json,
+      @NonNull Type typeOfT,
+      @NonNull JsonDeserializationContext context)
       throws JsonParseException {
     if (!json.isJsonObject()) {
       throw new IllegalArgumentException("Expected json object!");

@@ -2,6 +2,7 @@ package dev.simplix.cirrus.api.business;
 
 import de.exceptionflug.protocolize.items.ItemType;
 import java.util.List;
+import lombok.NonNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.querz.nbt.tag.CompoundTag;
 
@@ -75,21 +76,21 @@ public interface ItemStackWrapper {
    *
    * @param type type to set
    */
-  void type(ItemType type);
+  void type(@NonNull ItemType type);
 
   /**
    * Sets the display name of the item
    *
-   * @param s name
+   * @param displayName name
    */
-  void displayName(String s);
+  void displayName(@NonNull String displayName);
 
   /**
    * Sets the display name of the item
    *
    * @param baseComponents name
    */
-  void displayNameComponents(BaseComponent... baseComponents);
+  void displayNameComponents(@NonNull BaseComponent... baseComponents);
 
   /**
    * Sets the lore of the item
@@ -103,14 +104,14 @@ public interface ItemStackWrapper {
    *
    * @param lore
    */
-  void loreComponents(List<BaseComponent[]> lore);
+  void loreComponents(@NonNull List<BaseComponent[]> lore);
 
   /**
    * Sets the nbt data.
    *
    * @param tag nbt data
    */
-  void nbt(CompoundTag tag);
+  void nbt(@NonNull CompoundTag tag);
 
   /**
    * Sets the stack amount.

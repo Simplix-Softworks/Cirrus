@@ -12,6 +12,7 @@ import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.NonNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
@@ -45,16 +46,16 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
   }
 
   @Override
-  public org.bukkit.inventory.ItemStack convert(ItemStack src) {
-    if(src.getType() == ItemType.NO_DATA) {
+  public org.bukkit.inventory.ItemStack convert(@NonNull ItemStack src) {
+    if (src.getType() == ItemType.NO_DATA) {
       return null;
     }
-    if(src.getType() == ItemType.AIR) {
+    if (src.getType() == ItemType.AIR) {
       return new org.bukkit.inventory.ItemStack(Material.AIR);
     }
     MaterialData data = Converters.convert(src.getType(), MaterialData.class);
     org.bukkit.inventory.ItemStack out;
-    if(ProtocolVersionUtil.serverProtocolVersion() < MINECRAFT_1_13) {
+    if (ProtocolVersionUtil.serverProtocolVersion() < MINECRAFT_1_13) {
       out = new org.bukkit.inventory.ItemStack(
           data.getItemType(),
           src.getAmount(),
@@ -82,7 +83,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     return out;
   }
 
-  private void writeDataToNbt(ItemStack stack) {
+  private void writeDataToNbt(@NonNull ItemStack stack) {
     if (stack.getDisplayName() != null) {
       if (ProtocolVersionUtil.serverProtocolVersion() >= MINECRAFT_1_13) {
         ((CompoundTag) stack.getNBTTag()).put("Damage", new IntTag(stack.getDurability()));
@@ -103,9 +104,10 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     }
   }
 
-  private void setDisplayNameTag(CompoundTag nbtData, String name) {
-    if (name == null)
+  private void setDisplayNameTag(@NonNull CompoundTag nbtData, @NonNull String name) {
+    if (name == null) {
       return;
+    }
     CompoundTag display = (CompoundTag) nbtData.get("display");
     if (display == null) {
       display = new CompoundTag();
@@ -115,9 +117,13 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     nbtData.put("display", display);
   }
 
-  private void setLoreTag(CompoundTag nbtData, List<BaseComponent[]> lore, int protocolVersion) {
-    if (lore == null)
+  private void setLoreTag(
+      @NonNull CompoundTag nbtData,
+      @NonNull List<BaseComponent[]> lore,
+      int protocolVersion) {
+    if (lore == null) {
       return;
+    }
     CompoundTag display = (CompoundTag) nbtData.get("display");
     if (display == null) {
       display = new CompoundTag();

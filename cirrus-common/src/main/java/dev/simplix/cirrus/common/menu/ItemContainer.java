@@ -1,11 +1,12 @@
 package dev.simplix.cirrus.common.menu;
 
+import dev.simplix.cirrus.api.business.InventoryItemWrapper;
+import dev.simplix.cirrus.api.menu.Container;
 import dev.simplix.cirrus.common.util.InventoryContentMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import dev.simplix.cirrus.api.business.InventoryItemWrapper;
-import dev.simplix.cirrus.api.menu.Container;
+import lombok.NonNull;
 
 public class ItemContainer implements Container {
 
@@ -20,7 +21,7 @@ public class ItemContainer implements Container {
   }
 
   @Override
-  public void set(int slot, InventoryItemWrapper inventoryItemWrapper) {
+  public void set(int slot, @NonNull InventoryItemWrapper inventoryItemWrapper) {
     itemMap().put(slot + baseSlotIndex, inventoryItemWrapper);
   }
 

@@ -1,13 +1,12 @@
 package dev.simplix.cirrus.common.menu;
 
-import java.util.Locale;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.model.ItemStackModel;
 import dev.simplix.cirrus.api.model.MenuConfiguration;
-import dev.simplix.cirrus.api.i18n.LocalizedItemStackModel;
-import dev.simplix.cirrus.api.i18n.Localizer;
+import java.util.Locale;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.experimental.Accessors;
 
 @Getter
 @Accessors(fluent = true)
@@ -16,9 +15,9 @@ public abstract class AbstractConfigurableMenu<T extends MenuConfiguration> exte
   private final T configuration;
 
   public AbstractConfigurableMenu(
-      PlayerWrapper player,
-      T configuration,
-      Locale locale) {
+      @NonNull PlayerWrapper player,
+      @NonNull T configuration,
+      @NonNull Locale locale) {
     super(player, configuration.type(), locale);
     title(configuration.title().translated(locale));
     this.configuration = configuration;
@@ -26,8 +25,8 @@ public abstract class AbstractConfigurableMenu<T extends MenuConfiguration> exte
   }
 
   private void applyItems() {
-    for(int slot : configuration.reservedSlots()) {
-      if(slot > topContainer().capacity()-1) {
+    for (int slot : configuration.reservedSlots()) {
+      if (slot > topContainer().capacity() - 1) {
         bottomContainer().reservedSlots().add(slot);
       } else {
         topContainer().reservedSlots().add(slot);

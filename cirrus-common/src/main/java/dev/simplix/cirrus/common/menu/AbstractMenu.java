@@ -1,8 +1,13 @@
 package dev.simplix.cirrus.common.menu;
 
 import de.exceptionflug.protocolize.inventory.InventoryType;
+import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.i18n.LocalizedItemStackModel;
 import dev.simplix.cirrus.api.i18n.Localizer;
+import dev.simplix.cirrus.api.menu.ActionHandler;
+import dev.simplix.cirrus.api.menu.Container;
+import dev.simplix.cirrus.api.menu.Menu;
+import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.api.model.ItemStackModel;
 import dev.simplix.core.common.Replacer;
 import java.util.HashMap;
@@ -12,12 +17,8 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.experimental.Accessors;
-import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.cirrus.api.menu.ActionHandler;
-import dev.simplix.cirrus.api.menu.Container;
-import dev.simplix.cirrus.api.menu.Menu;
-import dev.simplix.cirrus.api.menu.MenuBuilder;
 
 @Getter
 @Accessors(fluent = true)
@@ -39,42 +40,46 @@ public abstract class AbstractMenu implements Menu {
   private String title;
 
   public AbstractMenu(
-      PlayerWrapper player,
-      InventoryType inventoryType,
-      Locale locale) {
+      @NonNull PlayerWrapper player,
+      @NonNull InventoryType inventoryType,
+      @NonNull Locale locale) {
     this.inventoryType = inventoryType;
     this.locale = locale;
     this.player = player;
-    replacements = () -> new String[] {"viewer", player.name()};
+    replacements = () -> new String[]{"viewer", player.name()};
     topContainer = new ItemContainer(0, inventoryType.getTypicalSize(player.protocolVersion()));
-    bottomContainer = new ItemContainer(inventoryType.getTypicalSize(player.protocolVersion()), 4 * 9);
+    bottomContainer = new ItemContainer(
+        inventoryType.getTypicalSize(player.protocolVersion()),
+        4 * 9);
   }
 
   @Override
-  public void registerActionHandler(String name, ActionHandler actionHandler) {
+  public void registerActionHandler(@NonNull String name,@NonNull  ActionHandler actionHandler) {
     actionHandlerMap.put(name, actionHandler);
   }
 
   @Override
-  public ActionHandler actionHandler(String name) {
+  public ActionHandler actionHandler(@NonNull String name) {
     return actionHandlerMap.get(name);
   }
 
   @Override
-  public void customActionHandler(ActionHandler actionHandler) {
+  public void customActionHandler(@NonNull ActionHandler actionHandler) {
     this.customActionHandler = actionHandler;
   }
 
   @Override
-  public void title(String title) {
+  public void title(@NonNull String title) {
     this.title = title;
   }
 
+  @Override
   public String title() {
     return Replacer.of(title).replaceAll((Object[]) replacements().get()).replacedMessageJoined();
   }
 
-  public void replacements(Supplier<String[]> replacements) {
+  @Override
+  public void replacements(@NonNull Supplier<String[]> replacements) {
     this.replacements = replacements;
     updateReplacements();
   }
@@ -82,25 +87,26 @@ public abstract class AbstractMenu implements Menu {
   protected void updateReplacements() {
   }
 
-  protected void nativeInventory(Object nativeInventory) {
+  protected void nativeInventory(@NonNull Object nativeInventory) {
     this.nativeInventory = nativeInventory;
   }
 
   @Override
   public void build() {
-    if(menuBuilder() == null)
+    if (menuBuilder() == null) {
       return;
+    }
     nativeInventory(menuBuilder().build(nativeInventory(), this));
   }
 
   @Override
-  public void open(MenuBuilder menuBuilder) {
+  public void open(@NonNull MenuBuilder menuBuilder) {
     this.menuBuilder = menuBuilder;
     build();
     menuBuilder().open(player, nativeInventory());
   }
 
-  protected void set(ItemStackModel model) {
+  protected void set(@NonNull ItemStackModel model) {
     LocalizedItemStackModel localizedItemStackModel = Localizer.localize(
         model,
         locale(),
@@ -116,8 +122,9 @@ public abstract class AbstractMenu implements Menu {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
+    if (this == o) {
       return true;
+    }
     return o.equals(nativeInventory());
   }
 

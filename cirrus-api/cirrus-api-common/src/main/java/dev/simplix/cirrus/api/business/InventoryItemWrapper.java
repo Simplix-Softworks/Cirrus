@@ -4,6 +4,7 @@ import de.exceptionflug.protocolize.items.ItemType;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -63,32 +64,32 @@ public class InventoryItemWrapper implements ItemStackWrapper {
   }
 
   @Override
-  public void type(ItemType type) {
+  public void type(@NonNull ItemType type) {
     handle.type(type);
   }
 
   @Override
-  public void displayName(String s) {
-    handle.displayName(s);
+  public void displayName(@NonNull String displayName) {
+    handle.displayName(displayName);
   }
 
   @Override
-  public void displayNameComponents(BaseComponent... baseComponents) {
+  public void displayNameComponents(@NonNull BaseComponent... baseComponents) {
     handle.displayNameComponents(baseComponents);
   }
 
   @Override
-  public void lore(List<String> lore) {
+  public void lore(@NonNull List<String> lore) {
     handle.lore(lore);
   }
 
   @Override
-  public void loreComponents(List<BaseComponent[]> lore) {
+  public void loreComponents(@NonNull List<BaseComponent[]> lore) {
     handle.loreComponents(lore);
   }
 
   @Override
-  public void nbt(CompoundTag tag) {
+  public void nbt(@NonNull CompoundTag tag) {
     handle.nbt(tag);
   }
 
