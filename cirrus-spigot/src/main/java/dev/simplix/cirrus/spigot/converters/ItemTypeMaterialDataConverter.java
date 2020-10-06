@@ -13,9 +13,6 @@ public class ItemTypeMaterialDataConverter implements Converter<ItemType, Materi
 
     @Override
     public MaterialData convert(@NonNull ItemType src) {
-        if(src == null) {
-            return null;
-        }
         ItemIDMapping applicableMapping = src.getApplicableMapping(ProtocolVersionUtil.serverProtocolVersion());
         if(applicableMapping == null) {
             return null;
