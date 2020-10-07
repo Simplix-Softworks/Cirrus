@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 
 @Accessors(fluent = true)
 @Getter
-public abstract class AbstractAsyncFetchBaseMultiPageMenu<T> extends MultiPageMenu {
+public abstract class AbstractAsyncFetchMultiPageMenu<T> extends MultiPageMenu {
 
   private final ExecutorService executorService;
   private volatile boolean fetching;
@@ -22,7 +22,7 @@ public abstract class AbstractAsyncFetchBaseMultiPageMenu<T> extends MultiPageMe
   private boolean fetchPaginated = true;
   private int fetchIndex;
 
-  public AbstractAsyncFetchBaseMultiPageMenu(
+  public AbstractAsyncFetchMultiPageMenu(
       @NonNull PlayerWrapper player,
       @NonNull MultiPageMenuConfiguration configuration,
       @NonNull Locale locale,

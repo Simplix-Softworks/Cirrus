@@ -11,7 +11,7 @@ public class DataInventoryItemWrapper<T> extends InventoryItemWrapper {
 
   private final T data;
 
-  DataInventoryItemWrapper(
+  public DataInventoryItemWrapper(
       @NonNull ItemStackWrapper handle,
       @NonNull String actionHandler,
       @NonNull List<String> actionArguments, T data) {
