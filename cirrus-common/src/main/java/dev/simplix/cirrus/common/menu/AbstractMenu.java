@@ -19,9 +19,12 @@ import java.util.function.Supplier;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Nullable;
 
 @Getter
 @Accessors(fluent = true)
+@Slf4j
 public abstract class AbstractMenu implements Menu {
 
   private static final AtomicInteger ID_GENERATOR = new AtomicInteger();
@@ -54,7 +57,7 @@ public abstract class AbstractMenu implements Menu {
   }
 
   @Override
-  public void registerActionHandler(@NonNull String name,@NonNull  ActionHandler actionHandler) {
+  public void registerActionHandler(@NonNull String name, @NonNull ActionHandler actionHandler) {
     actionHandlerMap.put(name, actionHandler);
   }
 
@@ -143,4 +146,22 @@ public abstract class AbstractMenu implements Menu {
         nativeInventory,
         title);
   }
+
+  @Override
+  public void handleException(
+      @Nullable ActionHandler actionHandler, Throwable throwable) {
+    if (actionHandler == null) {
+      player.sendMessage(
+          "§cThere was a problem while running your menu. Please take a look at the console.");
+      log.error(
+          "[Cirrus] Exception occurred while running menu " + getClass().getName(),
+          throwable);
+    } else {
+      player.sendMessage(
+          "§cThere was a problem while running your action handler. Please take a look at the console.");
+      log.error("[Cirrus] Exception occurred while running action handler for menu "
+                + getClass().getName(), throwable);
+    }
+  }
+
 }

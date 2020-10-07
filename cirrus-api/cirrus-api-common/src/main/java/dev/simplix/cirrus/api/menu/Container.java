@@ -47,6 +47,11 @@ public interface Container {
   int nextFreeSlot();
 
   /**
+   * @return the slot index of the next available empty slot or -1 after the specified index
+   */
+  int nextFreeSlot(int i);
+
+  /**
    * Sets an item into the next free slot. Free slots are slots where no item has been set and the
    * slot is not marked as reserved.
    *

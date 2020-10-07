@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Accessors(fluent = true)
 public class MultiPageMenu extends AbstractMenu {
 
+  @Getter
   private final List<Menu> pages = new LinkedList<>();
   @Getter
   private final MultiPageMenuConfiguration configuration;
@@ -99,6 +100,10 @@ public class MultiPageMenu extends AbstractMenu {
 
   public Menu currentPage() {
     return pages.get(currentPage - 1);
+  }
+
+  public int currentPageNumber() {
+    return currentPage;
   }
 
   public void currentPage(int page) {

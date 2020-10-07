@@ -55,4 +55,14 @@ public class ItemContainer implements Container {
     return -1;
   }
 
+  @Override
+  public int nextFreeSlot(int base) {
+    for (int i = base; i < capacity + baseSlotIndex; i++) {
+      if (!itemMap().containsKey(i) && !reservedSlots().contains(i)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
 }
