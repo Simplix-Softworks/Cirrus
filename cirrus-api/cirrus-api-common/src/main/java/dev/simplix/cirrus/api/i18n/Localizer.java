@@ -10,6 +10,7 @@ import java.util.Locale;
 import lombok.NonNull;
 import net.querz.nbt.io.SNBTUtil;
 import net.querz.nbt.tag.CompoundTag;
+import org.jetbrains.annotations.Nullable;
 
 public final class Localizer {
 
@@ -52,7 +53,7 @@ public final class Localizer {
   }
 
   private static CompoundTag formatNbt(
-      @NonNull CompoundTag compoundTag,
+      @Nullable CompoundTag compoundTag,
       @NonNull String... replacements) {
     if (compoundTag == null) {
       return null;

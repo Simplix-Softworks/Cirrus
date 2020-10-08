@@ -1,7 +1,6 @@
 package dev.simplix.cirrus.bungeecord.example.commands;
 
 import com.google.inject.Inject;
-import de.exceptionflug.protocolize.items.ItemType;
 import dev.simplix.cirrus.api.business.ConfigurationFactory;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
