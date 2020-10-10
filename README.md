@@ -9,13 +9,14 @@ Cirrus enables you to develop platform independent graphical menus for Spigot an
 ### SimplixCore
 Cirrus is using the [SimplixCore framework](https://github.com/Simplix-Softworks/SimplixCore) and it's possibility to develop platform independent software for Minecraft use cases.
 ### Protocolize
-Cirrus on BungeeCord platforms is powered by [Protocolize](https://github.com/Exceptionflug/protocolize). A lightweight protocol manipulation library by one of the Simplix Softworks founders, Exceptionflug. Protocolize enables you to do so much more on BungeeCord!
+Cirrus is powered by [Protocolize](https://github.com/Exceptionflug/protocolize). A lightweight protocol manipulation library by one of the Simplix Softworks founders, Exceptionflug. Protocolize enables you to do so much more on BungeeCord!
 
 ## Installation
 ### Manual installation
 Assuming you have already installed SimplixCore on your server, just download the jar file for your platform (Spigot or BungeeCord) and drop it into the libraries folder of your server.
 
 **I have no libraries folder. What should I do?**
+
 Just follow the installation instructions of SimplixCore and start your server at least one time after you installed SimplixCore.
 
 ### Automatic installation as dependency
