@@ -25,7 +25,7 @@ When you want to use Cirrus in your SimplixApplication, just create a `dependenc
 {  
   "repositories": [  
     {
-      "id": "simplixsoftworks-public",  
+      "id": "simplixsoft-public",  
       "url": "https://repo.simplix.dev/repository/simplixsoft-public/"  
     }  
   ],
