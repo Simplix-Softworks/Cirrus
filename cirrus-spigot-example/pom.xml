@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>dev.simplix.core</groupId>
+        <groupId>dev.simplix.cirrus</groupId>
         <artifactId>cirrus</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>dev.simplix.core</groupId>
+    <groupId>dev.simplix.cirrus</groupId>
     <artifactId>cirrus-spigot-example</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -59,13 +59,13 @@
         </dependency>
         <dependency>
             <artifactId>cirrus-common</artifactId>
-            <groupId>dev.simplix.core</groupId>
+            <groupId>dev.simplix.cirrus</groupId>
             <scope>compile</scope>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>cirrus-spigot</artifactId>
-            <groupId>dev.simplix.core</groupId>
+            <groupId>dev.simplix.cirrus</groupId>
             <scope>provided</scope>
             <version>1.0-SNAPSHOT</version>
         </dependency>

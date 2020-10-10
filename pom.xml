@@ -55,7 +55,7 @@
     </dependency>
   </dependencies>
 
-  <groupId>dev.simplix.core</groupId>
+  <groupId>dev.simplix.cirrus</groupId>
   <modelVersion>4.0.0</modelVersion>
 
   <modules>
