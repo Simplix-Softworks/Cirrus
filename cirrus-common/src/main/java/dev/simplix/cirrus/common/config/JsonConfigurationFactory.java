@@ -10,6 +10,7 @@ import dev.simplix.cirrus.common.CirrusSimplixModule;
 import dev.simplix.core.common.aop.Component;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.NoSuchFileException;
 import lombok.NonNull;
 
 @Component(value = CirrusSimplixModule.class, parent = ConfigurationFactory.class)
@@ -23,11 +24,14 @@ public class JsonConfigurationFactory implements ConfigurationFactory {
   }
 
   @Override
-  public <T extends MenuConfiguration> T loadFile(@NonNull String filename,@NonNull  Class<T> type) {
+  public <T extends MenuConfiguration> T loadFile(
+      @NonNull String filename,
+      @NonNull Class<T> type) {
     File file = new File(filename);
     if (!file.exists()) {
-      file.getParentFile().mkdirs();
-      copyResourceToFile("/cirrus/"+type.getSimpleName()+".json", file);
+      if (file.getParentFile() != null)
+        file.getParentFile().mkdirs();
+      copyResourceToFile("/cirrus/" + type.getSimpleName() + ".json", file);
     }
     try (
         InputStreamReader reader = new InputStreamReader(
@@ -40,8 +44,14 @@ public class JsonConfigurationFactory implements ConfigurationFactory {
   }
 
   @Override
-  public <T extends MenuConfiguration> T loadResource(@NonNull String resourcePath,@NonNull  Class<T> type) {
-    try (InputStream stream = CirrusSimplixModule.class.getResourceAsStream(resourcePath)) {
+  public <T extends MenuConfiguration> T loadResource(
+      @NonNull String resourcePath,
+      @NonNull Class<?> caller,
+      @NonNull Class<T> type) {
+    try (InputStream stream = caller.getResourceAsStream(resourcePath)) {
+      if (stream == null) {
+        throw new NoSuchFileException("Unable to find resource " + resourcePath);
+      }
       String contents = new String(ByteStreams.toByteArray(stream), StandardCharsets.UTF_8);
       return gson.fromJson(contents, type);
     } catch (IOException e) {
