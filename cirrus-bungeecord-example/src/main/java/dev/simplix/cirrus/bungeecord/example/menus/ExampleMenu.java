@@ -6,7 +6,7 @@ import dev.simplix.cirrus.api.model.MenuConfiguration;
 import dev.simplix.cirrus.common.menu.AbstractConfigurableMenu;
 import java.util.Locale;
 
-public class ExampleMenu extends AbstractConfigurableMenu {
+public class ExampleMenu extends AbstractConfigurableMenu<MenuConfiguration> {
 
   public ExampleMenu(PlayerWrapper player, MenuConfiguration configuration) {
     super(player, configuration, Locale.ENGLISH);
