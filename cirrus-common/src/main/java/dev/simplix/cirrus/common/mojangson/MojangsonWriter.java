@@ -429,7 +429,11 @@ public class MojangsonWriter extends JsonWriter {
     boolean quotesNeeded = value.contains(" ")
                            || value.contains("'")
                            || value.contains("\"")
-                           || value.contains(":");
+                           || value.contains(":")
+                           || value.contains("{")
+                           || value.contains("}")
+                           || value.contains("[")
+                           || value.contains("]");
     if (quotesNeeded) { // Mojangson uses lenient json
       out.write('\"');
     }
