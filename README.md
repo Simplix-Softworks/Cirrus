@@ -53,4 +53,5 @@ SimplixCore will automatically download the latest cirrus-bungeecord (or spigot)
 Check out the [wiki](https://github.com/Simplix-Softworks/Cirrus/wiki) for further information on how to use Cirrus in your application.
 
 ### Tooling
+![Sheep](https://plugins.jetbrains.com/embeddable/install/15194)
 ![Tooling](https://i.imgur.com/AhRh1pt.gif)
