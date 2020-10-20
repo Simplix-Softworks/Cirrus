@@ -110,15 +110,18 @@ public abstract class AbstractMenu implements Menu {
   }
 
   protected void set(@NonNull ItemStackModel model) {
-    LocalizedItemStackModel localizedItemStackModel = Localizer.localize(
+    set(Localizer.localize(
         model,
         locale(),
-        replacements().get());
-    for (int slot : localizedItemStackModel.slots()) {
+        replacements().get()));
+  }
+
+  protected void set(@NonNull LocalizedItemStackModel model) {
+    for (int slot : model.slots()) {
       if (slot > topContainer().capacity() - 1) {
-        bottomContainer().set(slot - bottomContainer().baseSlot(), localizedItemStackModel);
+        bottomContainer().set(slot - bottomContainer().baseSlot(), model);
       } else {
-        topContainer().set(slot, localizedItemStackModel);
+        topContainer().set(slot, model);
       }
     }
   }

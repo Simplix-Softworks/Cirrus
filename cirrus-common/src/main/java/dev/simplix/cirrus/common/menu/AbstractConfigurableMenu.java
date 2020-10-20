@@ -24,6 +24,14 @@ public abstract class AbstractConfigurableMenu<T extends MenuConfiguration> exte
     applyItems();
   }
 
+  @Override
+  protected void updateReplacements() {
+    super.updateReplacements();
+    topContainer().itemMap().clear();
+    bottomContainer().itemMap().clear();
+    applyItems();
+  }
+
   private void applyItems() {
     for (int slot : configuration.reservedSlots()) {
       if (slot > topContainer().capacity() - 1) {
