@@ -1,4 +1,4 @@
-[![Build Status](http://ci.exceptionflug.de/buildStatus/icon?job=Cirrus)](http://ci.exceptionflug.de/job/Cirrus/)
+[![Build Status](http://ci.exceptionflug.de/buildStatus/icon?job=Cirrus)](http://ci.exceptionflug.de/job/Cirrus/) ![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/15194-cirrus-tooling)
 <p align="center">
   <img src="https://img.exceptionflug.de/cirrussmall.png" />
 </p>
@@ -56,6 +56,6 @@ Check out the [wiki](https://github.com/Simplix-Softworks/Cirrus/wiki) for furth
 ### Tooling
 Cirrus offers an IntelliJ plugin to provide a realtime preview while editing menu configuration files.
 
-![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/15194-cirrus-tooling) ![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/15194-cirrus-tooling)
+![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/15194-cirrus-tooling)
 
 ![Tooling](https://i.imgur.com/AhRh1pt.gif)
