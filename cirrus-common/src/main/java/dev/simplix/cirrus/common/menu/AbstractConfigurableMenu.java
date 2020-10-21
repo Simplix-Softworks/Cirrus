@@ -29,6 +29,8 @@ public abstract class AbstractConfigurableMenu<T extends MenuConfiguration> exte
     super.updateReplacements();
     topContainer().itemMap().clear();
     bottomContainer().itemMap().clear();
+    topContainer().reservedSlots().clear();
+    bottomContainer().reservedSlots().clear();
     applyItems();
   }
 
