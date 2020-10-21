@@ -54,6 +54,7 @@ SimplixCore will automatically download the latest cirrus-bungeecord (or spigot)
 Check out the [wiki](https://github.com/Simplix-Softworks/Cirrus/wiki) for further information on how to use Cirrus in your application.
 
 ### Tooling
-Cirrus offers an IntelliJ to provide a preview while editing menu-configuration files.
+Cirrus offers an IntelliJ plugin to provide a realtime preview while editing menu configuration files.
+
 [Install](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling)
 ![Tooling](https://i.imgur.com/AhRh1pt.gif)
