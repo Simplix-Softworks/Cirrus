@@ -56,6 +56,6 @@ Check out the [wiki](https://github.com/Simplix-Softworks/Cirrus/wiki) for furth
 ### Tooling
 Cirrus offers an IntelliJ plugin to provide a realtime preview while editing menu configuration files.
 
-[Install](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling) ![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/15194-cirrus-tooling)
+![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/15194-cirrus-tooling) ![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/15194-cirrus-tooling)
 
 ![Tooling](https://i.imgur.com/AhRh1pt.gif)
