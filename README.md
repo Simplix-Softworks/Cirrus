@@ -36,14 +36,14 @@ When you want to use Cirrus in your SimplixApplication, just create a `dependenc
       "artifactId": "cirrus-bungeecord", 
       "version": "1.0-SNAPSHOT",
       "platform": "BUNGEECORD",
-      "type": "library"  
+      "type": "shared-library"  
     },
     {
       "groupId": "dev.simplix.cirrus",  
       "artifactId": "cirrus-spigot", 
       "version": "1.0-SNAPSHOT",
       "platform": "SPIGOT",
-      "type": "library"   
+      "type": "shared-library"   
     }
   ]
 }
