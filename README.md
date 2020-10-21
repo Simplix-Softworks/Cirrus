@@ -1,3 +1,4 @@
+[![Build Status](http://ci.exceptionflug.de/buildStatus/icon?job=Cirrus)](http://ci.exceptionflug.de/job/Cirrus/)
 <p align="center">
   <img src="https://img.exceptionflug.de/cirrussmall.png" />
 </p>
