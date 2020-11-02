@@ -59,3 +59,4 @@ Cirrus offers an IntelliJ plugin to provide a realtime preview while editing men
 [![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/15194-cirrus-tooling)](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling)
 
 ![Tooling](https://i.imgur.com/AhRh1pt.gif)
+![Tooling2](https://img.exceptionflug.de/PCKePkNg7V.gif)
