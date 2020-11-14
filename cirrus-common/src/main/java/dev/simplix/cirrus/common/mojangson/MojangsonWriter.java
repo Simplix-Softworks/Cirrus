@@ -433,7 +433,8 @@ public class MojangsonWriter extends JsonWriter {
                            || value.contains("{")
                            || value.contains("}")
                            || value.contains("[")
-                           || value.contains("]");
+                           || value.contains("]")
+                           || value.isEmpty();
     if (quotesNeeded) { // Mojangson uses lenient json
       out.write('\"');
     }

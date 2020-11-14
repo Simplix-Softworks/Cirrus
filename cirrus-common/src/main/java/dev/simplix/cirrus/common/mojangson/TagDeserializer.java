@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import net.querz.nbt.io.SNBTUtil;
 import net.querz.nbt.tag.Tag;
 
+@Slf4j
 public final class TagDeserializer implements JsonDeserializer<Tag<?>> {
 
   private static final Gson GSON = new GsonBuilder().create();
@@ -21,11 +23,12 @@ public final class TagDeserializer implements JsonDeserializer<Tag<?>> {
     if (!json.isJsonObject()) {
       throw new IllegalArgumentException("Expected json object!");
     }
+    StringWriter stringWriter = new StringWriter();
     try {
-      StringWriter stringWriter = new StringWriter();
       GSON.toJson(json, new MojangsonWriter(stringWriter));
       return SNBTUtil.fromSNBT(stringWriter.toString());
     } catch (IOException e) {
+      log.error("Something went wrong while parsing SNBT string: "+stringWriter.toString());
       throw new RuntimeException(e);
     }
   }
