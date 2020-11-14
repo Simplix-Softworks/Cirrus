@@ -34,10 +34,12 @@ public final class SpigotMenuBuilder implements MenuBuilder {
 
   static {
     try {
-      Class<?> modernInventoryViewClass = SpigotMenuBuilder.class.getClassLoader()
-          .loadClass("dev.simplix.cirrus.spigot.modern.ModernInventoryView");
-      modernInventoryViewConstructor =
-          modernInventoryViewClass.getConstructor(Menu.class, Inventory.class, Inventory.class);
+      if (ProtocolVersionUtil.serverProtocolVersion() > ProtocolVersions.MINECRAFT_1_13) {
+        Class<?> modernInventoryViewClass = SpigotMenuBuilder.class.getClassLoader()
+            .loadClass("dev.simplix.cirrus.spigot.modern.ModernInventoryView");
+        modernInventoryViewConstructor =
+            modernInventoryViewClass.getConstructor(Menu.class, Inventory.class, Inventory.class);
+      }
     } catch (ReflectiveOperationException exception) {
       log.error("SpigotMenuBuilder won't work", exception);
     }
