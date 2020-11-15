@@ -108,6 +108,10 @@ public class InventoryItemWrapper implements ItemStackWrapper {
     return handle.handle();
   }
 
+  public ItemStackWrapper wrapper() {
+    return handle;
+  }
+
   @Override
   public String toString() {
     return "InventoryItemWrapper{" +

@@ -15,17 +15,23 @@ import org.jetbrains.annotations.Nullable;
 public final class Localizer {
 
   public static List<String> localize(
-      @NonNull LocalizedStringList localizedStringList,
+      LocalizedStringList localizedStringList,
       @NonNull Locale locale,
       String... replacements) {
+    if(localizedStringList == null) {
+      return Collections.emptyList();
+    }
     return Arrays.asList(Replacer.of(localizedStringList.translated(locale))
         .replaceAll((Object[]) replacements).replacedMessage());
   }
 
   public static String localize(
-      @NonNull LocalizedString localizedString,
+      LocalizedString localizedString,
       @NonNull Locale locale,
       String... replacements) {
+    if(localizedString == null) {
+      return "";
+    }
     return Replacer
         .of(localizedString.translated(locale))
         .replaceAll((Object[]) replacements)
