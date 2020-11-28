@@ -117,10 +117,12 @@ public class MultiPageMenu extends AbstractMenu {
 
   public void add(@NonNull InventoryItemWrapper inventoryItemWrapper) {
     int slot = currentPage().topContainer().nextFreeSlot();
+    int oldPage = currentPage;
     if (slot == -1) {
       if (pages.size() > currentPage) {
         currentPage = pages.size();
         this.add(inventoryItemWrapper);
+        currentPage(oldPage);
         return;
       }
       newPage();
@@ -128,12 +130,14 @@ public class MultiPageMenu extends AbstractMenu {
         log.info("[Cirrus] Cannot add item to "
                  + MultiPageMenu.this.getClass().getSimpleName()
                  + ": No space in new page!");
+        currentPage(oldPage);
         return;
       }
       this.add(inventoryItemWrapper);
     } else {
       currentPage().topContainer().set(slot, inventoryItemWrapper);
     }
+    currentPage(oldPage);
   }
 
   public void add(
@@ -141,10 +145,12 @@ public class MultiPageMenu extends AbstractMenu {
       @NonNull String actionHandler,
       @NonNull List<String> actionArgs) {
     int slot = currentPage().topContainer().nextFreeSlot();
+    int oldPage = currentPage;
     if (slot == -1) {
       if (pages.size() > currentPage) {
         currentPage = pages.size();
         this.add(itemStackWrapper, actionHandler, actionArgs);
+        currentPage(oldPage);
         return;
       }
       newPage();
@@ -152,12 +158,14 @@ public class MultiPageMenu extends AbstractMenu {
         log.info("[Cirrus] Cannot add item to "
                  + MultiPageMenu.this.getClass().getSimpleName()
                  + ": No space in new page!");
+        currentPage(oldPage);
         return;
       }
       this.add(itemStackWrapper, actionHandler, actionArgs);
     } else {
       currentPage().topContainer().add(itemStackWrapper, actionHandler, actionArgs);
     }
+    currentPage(oldPage);
   }
 
   class PageMenu extends AbstractConfigurableMenu<MenuConfiguration> {
