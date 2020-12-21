@@ -13,7 +13,8 @@ Cirrus enables you to develop platform independent versatile graphical menus for
 - Sponge (Coming soon)
 
 ## Tooling
-Cirrus offers an IntelliJ plugin to provide a realtime preview while editing menu configuration files.
+Cirrus offers an IntelliJ plugin to enhance the usability of Cirrus.
+It provides a realtime preview while editing menu configuration files.
 
 [![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/15194-cirrus-tooling)](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling)
 
