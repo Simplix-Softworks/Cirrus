@@ -10,7 +10,6 @@ Cirrus enables you to develop platform independent versatile graphical menus for
 ## Platforms
 - BungeeCord
 - Spigot
-- Sponge (Coming soon)
 
 ## Tooling
 Cirrus offers an IntelliJ plugin to enhance the usability of Cirrus.
