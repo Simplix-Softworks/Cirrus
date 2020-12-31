@@ -35,7 +35,7 @@ public class Click {
     return clickedMenu;
   }
 
-  public List<String> getArguments() {
+  public List<String> arguments() {
     return clickedItem.actionArguments();
   }
 
