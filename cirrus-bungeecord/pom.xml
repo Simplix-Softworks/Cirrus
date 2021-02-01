@@ -15,7 +15,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <protocolize.version>1.6.6-SNAPSHOT</protocolize.version>
+    <protocolize.version>1.6.7-SNAPSHOT</protocolize.version>
   </properties>
 
   <dependencies>

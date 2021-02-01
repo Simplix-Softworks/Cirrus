@@ -425,44 +425,19 @@ public class MojangsonWriter extends JsonWriter {
   }
 
   private void string(String value) throws IOException {
-    String[] replacements = isHtmlSafe() ? HTML_SAFE_REPLACEMENT_CHARS : REPLACEMENT_CHARS;
     boolean quotesNeeded = value.contains(" ")
-                           || value.contains("'")
-                           || value.contains("\"")
-                           || value.contains(":")
-                           || value.contains("{")
-                           || value.contains("}")
-                           || value.contains("[")
-                           || value.contains("]")
-                           || value.contains("%")
-                           || value.contains("&")
                            || value.isEmpty();
+    for (char c : value.toCharArray()) {
+      if (c > 0x7a || (c > 0x39 && c < 0x41) || c < 0x30 || (c > 0x5a && c < 0x61)) {
+        quotesNeeded = true;
+        break;
+      }
+    }
     if (quotesNeeded) { // Mojangson uses lenient json
       out.write('\"');
     }
     int last = 0;
     int length = value.length();
-    for (int i = 0; i < length; i++) {
-      char c = value.charAt(i);
-      String replacement;
-      if (c < 128) {
-        replacement = replacements[c];
-        if (replacement == null) {
-          continue;
-        }
-      } else if (c == '\u2028') {
-        replacement = "\\u2028";
-      } else if (c == '\u2029') {
-        replacement = "\\u2029";
-      } else {
-        continue;
-      }
-      if (last < i) {
-        out.write(value, last, i - last);
-      }
-      out.write(replacement);
-      last = i + 1;
-    }
     if (last < length) {
       out.write(value, last, length - last);
     }
