@@ -12,7 +12,7 @@
 
   <groupId>dev.simplix.cirrus</groupId>
   <artifactId>cirrus-spigot</artifactId>
-  <version>1.0-SNAPSHOT</version>s
+  <version>1.0-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
