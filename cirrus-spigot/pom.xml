@@ -12,12 +12,12 @@
 
   <groupId>dev.simplix.cirrus</groupId>
   <artifactId>cirrus-spigot</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>s
 
   <dependencies>
     <dependency>
       <groupId>org.spigotmc</groupId>
-      <artifactId>spigot-api</artifactId>
+      <artifactId>spigot</artifactId>
       <version>1.8.8-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
