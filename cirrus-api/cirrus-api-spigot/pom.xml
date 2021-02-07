@@ -6,7 +6,7 @@
 
   <dependencies>
     <dependency>
-      <artifactId>spigot-api</artifactId>
+      <artifactId>spigot</artifactId>
       <groupId>org.spigotmc</groupId>
       <scope>provided</scope>
       <version>1.8.8-R0.1-SNAPSHOT</version>
