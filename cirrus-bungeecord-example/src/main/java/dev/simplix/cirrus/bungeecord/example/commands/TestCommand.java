@@ -5,6 +5,7 @@ import dev.simplix.cirrus.api.business.ConfigurationFactory;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.api.model.MultiPageMenuConfiguration;
+import dev.simplix.cirrus.bungeecord.example.menus.ExampleMenu;
 import dev.simplix.cirrus.bungeecord.example.menus.ExampleMultiPageMenu;
 import dev.simplix.core.common.aop.Component;
 import dev.simplix.core.common.converter.Converters;
@@ -29,11 +30,13 @@ public class TestCommand extends Command {
   public void execute(CommandSender sender, String[] args) {
     if (sender instanceof ProxiedPlayer) {
       ProxiedPlayer p = (ProxiedPlayer) sender;
-      new ExampleMultiPageMenu(
-          Converters.convert(p, PlayerWrapper.class),
-          configurationFactory.loadFile(
-              "plugins/Cirrus/example.json",
-              MultiPageMenuConfiguration.class)).open(menuBuilder);
+//      new ExampleMultiPageMenu(
+//          Converters.convert(p, PlayerWrapper.class),
+//          configurationFactory.loadFile(
+//              "plugins/Cirrus/example.json",
+//              MultiPageMenuConfiguration.class)).open(menuBuilder);
+      new ExampleMenu(Converters.convert(p, PlayerWrapper.class),
+              configurationFactory.loadFile("plugins/Cirrus/example.json")).open(menuBuilder);
     }
   }
 
