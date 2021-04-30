@@ -28,6 +28,17 @@ public class InventoryListener implements Listener {
 
   @EventHandler
   public void onClick(@NonNull InventoryClickEvent event) {
+    if (event.getClickType() == null) {
+      return;
+    }
+    if (event.getPlayer() == null) {
+      return;
+    }
+
+    if (event.getClickedItem() == null) {
+      return;
+    }
+
     final Inventory inventory = event.getInventory();
     if (inventory == null) {
       return;
@@ -96,7 +107,9 @@ public class InventoryListener implements Listener {
     if (menu == null) {
       return;
     }
-    Map.Entry<Menu, Long> lastBuild = menuBuilder.lastBuildOfPlayer(inventoryCloseEvent.getPlayer().getUniqueId());
+    Map.Entry<Menu, Long> lastBuild = menuBuilder.lastBuildOfPlayer(inventoryCloseEvent
+        .getPlayer()
+        .getUniqueId());
     if (((AbstractMenu) lastBuild.getKey()).internalId() == ((AbstractMenu) menu).internalId()
         && (System.currentTimeMillis() - lastBuild.getValue()) <= 55) {
       return;
