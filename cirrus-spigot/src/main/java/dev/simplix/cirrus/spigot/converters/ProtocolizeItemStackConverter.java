@@ -3,24 +3,27 @@ package dev.simplix.cirrus.spigot.converters;
 import static de.exceptionflug.protocolize.api.util.ProtocolVersions.MINECRAFT_1_13;
 import static de.exceptionflug.protocolize.api.util.ProtocolVersions.MINECRAFT_1_14;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import de.exceptionflug.protocolize.items.ItemStack;
 import de.exceptionflug.protocolize.items.ItemType;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
 import dev.simplix.core.common.converter.Converter;
 import dev.simplix.core.common.converter.Converters;
 import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.NonNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
-import net.querz.nbt.tag.CompoundTag;
-import net.querz.nbt.tag.IntTag;
-import net.querz.nbt.tag.ListTag;
-import net.querz.nbt.tag.StringTag;
+import net.querz.nbt.tag.*;
 import org.bukkit.Material;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 
 public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.bukkit.inventory.ItemStack> {
@@ -71,15 +74,66 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     if (src.getNBTTag() == null) {
       src.setNBTTag(new CompoundTag());
     }
+
+    String textureHashToInsert = null;
+
+    if (src.getNBTTag() instanceof CompoundTag) {
+      CompoundTag tag = ((CompoundTag) src.getNBTTag());
+      if (tag.containsKey("SkullOwner") && tag.get("SkullOwner") instanceof CompoundTag) {
+
+        final CompoundTag skullOwnerTag = tag.getCompoundTag("SkullOwner");
+        final Tag<?> propertiesRaw = skullOwnerTag.get("Properties");
+
+        if (propertiesRaw instanceof CompoundTag) {
+          try {
+            final ListTag<CompoundTag> textures = (ListTag<CompoundTag>) ((CompoundTag) propertiesRaw)
+                .getListTag("textures");
+            textureHashToInsert = textures.get(0).getString("Value");
+            tag.remove("SkullOwner");
+          } catch (final Exception ignored) {
+          }
+        }
+      }
+    }
+
     writeDataToNbt(src);
+
     try {
       Object nmsItemStack = nmsCopyMethod.invoke(null, out);
       Method setTag = itemStackNMSClass.getMethod("setTag", nbtTagCompoundClass);
       setTag.invoke(nmsItemStack, Converters.convert(src.getNBTTag(), nbtTagCompoundClass));
-      return (org.bukkit.inventory.ItemStack) bukkitCopyMethod.invoke(null, nmsItemStack);
-    } catch (final Exception e) {
-      e.printStackTrace(); // Setting nbt to nms item is also pain in the ass
+      final org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
+          .invoke(null, nmsItemStack);
+
+      if (textureHashToInsert != null) {
+        final SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
+        final GameProfile profile = new GameProfile(UUID.randomUUID(), "");
+        profile.getProperties().put("textures", new Property("textures", textureHashToInsert));
+
+        try {
+          Method metaSetProfileMethod = meta
+              .getClass()
+              .getDeclaredMethod("setProfile", GameProfile.class);
+          metaSetProfileMethod.setAccessible(true);
+          metaSetProfileMethod.invoke(meta, profile);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException reflectiveOperationException) {
+          // if in an older API where there is no setProfile method,
+          // we set the profile field directly.
+          try {
+            Field profileField = meta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            profileField.set(meta, profile);
+
+          } catch (NoSuchFieldException | IllegalAccessException ignored) {
+          }
+        }
+
+      }
+      return itemStack;
+    } catch (final Exception exception) {
+      exception.printStackTrace(); // Setting nbt to nms item is also pain in the ass
     }
+
     return out;
   }
 
@@ -96,6 +150,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
             TextComponent.toLegacyText(stack.getDisplayNameComponents()));
       }
     }
+
     if (stack.getLoreComponents() != null) {
       setLoreTag(
           (CompoundTag) stack.getNBTTag(),
