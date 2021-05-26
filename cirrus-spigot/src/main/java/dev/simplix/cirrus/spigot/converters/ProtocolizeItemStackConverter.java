@@ -105,30 +105,31 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
       final org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
           .invoke(null, nmsItemStack);
 
-      if (textureHashToInsert != null) {
-        final SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
-        final GameProfile profile = new GameProfile(UUID.randomUUID(), "");
-        profile.getProperties().put("textures", new Property("textures", textureHashToInsert));
-
-        try {
-          Method metaSetProfileMethod = meta
-              .getClass()
-              .getDeclaredMethod("setProfile", GameProfile.class);
-          metaSetProfileMethod.setAccessible(true);
-          metaSetProfileMethod.invoke(meta, profile);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException reflectiveOperationException) {
-          // if in an older API where there is no setProfile method,
-          // we set the profile field directly.
-          try {
-            Field profileField = meta.getClass().getDeclaredField("profile");
-            profileField.setAccessible(true);
-            profileField.set(meta, profile);
-
-          } catch (NoSuchFieldException | IllegalAccessException ignored) {
-          }
-        }
-
+      if (textureHashToInsert == null) {
+        return itemStack;
       }
+      final SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
+      final GameProfile profile = new GameProfile(UUID.randomUUID(), "");
+      profile.getProperties().put("textures", new Property("textures", textureHashToInsert));
+
+      try {
+        Method metaSetProfileMethod = meta
+            .getClass()
+            .getDeclaredMethod("setProfile", GameProfile.class);
+        metaSetProfileMethod.setAccessible(true);
+        metaSetProfileMethod.invoke(meta, profile);
+      } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException reflectiveOperationException) {
+        // if in an older API where there is no setProfile method,
+        // we set the profile field directly.
+        try {
+          Field profileField = meta.getClass().getDeclaredField("profile");
+          profileField.setAccessible(true);
+          profileField.set(meta, profile);
+
+        } catch (NoSuchFieldException | IllegalAccessException ignored) {
+        }
+      }
+      itemStack.setItemMeta(meta);
       return itemStack;
     } catch (final Exception exception) {
       exception.printStackTrace(); // Setting nbt to nms item is also pain in the ass
