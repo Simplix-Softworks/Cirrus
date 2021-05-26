@@ -33,7 +33,7 @@ public class CirrusLibrary {
       return new AbstractSimplixModule[]{
           new DynamicListenersSimplixModule(Bukkit
               .getPluginManager()
-              .getPlugin("SimplixCore"))};
+              .getPlugins()[0])};
     }
 
   }
