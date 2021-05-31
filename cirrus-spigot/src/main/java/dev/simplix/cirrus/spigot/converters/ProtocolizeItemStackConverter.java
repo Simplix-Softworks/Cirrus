@@ -89,8 +89,8 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
             final ListTag<CompoundTag> textures = (ListTag<CompoundTag>) ((CompoundTag) propertiesRaw)
                 .getListTag("textures");
             textureHashToInsert = textures.get(0).getString("Value");
-            tag.remove("SkullOwner");
           } catch (final Exception ignored) {
+
           }
         }
       }
@@ -101,7 +101,13 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     try {
       Object nmsItemStack = nmsCopyMethod.invoke(null, out);
       Method setTag = itemStackNMSClass.getMethod("setTag", nbtTagCompoundClass);
-      setTag.invoke(nmsItemStack, Converters.convert(src.getNBTTag(), nbtTagCompoundClass));
+      if (src.getNBTTag() instanceof CompoundTag) {
+        final CompoundTag nbtTag = ((CompoundTag) src.getNBTTag()).clone();
+        if (textureHashToInsert != null) {
+          nbtTag.remove("SkullOwner");
+        }
+        setTag.invoke(nmsItemStack, Converters.convert(nbtTag, nbtTagCompoundClass));
+      }
       final org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
           .invoke(null, nmsItemStack);
 
@@ -109,33 +115,49 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
         return itemStack;
       }
       final SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
-      final GameProfile profile = new GameProfile(UUID.randomUUID(), "");
-      profile.getProperties().put("textures", new Property("textures", textureHashToInsert));
-
-      try {
-        Method metaSetProfileMethod = meta
-            .getClass()
-            .getDeclaredMethod("setProfile", GameProfile.class);
-        metaSetProfileMethod.setAccessible(true);
-        metaSetProfileMethod.invoke(meta, profile);
-      } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException reflectiveOperationException) {
-        // if in an older API where there is no setProfile method,
-        // we set the profile field directly.
-        try {
-          Field profileField = meta.getClass().getDeclaredField("profile");
-          profileField.setAccessible(true);
-          profileField.set(meta, profile);
-
-        } catch (NoSuchFieldException | IllegalAccessException ignored) {
-        }
-      }
+      mutateItemMeta(meta, textureHashToInsert);
       itemStack.setItemMeta(meta);
+      System.out.println("Set correct data: ");
+      System.out.println(textureHashToInsert);
+      System.out.println("ItemStack: " + itemStack);
       return itemStack;
     } catch (final Exception exception) {
       exception.printStackTrace(); // Setting nbt to nms item is also pain in the ass
     }
 
     return out;
+  }
+
+  private GameProfile makeProfile(@NonNull String textureHash) {
+    // random uuid based on the textureHash string
+    UUID id = new UUID(
+        textureHash.substring(textureHash.length() - 20).hashCode(),
+        textureHash.substring(textureHash.length() - 10).hashCode()
+    );
+    GameProfile profile = new GameProfile(id, "Player");
+    profile.getProperties().put("textures", new Property("textures", textureHash));
+    return profile;
+  }
+
+  private void mutateItemMeta(SkullMeta meta, String textureHash) {
+    try {
+      Method metaSetProfileMethod = meta
+          .getClass()
+          .getDeclaredMethod("setProfile", GameProfile.class);
+      metaSetProfileMethod.setAccessible(true);
+      metaSetProfileMethod.invoke(meta, makeProfile(textureHash));
+    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException reflectiveOperationException) {
+      // if in an older API where there is no setProfile method,
+      // we set the profile field directly.
+      try {
+        Field profileField = meta.getClass().getDeclaredField("profile");
+        profileField.setAccessible(true);
+        profileField.set(meta, makeProfile(textureHash));
+
+      } catch (NoSuchFieldException | IllegalAccessException exception) {
+        exception.printStackTrace();
+      }
+    }
   }
 
   private void writeDataToNbt(@NonNull ItemStack stack) {
