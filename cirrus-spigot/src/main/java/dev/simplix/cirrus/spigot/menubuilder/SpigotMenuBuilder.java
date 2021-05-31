@@ -67,7 +67,7 @@ public final class SpigotMenuBuilder implements MenuBuilder {
     }
     InventoryView view = (InventoryView) prebuild;
     buildContainer(view.getTopInventory(), menu.topContainer(), false);
-    buildContainer(view.getBottomInventory(), menu.bottomContainer(), true);
+//    buildContainer(view.getBottomInventory(), menu.bottomContainer(), true);
     buildMap.put(
         menu.player().uniqueId(),
         new AbstractMap.SimpleEntry<>(menu, System.currentTimeMillis()));
@@ -81,6 +81,7 @@ public final class SpigotMenuBuilder implements MenuBuilder {
   }
 
   private void buildContainer(Inventory inventory, Container container, boolean bottom) {
+    System.out.println("Build container");
     for (int i = 0; i < container.capacity(); i++) {
       InventoryItemWrapper item = container.itemMap().get(i + container.baseSlot());
       ItemStack currentStack = inventory.getItem(i);

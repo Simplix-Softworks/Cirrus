@@ -117,9 +117,6 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
       final SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
       mutateItemMeta(meta, textureHashToInsert);
       itemStack.setItemMeta(meta);
-      System.out.println("Set correct data: ");
-      System.out.println(textureHashToInsert);
-      System.out.println("ItemStack: " + itemStack);
       return itemStack;
     } catch (final Exception exception) {
       exception.printStackTrace(); // Setting nbt to nms item is also pain in the ass
