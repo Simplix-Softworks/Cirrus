@@ -9,19 +9,19 @@
       <artifactId>protocolize-items</artifactId>
       <groupId>de.exceptionflug</groupId>
       <scope>provided</scope>
-      <version>1.6.1-SNAPSHOT</version>
+      <version>1.6.8-SNAPSHOT</version>
     </dependency>
     <dependency>
       <artifactId>protocolize-api</artifactId>
       <groupId>de.exceptionflug</groupId>
       <scope>provided</scope>
-      <version>1.6.1-SNAPSHOT</version>
+      <version>1.6.8-SNAPSHOT</version>
     </dependency>
     <dependency>
       <artifactId>protocolize-inventory</artifactId>
       <groupId>de.exceptionflug</groupId>
       <scope>provided</scope>
-      <version>1.6.1-SNAPSHOT</version>
+      <version>1.6.8-SNAPSHOT</version>
     </dependency>
     <dependency>
       <artifactId>lombok</artifactId>

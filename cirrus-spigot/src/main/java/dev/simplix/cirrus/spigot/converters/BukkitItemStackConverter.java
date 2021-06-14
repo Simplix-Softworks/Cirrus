@@ -1,6 +1,7 @@
 package dev.simplix.cirrus.spigot.converters;
 
 import de.exceptionflug.protocolize.items.ItemType;
+import dev.simplix.cirrus.spigot.util.ReflectionClasses;
 import dev.simplix.core.common.converter.Converter;
 import dev.simplix.core.common.converter.Converters;
 import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
@@ -16,7 +17,7 @@ public class BukkitItemStackConverter implements Converter<ItemStack, de.excepti
   static {
     try {
       craftItemStackClass = ReflectionUtil.getClass("{obc}.inventory.CraftItemStack");
-      itemStackNMSClass = ReflectionUtil.getClass("{nms}.ItemStack");
+      itemStackNMSClass = ReflectionClasses.itemStackClass();
     } catch (Exception exception) {
       exception.printStackTrace();
     }

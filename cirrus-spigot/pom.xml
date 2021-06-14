@@ -48,7 +48,7 @@
     <dependency>
       <groupId>de.exceptionflug</groupId>
       <artifactId>protocolize-api</artifactId>
-      <version>1.6.2-SNAPSHOT</version>
+      <version>1.6.8-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -60,7 +60,7 @@
     <dependency>
       <groupId>de.exceptionflug</groupId>
       <artifactId>protocolize-inventory</artifactId>
-      <version>1.6.2-SNAPSHOT</version>
+      <version>1.6.8-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

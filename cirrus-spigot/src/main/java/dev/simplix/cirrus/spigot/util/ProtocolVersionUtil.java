@@ -25,7 +25,7 @@ public final class ProtocolVersionUtil {
         .serverVersion()
         .substring(1, ReflectionUtil.serverVersion().indexOf('_', 3));
     try {
-      Field field = ProtocolVersions.class.getField("MINECRAFT_" + majorVersion);
+      Field field = dev.simplix.cirrus.spigot.util.ProtocolVersions.class.getField("MINECRAFT_" + majorVersion);
       return field.getInt(null);
     } catch (NoSuchFieldException e) {
       throw new RuntimeException("Cirrus is not compatible with server version "

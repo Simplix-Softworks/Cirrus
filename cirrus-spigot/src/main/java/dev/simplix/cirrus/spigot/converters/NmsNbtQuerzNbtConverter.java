@@ -1,5 +1,6 @@
 package dev.simplix.cirrus.spigot.converters;
 
+import dev.simplix.cirrus.spigot.util.ReflectionClasses;
 import dev.simplix.core.common.converter.Converter;
 import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.io.ByteArrayInputStream;
@@ -17,11 +18,10 @@ public class NmsNbtQuerzNbtConverter implements Converter<Object, CompoundTag> {
 
   static {
     try {
-      nbtCompressedStreamToolAMethod = ReflectionUtil
-          .getClass("{nms}.NBTCompressedStreamTools")
-          .getMethod("a", ReflectionUtil.getClass("{nms}.NBTTagCompound"), OutputStream.class);
-    } catch (final Exception e) {
-      e.printStackTrace();
+      nbtCompressedStreamToolAMethod =  ReflectionClasses.nbtCompressedStreamTools()
+          .getMethod("a", ReflectionClasses.nbtTagCompound(), OutputStream.class);
+    } catch (final Exception exception) {
+      exception.printStackTrace();
     }
   }
 

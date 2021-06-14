@@ -9,6 +9,7 @@ import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.i18n.LocalizedItemStackModel;
 import dev.simplix.cirrus.common.item.ProtocolizeItemStackWrapper;
 import dev.simplix.cirrus.spigot.converters.*;
+import dev.simplix.cirrus.spigot.util.ReflectionClasses;
 import dev.simplix.core.common.aop.AbstractSimplixModule;
 import dev.simplix.core.common.aop.ApplicationModule;
 import dev.simplix.core.common.converter.Converters;
@@ -67,10 +68,10 @@ public class SpigotCirrusModule extends AbstractSimplixModule {
       // NBT
       Converters.register( // Querz ----> NMS
           CompoundTag.class,
-          ReflectionUtil.getClass("{nms}.NBTTagCompound"),
+          ReflectionClasses.nbtTagCompound(),
           new QuerzNbtNmsNbtConverter());
       Converters.register( // NMS ----> Querz
-          ReflectionUtil.getClass("{nms}.NBTTagCompound"),
+          ReflectionClasses.nbtTagCompound(),
           CompoundTag.class,
           new NmsNbtQuerzNbtConverter());
     } catch (Exception exception) {

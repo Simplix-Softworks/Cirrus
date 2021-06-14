@@ -8,6 +8,7 @@ import com.mojang.authlib.properties.Property;
 import de.exceptionflug.protocolize.items.ItemStack;
 import de.exceptionflug.protocolize.items.ItemType;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
+import dev.simplix.cirrus.spigot.util.ReflectionClasses;
 import dev.simplix.core.common.converter.Converter;
 import dev.simplix.core.common.converter.Converters;
 import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
@@ -37,8 +38,8 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
   static {
     try {
       craftItemStackClass = ReflectionUtil.getClass("{obc}.inventory.CraftItemStack");
-      nbtTagCompoundClass = ReflectionUtil.getClass("{nms}.NBTTagCompound");
-      itemStackNMSClass = ReflectionUtil.getClass("{nms}.ItemStack");
+      nbtTagCompoundClass = ReflectionClasses.nbtTagCompound();
+      itemStackNMSClass = ReflectionClasses.itemStackClass();
       nmsCopyMethod = craftItemStackClass.getMethod(
           "asNMSCopy",
           org.bukkit.inventory.ItemStack.class);
