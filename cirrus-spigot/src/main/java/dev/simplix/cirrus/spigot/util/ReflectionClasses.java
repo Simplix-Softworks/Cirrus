@@ -6,11 +6,8 @@ import org.bukkit.Bukkit;
 
 public class ReflectionClasses {
 
-  private static final Version minecraftVersion = Version.parse(Bukkit.getBukkitVersion().split("-")[0] + ".1");
-  private static final Version mc_1_17 = Version.parse("1.17.0");
-
   public static Class<?> itemStackClass() throws ClassNotFoundException {
-    if (minecraftVersion.newerThen(mc_1_17)) {
+    if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_17) {
       return ReflectionUtil
           .getClass("{nm}.world.item.ItemStack");
 
@@ -22,7 +19,7 @@ public class ReflectionClasses {
 
   public static Class<?> nbtCompressedStreamTools() throws ClassNotFoundException {
 
-    if (minecraftVersion.newerThen(mc_1_17)) {
+    if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_17) {
       return ReflectionUtil
           .getClass("{nm}.nbt.NBTCompressedStreamTools");
 
@@ -33,7 +30,7 @@ public class ReflectionClasses {
   }
 
   public static Class<?> nbtTagCompound() throws ClassNotFoundException {
-    if (minecraftVersion.newerThen(mc_1_17)) {
+    if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_17) {
       return ReflectionUtil
           .getClass("{nm}.nbt.NBTTagCompound");
 
