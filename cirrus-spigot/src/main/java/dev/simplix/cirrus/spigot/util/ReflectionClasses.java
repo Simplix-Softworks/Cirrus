@@ -1,8 +1,6 @@
 package dev.simplix.cirrus.spigot.util;
 
-import dev.simplix.core.common.updater.Version;
 import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
-import org.bukkit.Bukkit;
 
 public class ReflectionClasses {
 
