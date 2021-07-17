@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.exceptionflug.de/cirrussmall.png" />
+  <img src="https://i.imgur.com/vmfZcvS.png" />
 </p>
 
 # Cirrus
@@ -17,7 +17,7 @@ It provides a realtime preview while editing menu configuration files.
 
 [![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/15194-cirrus-tooling)](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling)
 
-![Tooling](https://img.exceptionflug.de/PCKePkNg7V.gif)
+![Tooling](https://i.imgur.com/88pvZ8G.gif)
 
 ## Requirements
 ### SimplixCore
