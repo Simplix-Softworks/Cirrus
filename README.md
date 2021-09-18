@@ -9,6 +9,7 @@ Cirrus enables you to develop platform independent versatile graphical menus for
 
 ## Platforms
 - BungeeCord
+- Velocity
 - Spigot
 
 ## Tooling
@@ -20,48 +21,11 @@ It provides a realtime preview while editing menu configuration files.
 ![Tooling](https://i.imgur.com/88pvZ8G.gif)
 
 ## Requirements
-### SimplixCore
-Cirrus is using the [SimplixCore framework](https://github.com/Simplix-Softworks/SimplixCore) and it's possibility to develop platform independent software for Minecraft use cases.
 ### Protocolize
-Cirrus is powered by [Protocolize](https://github.com/Exceptionflug/protocolize). A lightweight protocol manipulation library by one of the Simplix Softworks founders, Exceptionflug. Protocolize enables you to do so much more on BungeeCord!
+Cirrus is powered by [Protocolize](https://github.com/Exceptionflug/protocolize). A protocol manipulation library by one of the Simplix Softworks founders, Exceptionflug. Protocolize enables you to do so much more on BungeeCord!
 
 ## Installation
-### Manual installation
-Assuming you have already installed SimplixCore on your server, just download the jar file for your platform (Spigot or BungeeCord) and drop it into the libraries folder of your server.
-
-**I have no libraries folder. What should I do?**
-
-Just follow the installation instructions of SimplixCore and start your server at least one time after you installed SimplixCore.
-
-### Automatic installation as dependency
-When you want to use Cirrus in your SimplixApplication, just create a `dependencies.json` in your resource folder and fill it with the following content:
-```json
-{  
-  "repositories": [  
-    {
-      "id": "simplixsoft-public",  
-      "url": "https://repo.simplix.dev/repository/simplixsoft-public/"  
-    }  
-  ],
-  "dependencies": [  
-    {
-      "groupId": "dev.simplix.cirrus",  
-      "artifactId": "cirrus-bungeecord", 
-      "version": "1.0-SNAPSHOT",
-      "platform": "BUNGEECORD",
-      "type": "shared-library"  
-    },
-    {
-      "groupId": "dev.simplix.cirrus",  
-      "artifactId": "cirrus-spigot", 
-      "version": "1.0-SNAPSHOT",
-      "platform": "SPIGOT",
-      "type": "shared-library"   
-    }
-  ]
-}
-```
-SimplixCore will automatically download the latest cirrus-bungeecord (or spigot) on server startup.
+Just shade and relocate the platform module into your own plugin. Don't forget to call the `CirrusSpigot`, `CirrusBungeeCord` or `CirrusVelocity` init method.
 
 ### More developer documentation
 Check out the [wiki](https://github.com/Simplix-Softworks/Cirrus/wiki) for further information on how to use Cirrus in your application.
