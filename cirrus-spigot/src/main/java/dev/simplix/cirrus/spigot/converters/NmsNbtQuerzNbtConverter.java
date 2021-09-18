@@ -1,8 +1,7 @@
 package dev.simplix.cirrus.spigot.converters;
 
+import dev.simplix.cirrus.api.converter.Converter;
 import dev.simplix.cirrus.spigot.util.ReflectionClasses;
-import dev.simplix.core.common.converter.Converter;
-import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

@@ -1,7 +1,8 @@
 package dev.simplix.cirrus.api.business;
 
-import de.exceptionflug.protocolize.items.ItemType;
 import java.util.List;
+
+import dev.simplix.protocolize.data.ItemType;
 import lombok.NonNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.querz.nbt.tag.CompoundTag;

@@ -6,6 +6,7 @@ import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.menu.*;
 import dev.simplix.cirrus.api.model.MenuConfiguration;
 import dev.simplix.cirrus.api.model.MultiPageMenuConfiguration;
+import dev.simplix.cirrus.common.Cirrus;
 import dev.simplix.cirrus.common.menu.AbstractConfigurableMenu;
 import dev.simplix.cirrus.common.menu.AbstractMenu;
 import java.util.Arrays;
@@ -22,12 +23,12 @@ import lombok.extern.slf4j.Slf4j;
 @Accessors(fluent = true)
 public class MultiPageMenu extends AbstractMenu {
 
+  private final MenuBuilder menuBuilder = Cirrus.getService(MenuBuilder.class);
   @Getter
   private final List<Menu> pages = new LinkedList<>();
   @Getter
   private final MultiPageMenuConfiguration configuration;
   private int currentPage = 1;
-  private MenuBuilder menuBuilder;
 
   public MultiPageMenu(
       @NonNull PlayerWrapper player,
@@ -77,10 +78,9 @@ public class MultiPageMenu extends AbstractMenu {
   }
 
   @Override
-  public void open(MenuBuilder menuBuilder) {
-    this.menuBuilder = menuBuilder;
+  public void open() {
     currentPage(1);
-    currentPage().open(menuBuilder);
+    currentPage().open();
   }
 
   @Override

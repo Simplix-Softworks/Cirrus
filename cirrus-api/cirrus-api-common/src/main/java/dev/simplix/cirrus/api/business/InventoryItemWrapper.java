@@ -1,7 +1,8 @@
 package dev.simplix.cirrus.api.business;
 
-import de.exceptionflug.protocolize.items.ItemType;
 import java.util.List;
+
+import dev.simplix.protocolize.data.ItemType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;

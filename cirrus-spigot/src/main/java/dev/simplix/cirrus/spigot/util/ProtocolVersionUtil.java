@@ -1,7 +1,5 @@
 package dev.simplix.cirrus.spigot.util;
 
-import de.exceptionflug.protocolize.api.util.ProtocolVersions;
-import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.lang.reflect.Field;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

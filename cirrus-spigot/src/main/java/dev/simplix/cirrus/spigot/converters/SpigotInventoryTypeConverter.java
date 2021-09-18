@@ -1,7 +1,7 @@
 package dev.simplix.cirrus.spigot.converters;
 
-import de.exceptionflug.protocolize.inventory.InventoryType;
-import dev.simplix.core.common.converter.Converter;
+import dev.simplix.cirrus.api.converter.Converter;
+import dev.simplix.protocolize.data.inventory.InventoryType;
 import lombok.NonNull;
 
 public class SpigotInventoryTypeConverter implements Converter<InventoryType, org.bukkit.event.inventory.InventoryType> {

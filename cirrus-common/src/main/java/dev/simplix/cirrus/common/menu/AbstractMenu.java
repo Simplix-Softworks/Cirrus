@@ -1,21 +1,23 @@
 package dev.simplix.cirrus.common.menu;
 
-import de.exceptionflug.protocolize.inventory.InventoryType;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.i18n.LocalizedItemStackModel;
 import dev.simplix.cirrus.api.i18n.Localizer;
+import dev.simplix.cirrus.api.i18n.Replacer;
 import dev.simplix.cirrus.api.menu.ActionHandler;
 import dev.simplix.cirrus.api.menu.Container;
 import dev.simplix.cirrus.api.menu.Menu;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.api.model.ItemStackModel;
-import dev.simplix.core.common.Replacer;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
+
+import dev.simplix.cirrus.common.Cirrus;
+import dev.simplix.protocolize.data.inventory.InventoryType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
@@ -30,6 +32,7 @@ public abstract class AbstractMenu implements Menu {
   private static final AtomicInteger ID_GENERATOR = new AtomicInteger();
 
   private final Map<String, ActionHandler> actionHandlerMap = new HashMap<>();
+  private final MenuBuilder menuBuilder = Cirrus.getService(MenuBuilder.class);
   private final Container topContainer;
   private final Container bottomContainer;
   private final InventoryType inventoryType;
@@ -38,7 +41,6 @@ public abstract class AbstractMenu implements Menu {
   private final int internalId = ID_GENERATOR.incrementAndGet();
   private Supplier<String[]> replacements;
   private ActionHandler customActionHandler;
-  private MenuBuilder menuBuilder;
   private Object nativeInventory;
   private String title;
 
@@ -103,8 +105,7 @@ public abstract class AbstractMenu implements Menu {
   }
 
   @Override
-  public void open(@NonNull MenuBuilder menuBuilder) {
-    this.menuBuilder = menuBuilder;
+  public void open() {
     build();
     menuBuilder().open(player, nativeInventory());
   }

@@ -1,9 +1,10 @@
 package dev.simplix.cirrus.common.item;
 
-import de.exceptionflug.protocolize.items.ItemStack;
-import de.exceptionflug.protocolize.items.ItemType;
 import dev.simplix.cirrus.api.business.ItemStackWrapper;
 import java.util.List;
+
+import dev.simplix.protocolize.api.item.ItemStack;
+import dev.simplix.protocolize.data.ItemType;
 import lombok.NonNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.querz.nbt.tag.CompoundTag;
@@ -18,82 +19,82 @@ public class ProtocolizeItemStackWrapper implements ItemStackWrapper {
 
   @Override
   public String displayName() {
-    return itemStack.getDisplayName();
+    return itemStack.displayName(true);
   }
 
   @Override
   public BaseComponent[] displayNameComponents() {
-    return itemStack.getDisplayNameComponents();
+    return itemStack.displayName();
   }
 
   @Override
   public List<String> lore() {
-    return itemStack.getLore();
+    return itemStack.lore(true);
   }
 
   @Override
   public List<BaseComponent[]> loreComponents() {
-    return itemStack.getLoreComponents();
+    return itemStack.lore();
   }
 
   @Override
   public ItemType type() {
-    return itemStack.getType();
+    return itemStack.itemType();
   }
 
   @Override
   public CompoundTag nbt() {
-    return (CompoundTag) itemStack.getNBTTag();
+    return itemStack.nbtData();
   }
 
   @Override
   public int amount() {
-    return itemStack.getAmount();
+    return itemStack.amount();
   }
 
   @Override
   public short durability() {
-    return itemStack.getDurability();
+    return itemStack.durability();
   }
 
   @Override
   public void type(@NonNull ItemType type) {
-    itemStack.setType(type);
+    itemStack.itemType(type);
   }
 
   @Override
   public void displayName(@NonNull String displayName) {
-    itemStack.setDisplayName(displayName);
+    itemStack.displayName(displayName);
   }
 
   @Override
   public void displayNameComponents(BaseComponent... baseComponents) {
-    itemStack.setDisplayName(baseComponents);
+    itemStack.displayName(baseComponents);
   }
 
   @Override
   public void lore(@NonNull List<String> lore) {
-    itemStack.setLore(lore);
+    itemStack.lore(lore, true);
   }
 
   @Override
   public void loreComponents(@NonNull List<BaseComponent[]> lore) {
-    itemStack.setLoreComponents(lore);
+    itemStack.lore(lore, false);
   }
 
   @Override
   public void nbt(@NonNull CompoundTag compoundTag) {
-    itemStack.setNBTTag(compoundTag);
+    itemStack.nbtData(compoundTag);
   }
 
   @Override
   public void amount(int amount) {
-    itemStack.setAmount((byte) amount);
+    itemStack.amount((byte) amount);
   }
 
   @Override
   public void durability(short durability) {
-    itemStack.setDurability(durability);
+    itemStack.durability(durability);
   }
 
   @Override

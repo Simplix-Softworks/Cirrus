@@ -1,7 +1,5 @@
 package dev.simplix.cirrus.spigot.util;
 
-import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
-
 public class ReflectionClasses {
 
   public static Class<?> itemStackClass() throws ClassNotFoundException {

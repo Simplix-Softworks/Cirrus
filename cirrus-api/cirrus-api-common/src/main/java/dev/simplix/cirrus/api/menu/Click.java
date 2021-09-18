@@ -1,9 +1,10 @@
 package dev.simplix.cirrus.api.menu;
 
-import de.exceptionflug.protocolize.api.ClickType;
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import dev.simplix.cirrus.api.business.ItemStackWrapper;
 import java.util.List;
+
+import dev.simplix.protocolize.api.ClickType;
 import lombok.NonNull;
 
 /**

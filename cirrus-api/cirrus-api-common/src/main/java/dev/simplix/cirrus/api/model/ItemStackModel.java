@@ -1,9 +1,9 @@
 package dev.simplix.cirrus.api.model;
 
-import de.exceptionflug.protocolize.items.ItemType;
-
 import java.util.Collections;
 import java.util.List;
+
+import dev.simplix.protocolize.data.ItemType;
 import lombok.*;
 import lombok.experimental.Accessors;
 import net.querz.nbt.tag.CompoundTag;

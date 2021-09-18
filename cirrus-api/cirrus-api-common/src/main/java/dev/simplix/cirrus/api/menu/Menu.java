@@ -1,11 +1,12 @@
 package dev.simplix.cirrus.api.menu;
 
-import de.exceptionflug.protocolize.inventory.InventoryType;
 import dev.simplix.cirrus.api.business.ItemStackWrapper;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.core.common.converter.Converters;
 import java.util.Locale;
 import java.util.function.Supplier;
+
+import dev.simplix.cirrus.api.converter.Converters;
+import dev.simplix.protocolize.data.inventory.InventoryType;
 import lombok.NonNull;
 
 public interface Menu extends ErrorProne {
@@ -32,9 +33,8 @@ public interface Menu extends ErrorProne {
 
   /**
    * This opens the menu for the specified player
-   * @param menuBuilder The menu builder which should be used
    */
-  void open(@NonNull MenuBuilder menuBuilder);
+  void open();
 
   /**
    * This builds the menu

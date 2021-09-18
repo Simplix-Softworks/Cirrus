@@ -1,20 +1,19 @@
 package dev.simplix.cirrus.spigot.menubuilder;
 
-import de.exceptionflug.protocolize.api.util.ProtocolVersions;
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
+import dev.simplix.cirrus.api.converter.Converters;
 import dev.simplix.cirrus.api.menu.Container;
 import dev.simplix.cirrus.api.menu.Menu;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
-import dev.simplix.cirrus.common.CirrusSimplixModule;
 import dev.simplix.cirrus.common.prefabs.menu.MultiPageMenu;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
-import dev.simplix.core.common.aop.Component;
-import dev.simplix.core.common.converter.Converters;
-import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.Map.Entry;
+
+import dev.simplix.cirrus.spigot.util.ReflectionUtil;
+import dev.simplix.protocolize.api.util.ProtocolVersions;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.bukkit.Bukkit;
@@ -26,7 +25,6 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-@Component(value = CirrusSimplixModule.class, parent = MenuBuilder.class)
 @Slf4j
 public final class SpigotMenuBuilder implements MenuBuilder {
 

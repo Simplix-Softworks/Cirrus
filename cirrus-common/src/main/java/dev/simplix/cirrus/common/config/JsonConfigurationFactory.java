@@ -2,24 +2,19 @@ package dev.simplix.cirrus.common.config;
 
 import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import dev.simplix.cirrus.api.business.ConfigurationFactory;
 import dev.simplix.cirrus.api.model.MenuConfiguration;
-import dev.simplix.cirrus.common.CirrusSimplixModule;
-import dev.simplix.core.common.aop.Component;
+import dev.simplix.cirrus.common.Cirrus;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.NoSuchFileException;
 import lombok.NonNull;
 
-@Component(value = CirrusSimplixModule.class, parent = ConfigurationFactory.class)
 public class JsonConfigurationFactory implements ConfigurationFactory {
 
   private final Gson gson;
 
-  @Inject
-  public JsonConfigurationFactory(@Named("cirrus") Gson gson) {
+  public JsonConfigurationFactory(Gson gson) {
     this.gson = gson;
   }
 
@@ -62,7 +57,7 @@ public class JsonConfigurationFactory implements ConfigurationFactory {
   private void copyResourceToFile(@NonNull String resource, @NonNull File file) {
     try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
       fileOutputStream.write(ByteStreams.toByteArray(
-          CirrusSimplixModule.class.getResourceAsStream(resource)));
+          Cirrus.class.getResourceAsStream(resource)));
       fileOutputStream.flush();
     } catch (IOException e) {
       throw new RuntimeException(e);

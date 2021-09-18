@@ -1,12 +1,10 @@
 package dev.simplix.cirrus.spigot.listener;
 
-import com.google.inject.Inject;
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
+import dev.simplix.cirrus.api.converter.Converters;
 import dev.simplix.cirrus.api.menu.*;
+import dev.simplix.cirrus.common.Cirrus;
 import dev.simplix.cirrus.common.menu.AbstractMenu;
-import dev.simplix.core.common.aop.Component;
-import dev.simplix.core.common.converter.Converters;
-import dev.simplix.core.minecraft.spigot.dynamiclisteners.DynamicListenersSimplixModule;
 import java.util.Map;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -19,16 +17,10 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.InventoryView;
 
-@Component(DynamicListenersSimplixModule.class)
 @Slf4j
 public class InventoryListener implements Listener {
 
-  private final MenuBuilder menuBuilder;
-
-  @Inject
-  public InventoryListener(@NonNull MenuBuilder menuBuilder) {
-    this.menuBuilder = menuBuilder;
-  }
+  private final MenuBuilder menuBuilder = Cirrus.getService(MenuBuilder.class);
 
   @EventHandler
   public void onClick(InventoryClickEvent event) {
@@ -63,7 +55,7 @@ public class InventoryListener implements Listener {
               .customActionHandler()
               .handle(new Click(Converters.convert(
                   type,
-                  de.exceptionflug.protocolize.api.ClickType.class),
+                  dev.simplix.protocolize.api.ClickType.class),
                   menu, null, event.getSlot()));
           event.setCancelled(callResult == null || callResult == CallResult.DENY_GRABBING);
         } catch (Exception ex) {
@@ -81,7 +73,7 @@ public class InventoryListener implements Listener {
     }
     try {
       final CallResult callResult = actionHandler.handle(new Click(
-          Converters.convert(type, de.exceptionflug.protocolize.api.ClickType.class),
+          Converters.convert(type, dev.simplix.protocolize.api.ClickType.class),
           menu,
           item,
           event.getSlot()));

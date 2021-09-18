@@ -1,28 +1,27 @@
 package dev.simplix.cirrus.bungeecord.protocolize;
 
 import com.google.common.collect.Sets;
-import de.exceptionflug.protocolize.inventory.Inventory;
-import de.exceptionflug.protocolize.inventory.InventoryModule;
-import de.exceptionflug.protocolize.items.ItemStack;
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.cirrus.api.menu.Container;
-import dev.simplix.cirrus.api.menu.Menu;
-import dev.simplix.cirrus.api.menu.MenuBuilder;
-import dev.simplix.cirrus.bungeecord.BungeeCordCirrusModule;
+import dev.simplix.cirrus.api.i18n.Replacer;
+import dev.simplix.cirrus.api.menu.*;
+import dev.simplix.cirrus.bungeecord.BungeeCordPlayerWrapper;
+import dev.simplix.cirrus.bungeecord.CirrusBungeeCord;
 import dev.simplix.cirrus.common.menu.AbstractMenu;
-import dev.simplix.core.common.Replacer;
-import dev.simplix.core.common.aop.Component;
 import java.util.*;
 import java.util.Map.Entry;
+
+import dev.simplix.protocolize.api.ClickType;
+import dev.simplix.protocolize.api.inventory.Inventory;
+import dev.simplix.protocolize.api.item.ItemStack;
 import lombok.NonNull;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.jetbrains.annotations.Nullable;
 
-@Component(value = BungeeCordCirrusModule.class, parent = MenuBuilder.class)
 public class ProtocolizeMenuBuilder implements MenuBuilder {
 
   private final Map<UUID, Map.Entry<Menu, Long>> buildMap = new LinkedHashMap<>();
@@ -38,12 +37,12 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
       String title = Replacer.of(menu.title()).replaceAll((Object[]) menu.replacements().get())
           .replacedMessageJoined();
       final Inventory inventory = (Inventory) prebuild;
-      if (!ComponentSerializer.toString(inventory.getTitle())
+      if (!ComponentSerializer.toString((BaseComponent[]) inventory.title())
           .equals(ComponentSerializer.toString(new TextComponent(title))) ||
-          inventory.getType().getTypicalSize(menu.player().protocolVersion()) != menu
+          inventory.type().getTypicalSize(menu.player().protocolVersion()) != menu
               .topContainer()
               .capacity()
-          || inventory.getType() != menu.inventoryType()) {
+          || inventory.type() != menu.inventoryType()) {
         prebuild = (T) makeInv(menu);
       }
     } else {
@@ -66,10 +65,10 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
   private void buildContainer(@NonNull Inventory inventory, @NonNull Container container) {
     for (int i = container.baseSlot(); i < container.baseSlot() + container.capacity(); i++) {
       InventoryItemWrapper item = container.itemMap().get(i);
-      ItemStack currentStack = inventory.getItem(i);
+      ItemStack currentStack = inventory.item(i);
       if (item == null) {
         if (currentStack != null) {
-          inventory.setItem(i, ItemStack.NO_DATA);
+          inventory.item(i, ItemStack.NO_DATA);
         }
       }
       if (item != null) {
@@ -79,10 +78,10 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
                 .severe("InventoryItem's ItemStackWrapper is null @ slot " + i);
             continue;
           }
-          inventory.setItem(i, item.handle());
+          inventory.item(i, item.handle());
         } else {
           if (!currentStack.equals(item.handle())) {
-            inventory.setItem(i, item.handle());
+            inventory.item(i, item.handle());
           }
         }
       }
@@ -90,15 +89,88 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
   }
 
   private Inventory makeInv(@NonNull Menu menu) {
-    return new Inventory(menu.inventoryType(), new TextComponent(Replacer.of(menu.title())
-        .replaceAll((Object[]) menu.replacements().get()).replacedMessageJoined()));
+    Inventory inventory = new Inventory(menu.inventoryType());
+    inventory.title(new TextComponent(Replacer.of(menu.title())
+            .replaceAll((Object[]) menu.replacements().get()).replacedMessageJoined()));
+
+    inventory.onClose(inventoryClose -> {
+      Map.Entry<Menu, Long> lastBuild = lastBuildOfPlayer(inventoryClose.player().uniqueId());
+      if (((AbstractMenu) lastBuild.getKey()).internalId() == ((AbstractMenu) menu).internalId()
+              && (System.currentTimeMillis() - lastBuild.getValue()) <= 55) {
+        return;
+      }
+      menu.handleClose((System.currentTimeMillis() - lastBuild.getValue()) <= 55);
+      invalidate(menu);
+    });
+
+    inventory.onClick(inventoryClick -> {
+      if (inventoryClick.clickType() == null) {
+        return;
+      }
+      if (inventoryClick.player() == null) {
+        return;
+      }
+      if (inventoryClick.clickedItem() == null) {
+        return;
+      }
+      Inventory i = inventoryClick.inventory();
+      if (i == null) {
+        return;
+      }
+//    ProxyServer.getInstance().broadcast("Clicked inventory");
+//    ProxyServer.getInstance().broadcast("Clicked menu: " + menu.getClass().getSimpleName() + " @ slot " + event.getSlot());
+      Container container;
+      if (inventoryClick.slot() > menu.topContainer().capacity() - 1) {
+        container = menu.bottomContainer();
+//      ProxyServer.getInstance().broadcast("Clicked bottom container");
+      } else {
+        container = menu.topContainer();
+//      ProxyServer.getInstance().broadcast("Clicked top container");
+      }
+      InventoryItemWrapper item = container.get(inventoryClick.slot());
+      ClickType type = inventoryClick.clickType();
+      if (item == null) {
+//      ProxyServer.getInstance().broadcast("Clicked nothing");
+        if (menu.customActionHandler() != null) {
+          try {
+            CallResult callResult = menu
+                    .customActionHandler()
+                    .handle(new Click(type, menu, null, inventoryClick.slot()));
+            inventoryClick.cancelled(callResult == null || callResult == CallResult.DENY_GRABBING);
+          } catch (Exception ex) {
+            inventoryClick.cancelled(true);
+            menu.handleException(null, ex);
+          }
+        }
+        return;
+      }
+//    ProxyServer.getInstance().broadcast("Clicked "+item.displayName());
+      ActionHandler actionHandler = menu.actionHandler(item.actionHandler());
+      if (actionHandler == null) {
+        return;
+      }
+      try {
+        final CallResult callResult = actionHandler.handle(new Click(
+                type,
+                menu,
+                item,
+                inventoryClick.slot()));
+        inventoryClick.cancelled(callResult == null || callResult == CallResult.DENY_GRABBING);
+      } catch (final Exception ex) {
+        inventoryClick.cancelled(true);
+        menu.handleException(actionHandler, ex);
+      }
+    });
+
+    return inventory;
   }
 
   @Override
   public <T> void open(
       PlayerWrapper playerWrapper, T inventoryImpl) {
-    InventoryModule
-        .sendInventory(playerWrapper.handle(), (Inventory) inventoryImpl);
+    if (playerWrapper instanceof BungeeCordPlayerWrapper) {
+      ((BungeeCordPlayerWrapper) playerWrapper).protocolizePlayer().openInventory((Inventory) inventoryImpl);
+    }
   }
 
   @Override

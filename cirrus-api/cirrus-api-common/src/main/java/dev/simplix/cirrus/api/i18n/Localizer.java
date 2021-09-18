@@ -1,7 +1,6 @@
 package dev.simplix.cirrus.api.i18n;
 
 import dev.simplix.cirrus.api.model.ItemStackModel;
-import dev.simplix.core.common.Replacer;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;

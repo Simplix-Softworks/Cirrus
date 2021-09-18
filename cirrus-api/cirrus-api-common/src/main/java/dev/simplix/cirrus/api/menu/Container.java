@@ -2,8 +2,8 @@ package dev.simplix.cirrus.api.menu;
 
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import dev.simplix.cirrus.api.business.ItemStackWrapper;
+import dev.simplix.cirrus.api.converter.Converters;
 import dev.simplix.cirrus.api.i18n.LocalizedItemStackModel;
-import dev.simplix.core.common.converter.Converters;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

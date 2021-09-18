@@ -1,9 +1,9 @@
 package dev.simplix.cirrus.api.model;
 
-import de.exceptionflug.protocolize.inventory.InventoryType;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Builder;
+
+import dev.simplix.protocolize.data.inventory.InventoryType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;

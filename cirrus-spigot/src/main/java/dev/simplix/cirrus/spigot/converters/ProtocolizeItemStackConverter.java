@@ -1,23 +1,22 @@
 package dev.simplix.cirrus.spigot.converters;
 
-import static de.exceptionflug.protocolize.api.util.ProtocolVersions.MINECRAFT_1_13;
-import static de.exceptionflug.protocolize.api.util.ProtocolVersions.MINECRAFT_1_14;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import de.exceptionflug.protocolize.items.ItemStack;
-import de.exceptionflug.protocolize.items.ItemType;
+import dev.simplix.cirrus.api.converter.Converter;
+import dev.simplix.cirrus.api.converter.Converters;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
 import dev.simplix.cirrus.spigot.util.ReflectionClasses;
-import dev.simplix.core.common.converter.Converter;
-import dev.simplix.core.common.converter.Converters;
-import dev.simplix.core.minecraft.spigot.util.ReflectionUtil;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import dev.simplix.cirrus.spigot.util.ReflectionUtil;
+import dev.simplix.protocolize.api.item.ItemStack;
+import dev.simplix.protocolize.data.ItemType;
 import lombok.NonNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,6 +25,8 @@ import net.querz.nbt.tag.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
+
+import static dev.simplix.protocolize.api.util.ProtocolVersions.*;
 
 public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.bukkit.inventory.ItemStack> {
 
@@ -51,35 +52,35 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
 
   @Override
   public org.bukkit.inventory.ItemStack convert(@NonNull ItemStack src) {
-    if (src.getType() == ItemType.NO_DATA) {
+    if (src.itemType() == null) {
       return null;
     }
-    if (src.getType() == ItemType.AIR) {
+    if (src.itemType() == null) {
       return new org.bukkit.inventory.ItemStack(Material.AIR);
     }
-    MaterialData data = Converters.convert(src.getType(), MaterialData.class);
+    MaterialData data = Converters.convert(src.itemType(), MaterialData.class);
     org.bukkit.inventory.ItemStack out;
     if (ProtocolVersionUtil.serverProtocolVersion() < MINECRAFT_1_13) {
       out = new org.bukkit.inventory.ItemStack(
           data.getItemType(),
-          src.getAmount(),
-          src.getDurability(),
+          src.amount(),
+          src.durability(),
           data.getData());
     } else {
       out = new org.bukkit.inventory.ItemStack(
           data.getItemType(),
-          src.getAmount(),
-          src.getDurability());
+          src.amount(),
+          src.durability());
     }
 
-    if (src.getNBTTag() == null) {
-      src.setNBTTag(new CompoundTag());
+    if (src.nbtData() == null) {
+      src.nbtData(new CompoundTag());
     }
 
     String textureHashToInsert = null;
 
-    if (src.getNBTTag() instanceof CompoundTag) {
-      CompoundTag tag = ((CompoundTag) src.getNBTTag());
+    if (src.nbtData() != null) {
+      CompoundTag tag = src.nbtData();
       if (tag.containsKey("SkullOwner") && tag.get("SkullOwner") instanceof CompoundTag) {
 
         final CompoundTag skullOwnerTag = tag.getCompoundTag("SkullOwner");
@@ -102,8 +103,8 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     try {
       Object nmsItemStack = nmsCopyMethod.invoke(null, out);
       Method setTag = itemStackNMSClass.getMethod("setTag", nbtTagCompoundClass);
-      if (src.getNBTTag() instanceof CompoundTag) {
-        final CompoundTag nbtTag = ((CompoundTag) src.getNBTTag()).clone();
+      if (src.nbtData() != null) {
+        final CompoundTag nbtTag = src.nbtData().clone();
         if (textureHashToInsert != null) {
           nbtTag.remove("SkullOwner");
         }
@@ -159,23 +160,20 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
   }
 
   private void writeDataToNbt(@NonNull ItemStack stack) {
-    if (stack.getDisplayName() != null) {
+    if (stack.displayName() != null) {
       if (ProtocolVersionUtil.serverProtocolVersion() >= MINECRAFT_1_13) {
-        ((CompoundTag) stack.getNBTTag()).put("Damage", new IntTag(stack.getDurability()));
-        setDisplayNameTag(
-            (CompoundTag) stack.getNBTTag(),
-            ComponentSerializer.toString(stack.getDisplayNameComponents()));
+        stack.nbtData().put("Damage", new IntTag(stack.durability()));
+        setDisplayNameTag(stack.nbtData(),
+            ComponentSerializer.toString((BaseComponent[]) stack.displayName()));
       } else {
-        setDisplayNameTag(
-            (CompoundTag) stack.getNBTTag(),
-            TextComponent.toLegacyText(stack.getDisplayNameComponents()));
+        setDisplayNameTag(stack.nbtData(),
+            TextComponent.toLegacyText(stack.displayName()));
       }
     }
 
-    if (stack.getLoreComponents() != null) {
-      setLoreTag(
-          (CompoundTag) stack.getNBTTag(),
-          stack.getLoreComponents(),
+    if (stack.lore() != null) {
+      setLoreTag(stack.nbtData(),
+          stack.lore(),
           ProtocolVersionUtil.serverProtocolVersion());
     }
   }

@@ -1,8 +1,9 @@
 package dev.simplix.cirrus.api.i18n;
 
-import de.exceptionflug.protocolize.items.ItemType;
 import java.util.Collections;
 import java.util.List;
+
+import dev.simplix.protocolize.data.ItemType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
