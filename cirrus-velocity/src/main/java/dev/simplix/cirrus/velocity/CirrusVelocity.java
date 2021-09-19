@@ -7,7 +7,6 @@ import dev.simplix.cirrus.api.business.ItemStackWrapper;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.converter.Converters;
 import dev.simplix.cirrus.api.i18n.LocalizedItemStackModel;
-import dev.simplix.cirrus.api.menu.Menu;
 import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.common.Cirrus;
 import dev.simplix.cirrus.velocity.converters.ItemModelConverter;

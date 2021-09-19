@@ -8,9 +8,9 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public final class PlayerConverter implements Converter<ProxiedPlayer, PlayerWrapper> {
 
-  @Override
-  public PlayerWrapper convert(@NonNull ProxiedPlayer proxiedPlayer) {
-    return new BungeeCordPlayerWrapper(proxiedPlayer);
-  }
+    @Override
+    public PlayerWrapper convert(@NonNull ProxiedPlayer proxiedPlayer) {
+        return new BungeeCordPlayerWrapper(proxiedPlayer);
+    }
 
 }

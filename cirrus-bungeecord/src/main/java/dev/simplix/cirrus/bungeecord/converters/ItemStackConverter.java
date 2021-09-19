@@ -8,9 +8,9 @@ import lombok.NonNull;
 
 public class ItemStackConverter implements Converter<ItemStack, ItemStackWrapper> {
 
-  @Override
-  public ItemStackWrapper convert(@NonNull ItemStack itemStack) {
-    return new ProtocolizeItemStackWrapper(itemStack);
-  }
+    @Override
+    public ItemStackWrapper convert(@NonNull ItemStack itemStack) {
+        return new ProtocolizeItemStackWrapper(itemStack);
+    }
 
 }

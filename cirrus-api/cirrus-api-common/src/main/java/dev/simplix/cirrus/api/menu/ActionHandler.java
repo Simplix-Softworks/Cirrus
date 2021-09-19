@@ -8,6 +8,6 @@ import dev.simplix.cirrus.api.business.InventoryItemWrapper;
  */
 public interface ActionHandler {
 
-  CallResult handle(Click click);
+    CallResult handle(Click click);
 
 }

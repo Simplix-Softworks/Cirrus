@@ -12,15 +12,15 @@ import org.bukkit.entity.Player;
 
 public class TestCommandExecutor implements CommandExecutor {
 
-  @Override
-  public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-    if (sender instanceof Player) {
-      Player player = (Player) sender;
-      new ExampleMultiPageMenu(
-              Converters.convert(player, PlayerWrapper.class),
-              Cirrus.configurationFactory().loadFile(
-                      "plugins/Cirrus/example2.json", MultiPageMenuConfiguration.class)).open();
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            new ExampleMultiPageMenu(
+                    Converters.convert(player, PlayerWrapper.class),
+                    Cirrus.configurationFactory().loadFile(
+                            "plugins/Cirrus/example2.json", MultiPageMenuConfiguration.class)).open();
+        }
+        return false;
     }
-    return false;
-  }
 }

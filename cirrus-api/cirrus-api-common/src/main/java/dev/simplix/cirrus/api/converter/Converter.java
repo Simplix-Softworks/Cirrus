@@ -10,12 +10,12 @@ import lombok.NonNull;
  */
 public interface Converter<Source, Target> {
 
-  /**
-   * Converts a given source object to the target type.
-   *
-   * @param src The source object
-   * @return The target object
-   */
-  Target convert(@NonNull Source src);
+    /**
+     * Converts a given source object to the target type.
+     *
+     * @param src The source object
+     * @return The target object
+     */
+    Target convert(@NonNull Source src);
 
 }

@@ -6,10 +6,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class CirrusExamplePlugin extends JavaPlugin {
 
-  @Override
-  public void onEnable() {
-    CirrusSpigot.init(this);
-    getCommand("test").setExecutor(new TestCommandExecutor());
-  }
+    @Override
+    public void onEnable() {
+        CirrusSpigot.init(this);
+        getCommand("test").setExecutor(new TestCommandExecutor());
+    }
 
 }

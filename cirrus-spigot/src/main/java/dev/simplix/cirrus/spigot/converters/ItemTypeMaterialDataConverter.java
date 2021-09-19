@@ -19,10 +19,10 @@ public class ItemTypeMaterialDataConverter implements Converter<ItemType, Materi
     @Override
     public MaterialData convert(@NonNull ItemType src) {
         ProtocolIdMapping mapping = mappingProvider.mapping(src, ProtocolVersionUtil.serverProtocolVersion());
-        if(mapping == null) {
+        if (mapping == null) {
             return null;
         }
-        if(ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_13) {
+        if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_13) {
             return new MaterialData(Material.valueOf(src.name()));
         }
         if (mapping instanceof LegacyItemProtocolIdMapping) {

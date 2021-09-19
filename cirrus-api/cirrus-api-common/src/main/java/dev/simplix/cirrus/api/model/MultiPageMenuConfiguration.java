@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public class MultiPageMenuConfiguration extends MenuConfiguration {
 
-  private ItemStackModel nextPageItem;
-  private ItemStackModel previousPageItem;
+    private ItemStackModel nextPageItem;
+    private ItemStackModel previousPageItem;
 
 }

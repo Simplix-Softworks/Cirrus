@@ -9,9 +9,9 @@ import net.md_5.bungee.event.EventHandler;
 
 public class QuitListener implements Listener {
 
-  @EventHandler
-  public void onQuit(@NonNull PlayerDisconnectEvent event) {
-    Cirrus.getService(MenuBuilder.class).destroyMenusOfPlayer(event.getPlayer().getUniqueId());
-  }
+    @EventHandler
+    public void onQuit(@NonNull PlayerDisconnectEvent event) {
+        Cirrus.getService(MenuBuilder.class).destroyMenusOfPlayer(event.getPlayer().getUniqueId());
+    }
 
 }

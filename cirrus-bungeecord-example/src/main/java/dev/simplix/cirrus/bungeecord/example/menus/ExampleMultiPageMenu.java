@@ -14,29 +14,29 @@ import java.util.Locale;
 
 public class ExampleMultiPageMenu extends MultiPageMenu {
 
-  private final MappingProvider mappingProvider = Protocolize.mappingProvider();
+    private final MappingProvider mappingProvider = Protocolize.mappingProvider();
 
-  public ExampleMultiPageMenu(
-      PlayerWrapper player,
-      MultiPageMenuConfiguration configuration) {
-    super(player, configuration, Locale.ENGLISH);
-    registerMyActionHandlers();
-    addItems();
-  }
-
-  private void registerMyActionHandlers() {
-    registerActionHandler("test", click -> {
-      player().sendMessage("This is "+click.clickedItem().type().name());
-      return CallResult.DENY_GRABBING;
-    });
-  }
-
-  private void addItems() {
-    for(ItemType type : ItemType.values()) {
-      if(mappingProvider.mapping(type, player().protocolVersion()) != null) {
-        add(wrapItemStack(new ItemStack(type)), "test", Collections.emptyList());
-      }
+    public ExampleMultiPageMenu(
+            PlayerWrapper player,
+            MultiPageMenuConfiguration configuration) {
+        super(player, configuration, Locale.ENGLISH);
+        registerMyActionHandlers();
+        addItems();
     }
-  }
+
+    private void registerMyActionHandlers() {
+        registerActionHandler("test", click -> {
+            player().sendMessage("This is " + click.clickedItem().type().name());
+            return CallResult.DENY_GRABBING;
+        });
+    }
+
+    private void addItems() {
+        for (ItemType type : ItemType.values()) {
+            if (mappingProvider.mapping(type, player().protocolVersion()) != null) {
+                add(wrapItemStack(new ItemStack(type)), "test", Collections.emptyList());
+            }
+        }
+    }
 
 }

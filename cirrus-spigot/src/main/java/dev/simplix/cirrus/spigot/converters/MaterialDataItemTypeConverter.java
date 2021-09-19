@@ -14,24 +14,24 @@ import org.bukkit.material.MaterialData;
 
 public class MaterialDataItemTypeConverter implements Converter<MaterialData, ItemType> {
 
-  private final MappingProvider mappingProvider = Protocolize.mappingProvider();
+    private final MappingProvider mappingProvider = Protocolize.mappingProvider();
 
-  @Override
-  public ItemType convert(@NonNull MaterialData src) {
-    if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_14) {
-      return ItemType.valueOf(src.getItemType().name());
-    }
-    Multimap<ItemType, ProtocolIdMapping> mappings = mappingProvider.mappings(ItemType.class, ProtocolVersionUtil.serverProtocolVersion());
-    for (ItemType type : mappings.keySet()) {
-      for (ProtocolIdMapping mapping : mappings.get(type)) {
-        if (mapping instanceof LegacyItemProtocolIdMapping) {
-          if (mapping.id() == src.getItemTypeId() && ((LegacyItemProtocolIdMapping) mapping).data() == src.getData()) {
-            return type;
-          }
+    @Override
+    public ItemType convert(@NonNull MaterialData src) {
+        if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_14) {
+            return ItemType.valueOf(src.getItemType().name());
         }
-      }
+        Multimap<ItemType, ProtocolIdMapping> mappings = mappingProvider.mappings(ItemType.class, ProtocolVersionUtil.serverProtocolVersion());
+        for (ItemType type : mappings.keySet()) {
+            for (ProtocolIdMapping mapping : mappings.get(type)) {
+                if (mapping instanceof LegacyItemProtocolIdMapping) {
+                    if (mapping.id() == src.getItemTypeId() && ((LegacyItemProtocolIdMapping) mapping).data() == src.getData()) {
+                        return type;
+                    }
+                }
+            }
+        }
+        return null;
     }
-    return null;
-  }
 
 }

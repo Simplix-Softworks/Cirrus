@@ -10,18 +10,18 @@ import lombok.NonNull;
 
 public class ItemModelConverter implements Converter<LocalizedItemStackModel, InventoryItemWrapper> {
 
-  @Override
-  public InventoryItemWrapper convert(@NonNull LocalizedItemStackModel model) {
-    ItemStack itemStack = new ItemStack(model.itemType(), model.amount(), model.durability());
-    itemStack.nbtData(model.nbt());
-    itemStack.displayName(model.displayName());
-    itemStack.lore(model.lore(), true);
+    @Override
+    public InventoryItemWrapper convert(@NonNull LocalizedItemStackModel model) {
+        ItemStack itemStack = new ItemStack(model.itemType(), model.amount(), model.durability());
+        itemStack.nbtData(model.nbt());
+        itemStack.displayName(model.displayName());
+        itemStack.lore(model.lore(), true);
 
-    return InventoryItemWrapper.builder()
-        .handle(Converters.convert(itemStack, ItemStackWrapper.class))
-        .actionArguments(model.actionArguments())
-        .actionHandler(model.actionHandler())
-        .build();
-  }
+        return InventoryItemWrapper.builder()
+                .handle(Converters.convert(itemStack, ItemStackWrapper.class))
+                .actionArguments(model.actionArguments())
+                .actionHandler(model.actionHandler())
+                .build();
+    }
 
 }

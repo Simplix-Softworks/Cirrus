@@ -8,9 +8,9 @@ import lombok.NonNull;
 
 public final class PlayerConverter implements Converter<Player, PlayerWrapper> {
 
-  @Override
-  public PlayerWrapper convert(@NonNull Player proxiedPlayer) {
-    return new VelocityPlayerWrapper(proxiedPlayer);
-  }
+    @Override
+    public PlayerWrapper convert(@NonNull Player proxiedPlayer) {
+        return new VelocityPlayerWrapper(proxiedPlayer);
+    }
 
 }

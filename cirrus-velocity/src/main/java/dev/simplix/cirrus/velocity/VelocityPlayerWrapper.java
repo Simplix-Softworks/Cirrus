@@ -11,51 +11,51 @@ import java.util.UUID;
 
 public class VelocityPlayerWrapper implements PlayerWrapper {
 
-  private final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.legacySection();
-  private final ProtocolizePlayer protocolizePlayer;
-  private final Player handle;
+    private final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.legacySection();
+    private final ProtocolizePlayer protocolizePlayer;
+    private final Player handle;
 
-  public VelocityPlayerWrapper(@NonNull Player handle) {
-    this.handle = handle;
-    this.protocolizePlayer = Protocolize.playerProvider().player(handle.getUniqueId());
-  }
+    public VelocityPlayerWrapper(@NonNull Player handle) {
+        this.handle = handle;
+        this.protocolizePlayer = Protocolize.playerProvider().player(handle.getUniqueId());
+    }
 
-  @Override
-  public UUID uniqueId() {
-    return handle.getUniqueId();
-  }
+    @Override
+    public UUID uniqueId() {
+        return handle.getUniqueId();
+    }
 
-  @Override
-  public String name() {
-    return handle.getUsername();
-  }
+    @Override
+    public String name() {
+        return handle.getUsername();
+    }
 
-  @Override
-  public int protocolVersion() {
-    return protocolizePlayer.protocolVersion();
-  }
+    @Override
+    public int protocolVersion() {
+        return protocolizePlayer.protocolVersion();
+    }
 
-  @Override
-  public void sendMessage(@NonNull String msg) {
-    handle.sendMessage(legacyComponentSerializer.deserialize(msg));
-  }
+    @Override
+    public void sendMessage(@NonNull String msg) {
+        handle.sendMessage(legacyComponentSerializer.deserialize(msg));
+    }
 
-  @Override
-  public void closeInventory() {
-    protocolizePlayer.closeInventory();
-  }
+    @Override
+    public void closeInventory() {
+        protocolizePlayer.closeInventory();
+    }
 
-  @Override
-  public boolean hasPermission(@NonNull String permission) {
-    return handle.hasPermission(permission);
-  }
+    @Override
+    public boolean hasPermission(@NonNull String permission) {
+        return handle.hasPermission(permission);
+    }
 
-  @Override
-  public <T> T handle() {
-    return (T) handle;
-  }
+    @Override
+    public <T> T handle() {
+        return (T) handle;
+    }
 
-  public ProtocolizePlayer protocolizePlayer() {
-    return protocolizePlayer;
-  }
+    public ProtocolizePlayer protocolizePlayer() {
+        return protocolizePlayer;
+    }
 }

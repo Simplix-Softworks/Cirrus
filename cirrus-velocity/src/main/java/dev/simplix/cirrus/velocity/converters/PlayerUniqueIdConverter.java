@@ -10,16 +10,16 @@ import java.util.UUID;
 
 public class PlayerUniqueIdConverter implements Converter<UUID, PlayerWrapper> {
 
-  private final ProxyServer proxyServer;
+    private final ProxyServer proxyServer;
 
-  public PlayerUniqueIdConverter(ProxyServer proxyServer) {
-    this.proxyServer = proxyServer;
-  }
+    public PlayerUniqueIdConverter(ProxyServer proxyServer) {
+        this.proxyServer = proxyServer;
+    }
 
-  @Override
-  public PlayerWrapper convert(@NonNull UUID uuid) {
-    return new VelocityPlayerWrapper(proxyServer.getPlayer(uuid)
-            .orElseThrow(() -> new IllegalArgumentException("Player "+uuid+" is offline")));
-  }
+    @Override
+    public PlayerWrapper convert(@NonNull UUID uuid) {
+        return new VelocityPlayerWrapper(proxyServer.getPlayer(uuid)
+                .orElseThrow(() -> new IllegalArgumentException("Player " + uuid + " is offline")));
+    }
 
 }
