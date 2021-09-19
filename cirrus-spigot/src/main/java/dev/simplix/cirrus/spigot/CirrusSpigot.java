@@ -11,8 +11,14 @@ import dev.simplix.cirrus.common.item.ProtocolizeItemStackWrapper;
 import dev.simplix.cirrus.spigot.converters.*;
 import dev.simplix.cirrus.spigot.listener.InventoryListener;
 import dev.simplix.cirrus.spigot.menubuilder.SpigotMenuBuilder;
+import dev.simplix.cirrus.spigot.util.BungeeCordComponentConverterProvider;
+import dev.simplix.cirrus.spigot.util.OtherModuleProvider;
 import dev.simplix.cirrus.spigot.util.ReflectionClasses;
+import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.item.ItemStack;
+import dev.simplix.protocolize.api.providers.ComponentConverterProvider;
+import dev.simplix.protocolize.api.providers.ModuleProvider;
+import dev.simplix.protocolize.data.DataModule;
 import dev.simplix.protocolize.data.ItemType;
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +48,8 @@ public class CirrusSpigot {
         CirrusSpigot.plugin = plugin;
         Cirrus.registerService(MenuBuilder.class, new SpigotMenuBuilder());
         Bukkit.getPluginManager().registerEvents(new InventoryListener(), plugin);
+        Protocolize.registerService(ComponentConverterProvider.class, new BungeeCordComponentConverterProvider());
+        Protocolize.registerService(ModuleProvider.class, new OtherModuleProvider());
         registerConverters();
     }
 

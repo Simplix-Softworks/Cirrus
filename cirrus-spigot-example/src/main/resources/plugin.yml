@@ -2,6 +2,7 @@ name: CirrusExample
 author: Exceptionflug
 version: 1.0
 main: dev.simplix.cirrus.spigot.example.CirrusExamplePlugin
+api-version: 1.17
 
 commands:
   test:
