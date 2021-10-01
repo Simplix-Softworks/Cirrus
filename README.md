@@ -7,6 +7,9 @@
 
 Cirrus enables you to develop platform independent versatile graphical menus for Spigot and BungeeCord! The goal of Cirrus is to aim for maximum compatibility. Cirrus had been tested on several well known BungeeCord-Forks as well on all Spigot versions beginning from 1.8 till the latest 1.16.3 release.
 
+## Hacktoberfest 2021
+Our repository also participates in this year's [Hacktoberfest](https://hacktoberfest.digitalocean.com/). Sign up and submit at least **four pull requests**. If they are merged or the "hacktoberfest-accepted" label is assigned, they'll be counted towards your participation. The first **50,000** participants can earn a **T-shirt** or **plant a tree**.
+
 ## Platforms
 - BungeeCord
 - Spigot
