@@ -102,7 +102,9 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
 
         writeDataToNbt(src);
 
+        // Finalizing the itemstack by inserting nbt data & hiding attributes
         try {
+            mutateMetaDataToHideAttributes(out);
             Object nmsItemStack = nmsCopyMethod.invoke(null, out);
             Method setTag = itemStackNMSClass.getMethod("setTag", nbtTagCompoundClass);
             if (src.nbtData() != null) {
@@ -112,101 +114,35 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
                 }
                 setTag.invoke(nmsItemStack, Converters.convert(nbtTag, nbtTagCompoundClass));
             }
-            final org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
+            final org.bukkit.inventory.ItemStack itemStackCopy = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
                     .invoke(null, nmsItemStack);
 
             if (textureHashToInsert == null) {
-                return itemStack;
+                return itemStackCopy;
             }
-            final SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
-            mutateItemMeta(meta, textureHashToInsert);
-            itemStack.setItemMeta(meta);
-            return itemStack;
+            final SkullMeta meta = (SkullMeta) itemStackCopy.getItemMeta();
+            mutateItemMetaForTextureHash(meta, textureHashToInsert);
+            itemStackCopy.setItemMeta(meta);
+            return itemStackCopy;
         } catch (final Exception exception) {
             exception.printStackTrace(); // Setting nbt to nms item is also pain in the ass
         }
 
         return out;
-        setTag.invoke(nmsItemStack, Converters.convert(nbtTag, nbtTagCompoundClass));
-      }
-      final org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
-          .invoke(null, nmsItemStack);
-
-      hideFlags(itemStack);
-      if (textureHashToInsert == null) {
-        return itemStack;
-      }
-      final SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
-      mutateItemMetaForTextureHash(meta, textureHashToInsert);
-      itemStack.setItemMeta(meta);
-      return itemStack;
-    } catch (final Exception exception) {
-      exception.printStackTrace(); // Setting nbt to nms item is also pain in the ass
     }
 
-    hideFlags(out);
-
-    return out;
-  }
-
-  private void hideFlags(org.bukkit.inventory.ItemStack out) {
-    try {
-      final ItemMeta itemMeta = out.getItemMeta();
-      itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-      itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-      itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-      itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-      itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
-      itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
-      out.setItemMeta(itemMeta);
-    } catch (Throwable ignored) {
-    }
-  }
-
-  private GameProfile makeProfile(@NonNull String textureHash) {
-    // random uuid based on the textureHash string
-    UUID id = new UUID(
-        textureHash.substring(textureHash.length() - 20).hashCode(),
-        textureHash.substring(textureHash.length() - 10).hashCode()
-    );
-    GameProfile profile = new GameProfile(id, "Player");
-    profile.getProperties().put("textures", new Property("textures", textureHash));
-    return profile;
-  }
-
-  private void mutateItemMetaForTextureHash(SkullMeta meta, String textureHash) {
-    try {
-      Method metaSetProfileMethod = meta
-          .getClass()
-          .getDeclaredMethod("setProfile", GameProfile.class);
-      metaSetProfileMethod.setAccessible(true);
-      metaSetProfileMethod.invoke(meta, makeProfile(textureHash));
-    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException reflectiveOperationException) {
-      // if in an older API where there is no setProfile method,
-      // we set the profile field directly.
-      try {
-        Field profileField = meta.getClass().getDeclaredField("profile");
-        profileField.setAccessible(true);
-        profileField.set(meta, makeProfile(textureHash));
-
-      } catch (NoSuchFieldException | IllegalAccessException exception) {
-        exception.printStackTrace();
-      }
-    }
-  }
-
-  private void writeDataToNbt(@NonNull ItemStack stack) {
-    if (stack.getDisplayName() != null) {
-      if (ProtocolVersionUtil.serverProtocolVersion() >= MINECRAFT_1_13) {
-        ((CompoundTag) stack.getNBTTag()).put("Damage", new IntTag(stack.getDurability()));
-        setDisplayNameTag(
-            (CompoundTag) stack.getNBTTag(),
-            ComponentSerializer.toString(stack.getDisplayNameComponents()));
-      } else {
-        setDisplayNameTag(
-            (CompoundTag) stack.getNBTTag(),
-            TextComponent.toLegacyText(stack.getDisplayNameComponents()));
-      }
+    private void mutateMetaDataToHideAttributes(org.bukkit.inventory.ItemStack out) {
+        try {
+            final ItemMeta itemMeta = out.getItemMeta();
+            itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+            itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
+            itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
+            out.setItemMeta(itemMeta);
+        } catch (Throwable ignored) {
+        }
     }
 
     private GameProfile makeProfile(@NonNull String textureHash) {
@@ -220,7 +156,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
         return profile;
     }
 
-    private void mutateItemMeta(SkullMeta meta, String textureHash) {
+    private void mutateItemMetaForTextureHash(SkullMeta meta, String textureHash) {
         try {
             Method metaSetProfileMethod = meta
                     .getClass()
