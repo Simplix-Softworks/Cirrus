@@ -47,8 +47,8 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
                     "asNMSCopy",
                     org.bukkit.inventory.ItemStack.class);
             bukkitCopyMethod = craftItemStackClass.getMethod("asBukkitCopy", itemStackNMSClass);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
