@@ -1,20 +1,16 @@
 package dev.simplix.cirrus.bungeecord.example;
 
-import dev.simplix.core.common.aop.SimplixApplication;
-import dev.simplix.core.common.inject.SimplixInstaller;
-import dev.simplix.core.minecraft.bungeecord.dynamiccommands.DynamicCommandsSimplixModule;
-import dev.simplix.core.minecraft.bungeecord.dynamiclisteners.DynamicListenersSimplixModule;
+import dev.simplix.cirrus.bungeecord.CirrusBungeeCord;
+import dev.simplix.cirrus.bungeecord.example.commands.TestCommand;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
-@SimplixApplication(name = "CirrusExample", version = "1.0", authors = "Exceptionflug", dependencies = {"SimplixCore", "Cirrus"})
 public class CirrusExamplePlugin extends Plugin {
 
-  @Override
-  public void onEnable() {
-    SimplixInstaller
-        .instance()
-        .register(CirrusExamplePlugin.class, new DynamicCommandsSimplixModule(this),
-            new DynamicListenersSimplixModule(this));
-  }
+    @Override
+    public void onEnable() {
+        CirrusBungeeCord.init(this);
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new TestCommand());
+    }
 
 }

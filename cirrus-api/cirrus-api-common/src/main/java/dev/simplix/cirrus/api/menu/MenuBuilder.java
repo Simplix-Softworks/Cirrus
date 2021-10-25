@@ -1,26 +1,30 @@
 package dev.simplix.cirrus.api.menu;
 
 import dev.simplix.cirrus.api.business.PlayerWrapper;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
 import lombok.NonNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
 public interface MenuBuilder {
 
-  <T> T build(@Nullable T prebuild, @NonNull Menu menu);
-  <T> void open(@NonNull PlayerWrapper playerWrapper, @NonNull T inventoryImpl);
+    <T> T build(@Nullable T prebuild, @NonNull Menu menu);
 
-  @Nullable
-  Menu menuByHandle(@Nullable Object handle);
+    <T> void open(@NonNull PlayerWrapper playerWrapper, @NonNull T inventoryImpl);
 
-  default Optional<Menu> findMenuByHandle(@Nullable Object handle){
-    return Optional.ofNullable(menuByHandle(handle));
-  }
+    @Nullable
+    Menu menuByHandle(@Nullable Object handle);
 
-  void destroyMenusOfPlayer(@NonNull UUID uniqueId);
-  Map.Entry<Menu, Long> lastBuildOfPlayer(@NonNull UUID uniqueId);
-  void invalidate(@NonNull Menu menu);
+    default Optional<Menu> findMenuByHandle(@Nullable Object handle) {
+        return Optional.ofNullable(menuByHandle(handle));
+    }
+
+    void destroyMenusOfPlayer(@NonNull UUID uniqueId);
+
+    Map.Entry<Menu, Long> lastBuildOfPlayer(@NonNull UUID uniqueId);
+
+    void invalidate(@NonNull Menu menu);
 
 }

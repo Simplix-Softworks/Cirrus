@@ -1,22 +1,23 @@
 package dev.simplix.cirrus.api.business;
 
-import java.util.UUID;
 import lombok.NonNull;
+
+import java.util.UUID;
 
 public interface PlayerWrapper {
 
-  void sendMessage(@NonNull String msg);
+    void sendMessage(@NonNull String msg);
 
-  void closeInventory();
+    void closeInventory();
 
-  boolean hasPermission(@NonNull String permission);
+    boolean hasPermission(@NonNull String permission);
 
-  UUID uniqueId();
+    UUID uniqueId();
 
-  String name();
+    String name();
 
-  int protocolVersion();
+    int protocolVersion();
 
-  <T> T handle();
+    <T> T handle();
 
 }
