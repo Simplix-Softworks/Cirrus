@@ -24,6 +24,8 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import net.querz.nbt.tag.*;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 
@@ -112,18 +114,35 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
       final org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
           .invoke(null, nmsItemStack);
 
+      hideFlags(itemStack);
       if (textureHashToInsert == null) {
         return itemStack;
       }
       final SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
-      mutateItemMeta(meta, textureHashToInsert);
+      mutateItemMetaForTextureHash(meta, textureHashToInsert);
       itemStack.setItemMeta(meta);
       return itemStack;
     } catch (final Exception exception) {
       exception.printStackTrace(); // Setting nbt to nms item is also pain in the ass
     }
 
+    hideFlags(out);
+
     return out;
+  }
+
+  private void hideFlags(org.bukkit.inventory.ItemStack out) {
+    try {
+      final ItemMeta itemMeta = out.getItemMeta();
+      itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+      itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+      itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+      itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+      itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
+      itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
+      out.setItemMeta(itemMeta);
+    } catch (Throwable ignored) {
+    }
   }
 
   private GameProfile makeProfile(@NonNull String textureHash) {
@@ -137,7 +156,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     return profile;
   }
 
-  private void mutateItemMeta(SkullMeta meta, String textureHash) {
+  private void mutateItemMetaForTextureHash(SkullMeta meta, String textureHash) {
     try {
       Method metaSetProfileMethod = meta
           .getClass()
