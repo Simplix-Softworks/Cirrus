@@ -134,12 +134,12 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     private void mutateMetaDataToHideAttributes(org.bukkit.inventory.ItemStack out) {
         try {
             final ItemMeta itemMeta = out.getItemMeta();
-            itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+            itemMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
             itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
-            itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
+            itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
             out.setItemMeta(itemMeta);
         } catch (Throwable ignored) {
         }
