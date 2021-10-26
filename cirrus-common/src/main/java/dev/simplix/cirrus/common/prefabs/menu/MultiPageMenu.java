@@ -14,10 +14,7 @@ import lombok.NonNull;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.function.Supplier;
 
 @Slf4j
@@ -34,8 +31,16 @@ public class MultiPageMenu extends AbstractMenu {
     public MultiPageMenu(
             @NonNull PlayerWrapper player,
             @NonNull MultiPageMenuConfiguration configuration,
-            @NonNull Locale locale) {
-        super(player, configuration.type(), locale);
+            @NonNull Locale locale){
+        this(player, configuration, locale, new HashMap<>());
+    }
+
+    public MultiPageMenu(
+            @NonNull PlayerWrapper player,
+            @NonNull MultiPageMenuConfiguration configuration,
+            @NonNull Locale locale,
+            @NonNull Map<String, ActionHandler> actionHandlerMap) {
+        super(player, configuration.type(), locale, actionHandlerMap);
         this.configuration = configuration;
         title(configuration.title().translated(locale));
         pages.add(new PageMenu(player, configuration, locale));

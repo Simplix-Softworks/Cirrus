@@ -1,13 +1,16 @@
 package dev.simplix.cirrus.common.menu;
 
 import dev.simplix.cirrus.api.business.PlayerWrapper;
+import dev.simplix.cirrus.api.menu.ActionHandler;
 import dev.simplix.cirrus.api.model.ItemStackModel;
 import dev.simplix.cirrus.api.model.MenuConfiguration;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 @Getter
 @Accessors(fluent = true)
@@ -19,7 +22,15 @@ public abstract class AbstractConfigurableMenu<T extends MenuConfiguration> exte
             @NonNull PlayerWrapper player,
             @NonNull T configuration,
             @NonNull Locale locale) {
-        super(player, configuration.type(), locale);
+        this(player, configuration, locale, new HashMap<>());
+    }
+
+    public AbstractConfigurableMenu(
+            @NonNull PlayerWrapper player,
+            @NonNull T configuration,
+            @NonNull Locale locale,
+            @NonNull Map<String, ActionHandler> actionHandlerMap) {
+        super(player, configuration.type(), locale, actionHandlerMap);
         title(configuration.title().translated(locale));
         this.configuration = configuration;
         applyItems();
