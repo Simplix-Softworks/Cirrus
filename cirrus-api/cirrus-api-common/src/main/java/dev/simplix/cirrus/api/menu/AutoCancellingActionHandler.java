@@ -1,5 +1,6 @@
 package dev.simplix.cirrus.api.menu;
 
+@FunctionalInterface
 public interface AutoCancellingActionHandler extends ActionHandler {
     @Override
     default CallResult handle(Click click) {
