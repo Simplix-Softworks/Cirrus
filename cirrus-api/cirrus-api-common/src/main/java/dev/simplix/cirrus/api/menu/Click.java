@@ -2,6 +2,7 @@ package dev.simplix.cirrus.api.menu;
 
 import dev.simplix.cirrus.api.business.InventoryItemWrapper;
 import dev.simplix.cirrus.api.business.ItemStackWrapper;
+import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.protocolize.api.ClickType;
 import lombok.NonNull;
 
@@ -26,6 +27,10 @@ public class Click {
         this.clickedMenu = clickedMenu;
         this.clickedItem = clickedItem;
         this.slot = slot;
+    }
+
+    public PlayerWrapper player() {
+        return clickedMenu.player();
     }
 
     public ClickType clickType() {
