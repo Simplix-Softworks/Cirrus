@@ -4,10 +4,10 @@ import dev.simplix.cirrus.api.business.ItemStackWrapper;
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.converter.Converters;
 import dev.simplix.protocolize.data.inventory.InventoryType;
-import lombok.NonNull;
-
 import java.util.Locale;
 import java.util.function.Supplier;
+import lombok.NonNull;
+import org.jetbrains.annotations.Nullable;
 
 public interface Menu extends ErrorProne {
 
@@ -15,6 +15,8 @@ public interface Menu extends ErrorProne {
      * @return The inventory type
      */
     InventoryType inventoryType();
+
+    void registerActionHandler(@NonNull String name, @NonNull AutoCancellingActionHandler actionHandler);
 
     /**
      * Registers a new action handler
@@ -54,6 +56,7 @@ public interface Menu extends ErrorProne {
      * @param name the name of the desired action handler
      * @return the action handler or null if not found
      */
+    @Nullable
     ActionHandler actionHandler(@NonNull String name);
 
     /**

@@ -64,6 +64,7 @@ public abstract class AbstractMenu implements Menu {
     }
 
     @Override
+    @Nullable
     public ActionHandler actionHandler(@NonNull String name) {
         return actionHandlerMap.get(name);
     }
