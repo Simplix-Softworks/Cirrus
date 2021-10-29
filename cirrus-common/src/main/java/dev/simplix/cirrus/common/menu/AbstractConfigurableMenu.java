@@ -4,13 +4,12 @@ import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.menu.ActionHandler;
 import dev.simplix.cirrus.api.model.ItemStackModel;
 import dev.simplix.cirrus.api.model.MenuConfiguration;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.experimental.Accessors;
 
 @Getter
 @Accessors(fluent = true)
@@ -47,7 +46,7 @@ public abstract class AbstractConfigurableMenu<T extends MenuConfiguration> exte
     }
 
     private void applyItems() {
-        for (int slot : configuration.reservedSlots()) {
+        for (int slot : this.configuration.reservedSlots()) {
             if (slot > topContainer().capacity() - 1) {
                 bottomContainer().reservedSlots().add(slot);
             } else {
@@ -56,10 +55,10 @@ public abstract class AbstractConfigurableMenu<T extends MenuConfiguration> exte
         }
 
         // Set placeholders
-        set(configuration.placeholderItem());
+        set(this.configuration.placeholderItem());
 
         // Set other items
-        for (ItemStackModel model : configuration.items()) {
+        for (ItemStackModel model : this.configuration.items()) {
             set(model);
         }
     }

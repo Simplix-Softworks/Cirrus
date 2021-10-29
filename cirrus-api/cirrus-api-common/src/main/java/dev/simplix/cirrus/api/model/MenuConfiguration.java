@@ -1,24 +1,27 @@
 package dev.simplix.cirrus.api.model;
 
-import dev.simplix.cirrus.api.i18n.LocalizedString;
-import dev.simplix.protocolize.data.inventory.InventoryType;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+public interface MenuConfiguration {
+    dev.simplix.cirrus.api.i18n.LocalizedString title();
 
-import java.util.HashMap;
-import java.util.Map;
+    dev.simplix.protocolize.data.inventory.InventoryType type();
 
-@Data
-@Accessors(fluent = true)
-@NoArgsConstructor
-public class MenuConfiguration {
+    ItemStackModel placeholderItem();
 
-    private LocalizedString title;
-    private InventoryType type;
-    private ItemStackModel placeholderItem;
-    private int[] reservedSlots = new int[0];
-    private ItemStackModel[] items = new ItemStackModel[0];
-    private Map<String, ItemStackModel> businessItems = new HashMap<>();
+    int[] reservedSlots();
 
+    ItemStackModel[] items();
+
+    java.util.Map<String, ItemStackModel> businessItems();
+
+    SimpleMenuConfiguration title(dev.simplix.cirrus.api.i18n.LocalizedString title);
+
+    SimpleMenuConfiguration type(dev.simplix.protocolize.data.inventory.InventoryType type);
+
+    SimpleMenuConfiguration placeholderItem(ItemStackModel placeholderItem);
+
+    SimpleMenuConfiguration reservedSlots(int[] reservedSlots);
+
+    SimpleMenuConfiguration items(ItemStackModel[] items);
+
+    SimpleMenuConfiguration businessItems(java.util.Map<String, ItemStackModel> businessItems);
 }

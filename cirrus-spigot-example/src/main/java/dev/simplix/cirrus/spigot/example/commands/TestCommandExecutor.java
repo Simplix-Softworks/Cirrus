@@ -2,7 +2,7 @@ package dev.simplix.cirrus.spigot.example.commands;
 
 import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.converter.Converters;
-import dev.simplix.cirrus.api.model.MultiPageMenuConfiguration;
+import dev.simplix.cirrus.api.model.SimpleMultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.Cirrus;
 import dev.simplix.cirrus.spigot.example.menus.ExampleMultiPageMenu;
 import org.bukkit.command.Command;
@@ -19,7 +19,7 @@ public class TestCommandExecutor implements CommandExecutor {
             new ExampleMultiPageMenu(
                     Converters.convert(player, PlayerWrapper.class),
                     Cirrus.configurationFactory().loadFile(
-                            "plugins/Cirrus/example2.json", MultiPageMenuConfiguration.class)).open();
+                            "plugins/Cirrus/example2.json", SimpleMultiPageMenuConfiguration.class)).open();
         }
         return false;
     }

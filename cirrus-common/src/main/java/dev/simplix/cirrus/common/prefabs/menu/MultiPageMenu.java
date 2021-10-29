@@ -6,16 +6,16 @@ import dev.simplix.cirrus.api.business.PlayerWrapper;
 import dev.simplix.cirrus.api.menu.*;
 import dev.simplix.cirrus.api.model.MenuConfiguration;
 import dev.simplix.cirrus.api.model.MultiPageMenuConfiguration;
+import dev.simplix.cirrus.api.model.SimpleMultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.Cirrus;
 import dev.simplix.cirrus.common.menu.AbstractConfigurableMenu;
 import dev.simplix.cirrus.common.menu.AbstractMenu;
+import java.util.*;
+import java.util.function.Supplier;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.*;
-import java.util.function.Supplier;
 
 @Slf4j
 @Accessors(fluent = true)
@@ -30,20 +30,20 @@ public class MultiPageMenu extends AbstractMenu {
 
     public MultiPageMenu(
             @NonNull PlayerWrapper player,
-            @NonNull MultiPageMenuConfiguration configuration,
-            @NonNull Locale locale){
+            @NonNull SimpleMultiPageMenuConfiguration configuration,
+            @NonNull Locale locale) {
         this(player, configuration, locale, new HashMap<>());
     }
 
     public MultiPageMenu(
             @NonNull PlayerWrapper player,
-            @NonNull MultiPageMenuConfiguration configuration,
+            @NonNull SimpleMultiPageMenuConfiguration configuration,
             @NonNull Locale locale,
             @NonNull Map<String, ActionHandler> actionHandlerMap) {
         super(player, configuration.type(), locale, actionHandlerMap);
         this.configuration = configuration;
         title(configuration.title().translated(locale));
-        pages.add(new PageMenu(player, configuration, locale));
+        this.pages.add(new PageMenu(player, configuration, locale));
         registerActionHandlers();
         configuration.nextPageItem().actionHandler("nextPage");
         configuration.previousPageItem().actionHandler("previousPage");
@@ -55,24 +55,24 @@ public class MultiPageMenu extends AbstractMenu {
                 .forEach(value -> topContainer().reservedSlots().add(value));
         replacements(() -> new String[]{
                 "viewer", player.name(),
-                "page", Integer.toString(currentPage),
-                "pageCount", Integer.toString(pages.size())});
+                "page", Integer.toString(this.currentPage),
+                "pageCount", Integer.toString(this.pages.size())});
     }
 
     private void registerActionHandlers() {
         registerActionHandler("nextPage", click -> {
-            if (currentPage == pages.size()) {
+            if (this.currentPage==this.pages.size()) {
                 return CallResult.DENY_GRABBING;
             }
-            currentPage++;
+            this.currentPage++;
             build();
             return CallResult.DENY_GRABBING;
         });
         registerActionHandler("previousPage", click -> {
-            if (currentPage == 1) {
+            if (this.currentPage==1) {
                 return CallResult.DENY_GRABBING;
             }
-            currentPage--;
+            this.currentPage--;
             build();
             return CallResult.DENY_GRABBING;
         });
@@ -91,7 +91,7 @@ public class MultiPageMenu extends AbstractMenu {
 
     @Override
     public MenuBuilder menuBuilder() {
-        return menuBuilder;
+        return this.menuBuilder;
     }
 
     @Override
@@ -105,38 +105,38 @@ public class MultiPageMenu extends AbstractMenu {
     }
 
     public Menu currentPage() {
-        return pages.get(currentPage - 1);
+        return this.pages.get(this.currentPage - 1);
     }
 
     public List<Menu> pages() {
-        return pages;
+        return this.pages;
     }
 
     public int currentPageNumber() {
-        return currentPage;
+        return this.currentPage;
     }
 
     public void currentPage(int page) {
-        currentPage = page;
+        this.currentPage = page;
     }
 
     public void newPage() {
-        pages.add(new PageMenu(player(), configuration(), locale()));
-        currentPage++;
+        this.pages.add(new PageMenu(player(), configuration(), locale()));
+        this.currentPage++;
     }
 
     public void add(@NonNull InventoryItemWrapper inventoryItemWrapper) {
         int slot = currentPage().topContainer().nextFreeSlot();
-        int oldPage = currentPage;
-        if (slot == -1) {
-            if (pages.size() > currentPage) {
-                currentPage = pages.size();
+        int oldPage = this.currentPage;
+        if (slot==-1) {
+            if (this.pages.size() > this.currentPage) {
+                this.currentPage = this.pages.size();
                 this.add(inventoryItemWrapper);
                 currentPage(oldPage);
                 return;
             }
             newPage();
-            if (currentPage().topContainer().nextFreeSlot() == -1) {
+            if (currentPage().topContainer().nextFreeSlot()==-1) {
                 log.info("[Cirrus] Cannot add item to "
                         + MultiPageMenu.this.getClass().getSimpleName()
                         + ": No space in new page!");
@@ -155,16 +155,16 @@ public class MultiPageMenu extends AbstractMenu {
             @NonNull String actionHandler,
             @NonNull List<String> actionArgs) {
         int slot = currentPage().topContainer().nextFreeSlot();
-        int oldPage = currentPage;
-        if (slot == -1) {
-            if (pages.size() > currentPage) {
-                currentPage = pages.size();
+        int oldPage = this.currentPage;
+        if (slot==-1) {
+            if (this.pages.size() > this.currentPage) {
+                this.currentPage = this.pages.size();
                 this.add(itemStackWrapper, actionHandler, actionArgs);
                 currentPage(oldPage);
                 return;
             }
             newPage();
-            if (currentPage().topContainer().nextFreeSlot() == -1) {
+            if (currentPage().topContainer().nextFreeSlot()==-1) {
                 log.info("[Cirrus] Cannot add item to "
                         + MultiPageMenu.this.getClass().getSimpleName()
                         + ": No space in new page!");
@@ -214,13 +214,13 @@ public class MultiPageMenu extends AbstractMenu {
 
         @Override
         public void build() {
-            if (currentPage > 1) {
+            if (MultiPageMenu.this.currentPage > 1) {
                 set(MultiPageMenu.this.configuration().previousPageItem());
             }
-            if (pages.size() > currentPage) {
+            if (MultiPageMenu.this.pages.size() > MultiPageMenu.this.currentPage) {
                 set(MultiPageMenu.this.configuration().nextPageItem());
             }
-            if (menuBuilder() == null) {
+            if (menuBuilder()==null) {
                 return;
             }
             nativeInventory(menuBuilder().build(nativeInventory(), MultiPageMenu.this));
