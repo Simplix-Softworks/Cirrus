@@ -12,16 +12,15 @@ Spigot versions beginning from 1.8 till the latest 1.17.1 release.
 
 The first ever way of creating menus for Velocity.
 
-On Spigot Cirrus is fully independent of third party plugins. Protocolize is needed only only if Cirrus is used on proxies like BungeeCord or Velocity.
-
 ## Hacktoberfest 2021
 Our repository also participates in this year's [Hacktoberfest](https://hacktoberfest.digitalocean.com/). Sign up and submit at least **four pull requests**. If they are merged or the "hacktoberfest-accepted" label is assigned, they'll be counted towards your participation. The first **50,000** participants can earn a **T-shirt** or **plant a tree**.
 
 ## Platforms
+On Spigot Cirrus is fully independent of third party plugins. Protocolize is needed only only if Cirrus is used on proxies like BungeeCord or Velocity.
 
+- Spigot 
 - BungeeCord
 - Velocity
-- Spigot
 
 ## Tooling
 
