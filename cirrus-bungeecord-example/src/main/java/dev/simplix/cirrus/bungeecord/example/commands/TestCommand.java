@@ -17,13 +17,8 @@ public class TestCommand extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
-            ProxiedPlayer p = (ProxiedPlayer) sender;
-//      new ExampleMultiPageMenu(
-//          Converters.convert(p, PlayerWrapper.class),
-//          configurationFactory.loadFile(
-//              "plugins/Cirrus/example.json",
-//              MultiPageMenuConfiguration.class)).open(menuBuilder);
-            new ExampleMenu(Converters.convert(p, PlayerWrapper.class),
+            ProxiedPlayer proxy = (ProxiedPlayer) sender;
+            new ExampleMenu(Converters.convert(proxy, PlayerWrapper.class),
                     Cirrus.configurationFactory().loadFile("plugins/Cirrus/example.json")).open();
         }
     }
