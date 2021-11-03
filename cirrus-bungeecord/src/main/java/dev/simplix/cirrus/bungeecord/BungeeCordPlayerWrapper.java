@@ -1,12 +1,11 @@
 package dev.simplix.cirrus.bungeecord;
 
-import dev.simplix.cirrus.api.business.PlayerWrapper;
+import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.player.ProtocolizePlayer;
+import java.util.UUID;
 import lombok.NonNull;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-
-import java.util.UUID;
 
 public class BungeeCordPlayerWrapper implements PlayerWrapper {
 
@@ -20,40 +19,40 @@ public class BungeeCordPlayerWrapper implements PlayerWrapper {
 
     @Override
     public UUID uniqueId() {
-        return handle.getUniqueId();
+        return this.handle.getUniqueId();
     }
 
     @Override
     public String name() {
-        return handle.getName();
+        return this.handle.getName();
     }
 
     @Override
     public int protocolVersion() {
-        return protocolizePlayer.protocolVersion();
+        return this.protocolizePlayer.protocolVersion();
     }
 
     @Override
     public void sendMessage(@NonNull String msg) {
-        handle.sendMessage(msg);
+        this.handle.sendMessage(msg);
     }
 
     @Override
     public void closeInventory() {
-        protocolizePlayer.closeInventory();
+        this.protocolizePlayer.closeInventory();
     }
 
     @Override
     public boolean hasPermission(@NonNull String permission) {
-        return handle.hasPermission(permission);
+        return this.handle.hasPermission(permission);
     }
 
     @Override
     public <T> T handle() {
-        return (T) handle;
+        return (T) this.handle;
     }
 
     public ProtocolizePlayer protocolizePlayer() {
-        return protocolizePlayer;
+        return this.protocolizePlayer;
     }
 }

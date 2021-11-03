@@ -1,15 +1,13 @@
 package dev.simplix.cirrus.common.prefabs.menu;
 
-import dev.simplix.cirrus.api.business.InventoryItemWrapper;
-import dev.simplix.cirrus.api.business.ItemStackWrapper;
-import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.cirrus.api.menu.*;
-import dev.simplix.cirrus.api.model.MenuConfiguration;
-import dev.simplix.cirrus.api.model.MultiPageMenuConfiguration;
-import dev.simplix.cirrus.api.model.SimpleMultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.Cirrus;
-import dev.simplix.cirrus.common.menu.AbstractConfigurableMenu;
-import dev.simplix.cirrus.common.menu.AbstractMenu;
+import dev.simplix.cirrus.common.business.InventoryItemWrapper;
+import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.menu.*;
+import dev.simplix.cirrus.common.model.MenuConfiguration;
+import dev.simplix.cirrus.common.model.MultiPageMenuConfiguration;
+import dev.simplix.cirrus.common.model.SimpleMultiPageMenuConfiguration;
 import java.util.*;
 import java.util.function.Supplier;
 import lombok.Getter;

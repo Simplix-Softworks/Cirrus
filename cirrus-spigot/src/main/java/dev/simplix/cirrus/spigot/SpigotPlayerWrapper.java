@@ -1,11 +1,10 @@
 package dev.simplix.cirrus.spigot;
 
-import dev.simplix.cirrus.api.business.PlayerWrapper;
+import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
+import java.util.UUID;
 import lombok.NonNull;
 import org.bukkit.entity.Player;
-
-import java.util.UUID;
 
 public class SpigotPlayerWrapper implements PlayerWrapper {
 
@@ -17,27 +16,27 @@ public class SpigotPlayerWrapper implements PlayerWrapper {
 
     @Override
     public void sendMessage(@NonNull String msg) {
-        handle.sendMessage(msg);
+        this.handle.sendMessage(msg);
     }
 
     @Override
     public void closeInventory() {
-        handle.closeInventory();
+        this.handle.closeInventory();
     }
 
     @Override
     public boolean hasPermission(@NonNull String permission) {
-        return handle.hasPermission(permission);
+        return this.handle.hasPermission(permission);
     }
 
     @Override
     public UUID uniqueId() {
-        return handle.getUniqueId();
+        return this.handle.getUniqueId();
     }
 
     @Override
     public String name() {
-        return handle.getName();
+        return this.handle.getName();
     }
 
     @Override
@@ -47,6 +46,6 @@ public class SpigotPlayerWrapper implements PlayerWrapper {
 
     @Override
     public <T> T handle() {
-        return (T) handle;
+        return (T) this.handle;
     }
 }

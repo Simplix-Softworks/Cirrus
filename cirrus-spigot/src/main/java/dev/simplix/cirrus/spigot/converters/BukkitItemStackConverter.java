@@ -1,7 +1,7 @@
 package dev.simplix.cirrus.spigot.converters;
 
-import dev.simplix.cirrus.api.converter.Converter;
-import dev.simplix.cirrus.api.converter.Converters;
+import dev.simplix.cirrus.common.converter.Converter;
+import dev.simplix.cirrus.common.converter.Converters;
 import dev.simplix.cirrus.spigot.util.ReflectionClasses;
 import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.protocolize.data.ItemType;

@@ -41,7 +41,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <module>cirrus-api</module>
         <module>cirrus-common</module>
         <module>cirrus-bungeecord</module>
         <module>cirrus-velocity</module>

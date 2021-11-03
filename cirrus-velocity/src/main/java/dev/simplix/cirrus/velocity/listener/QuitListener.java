@@ -2,8 +2,8 @@ package dev.simplix.cirrus.velocity.listener;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
-import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.common.Cirrus;
+import dev.simplix.cirrus.common.menu.MenuBuilder;
 
 /**
  * Date: 18.09.2021
@@ -16,7 +16,7 @@ public class QuitListener {
 
     @Subscribe
     public void onQuit(DisconnectEvent event) {
-        menuBuilder.destroyMenusOfPlayer(event.getPlayer().getUniqueId());
+        this.menuBuilder.destroyMenusOfPlayer(event.getPlayer().getUniqueId());
     }
 
 }

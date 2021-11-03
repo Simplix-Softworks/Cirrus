@@ -1,13 +1,11 @@
 package dev.simplix.cirrus.common.menu;
 
-import dev.simplix.cirrus.api.business.InventoryItemWrapper;
-import dev.simplix.cirrus.api.menu.Container;
+import dev.simplix.cirrus.common.business.InventoryItemWrapper;
 import dev.simplix.cirrus.common.util.InventoryContentMap;
-import lombok.NonNull;
-
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import lombok.NonNull;
 
 public class ItemContainer implements Container {
 
@@ -23,32 +21,32 @@ public class ItemContainer implements Container {
 
     @Override
     public void set(int slot, @NonNull InventoryItemWrapper inventoryItemWrapper) {
-        itemMap().put(slot + baseSlotIndex, inventoryItemWrapper);
+        itemMap().put(slot + this.baseSlotIndex, inventoryItemWrapper);
     }
 
     @Override
     public Map<Integer, InventoryItemWrapper> itemMap() {
-        return inventoryContentMap;
+        return this.inventoryContentMap;
     }
 
     @Override
     public Set<Integer> reservedSlots() {
-        return reservedSlots;
+        return this.reservedSlots;
     }
 
     @Override
     public int capacity() {
-        return capacity;
+        return this.capacity;
     }
 
     @Override
     public int baseSlot() {
-        return baseSlotIndex;
+        return this.baseSlotIndex;
     }
 
     @Override
     public int nextFreeSlot() {
-        for (int i = baseSlotIndex; i < capacity + baseSlotIndex; i++) {
+        for (int i = this.baseSlotIndex; i < this.capacity + this.baseSlotIndex; i++) {
             if (!itemMap().containsKey(i) && !reservedSlots().contains(i)) {
                 return i;
             }
@@ -58,7 +56,7 @@ public class ItemContainer implements Container {
 
     @Override
     public int nextFreeSlot(int base) {
-        for (int i = base; i < capacity + baseSlotIndex; i++) {
+        for (int i = base; i < this.capacity + this.baseSlotIndex; i++) {
             if (!itemMap().containsKey(i) && !reservedSlots().contains(i)) {
                 return i;
             }

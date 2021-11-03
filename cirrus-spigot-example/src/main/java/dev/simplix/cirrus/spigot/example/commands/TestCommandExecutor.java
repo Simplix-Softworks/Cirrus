@@ -1,9 +1,9 @@
 package dev.simplix.cirrus.spigot.example.commands;
 
-import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.cirrus.api.converter.Converters;
-import dev.simplix.cirrus.api.model.SimpleMultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.Cirrus;
+import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.converter.Converters;
+import dev.simplix.cirrus.common.model.SimpleMultiPageMenuConfiguration;
 import dev.simplix.cirrus.spigot.example.menus.ExampleMultiPageMenu;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

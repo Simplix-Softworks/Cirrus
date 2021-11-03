@@ -2,9 +2,9 @@ package dev.simplix.cirrus.common.config;
 
 import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
-import dev.simplix.cirrus.api.business.ConfigurationFactory;
-import dev.simplix.cirrus.api.model.MenuConfiguration;
 import dev.simplix.cirrus.common.Cirrus;
+import dev.simplix.cirrus.common.business.ConfigurationFactory;
+import dev.simplix.cirrus.common.model.MenuConfiguration;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.NoSuchFileException;

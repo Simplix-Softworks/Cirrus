@@ -1,14 +1,23 @@
 package dev.simplix.cirrus.spigot.converters;
 
 
+import static dev.simplix.protocolize.api.util.ProtocolVersions.MINECRAFT_1_13;
+import static dev.simplix.protocolize.api.util.ProtocolVersions.MINECRAFT_1_14;
+
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import dev.simplix.cirrus.api.converter.Converter;
-import dev.simplix.cirrus.api.converter.Converters;
+import dev.simplix.cirrus.common.converter.Converter;
+import dev.simplix.cirrus.common.converter.Converters;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
 import dev.simplix.cirrus.spigot.util.ReflectionClasses;
 import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.protocolize.api.item.ItemStack;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.NonNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -19,16 +28,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import static dev.simplix.protocolize.api.util.ProtocolVersions.MINECRAFT_1_13;
-import static dev.simplix.protocolize.api.util.ProtocolVersions.MINECRAFT_1_14;
 
 public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.bukkit.inventory.ItemStack> {
 
@@ -54,10 +53,10 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
 
     @Override
     public org.bukkit.inventory.ItemStack convert(@NonNull ItemStack src) {
-        if (src.itemType() == null) {
+        if (src.itemType()==null) {
             return null;
         }
-        if (src.itemType() == null) {
+        if (src.itemType()==null) {
             return new org.bukkit.inventory.ItemStack(Material.AIR);
         }
         MaterialData data = Converters.convert(src.itemType(), MaterialData.class);
@@ -75,13 +74,13 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
                     src.durability());
         }
 
-        if (src.nbtData() == null) {
+        if (src.nbtData()==null) {
             src.nbtData(new CompoundTag());
         }
 
         String textureHashToInsert = null;
 
-        if (src.nbtData() != null) {
+        if (src.nbtData()!=null) {
             CompoundTag tag = src.nbtData();
             if (tag.containsKey("SkullOwner") && tag.get("SkullOwner") instanceof CompoundTag) {
 
@@ -107,9 +106,9 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
             mutateMetaDataToHideAttributes(out);
             Object nmsItemStack = nmsCopyMethod.invoke(null, out);
             Method setTag = itemStackNMSClass.getMethod("setTag", nbtTagCompoundClass);
-            if (src.nbtData() != null) {
+            if (src.nbtData()!=null) {
                 final CompoundTag nbtTag = src.nbtData().clone();
-                if (textureHashToInsert != null) {
+                if (textureHashToInsert!=null) {
                     nbtTag.remove("SkullOwner");
                 }
                 setTag.invoke(nmsItemStack, Converters.convert(nbtTag, nbtTagCompoundClass));
@@ -117,7 +116,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
             final org.bukkit.inventory.ItemStack itemStackCopy = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
                     .invoke(null, nmsItemStack);
 
-            if (textureHashToInsert == null) {
+            if (textureHashToInsert==null) {
                 return itemStackCopy;
             }
             final SkullMeta meta = (SkullMeta) itemStackCopy.getItemMeta();
@@ -178,7 +177,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     }
 
     private void writeDataToNbt(@NonNull ItemStack stack) {
-        if (stack.displayName() != null) {
+        if (stack.displayName()!=null) {
             if (ProtocolVersionUtil.serverProtocolVersion() >= MINECRAFT_1_13) {
                 stack.nbtData().put("Damage", new IntTag(stack.durability()));
                 setDisplayNameTag(stack.nbtData(),
@@ -189,7 +188,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
             }
         }
 
-        if (stack.lore() != null) {
+        if (stack.lore()!=null) {
             setLoreTag(stack.nbtData(),
                     stack.lore(),
                     ProtocolVersionUtil.serverProtocolVersion());
@@ -197,11 +196,11 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     }
 
     private void setDisplayNameTag(@NonNull CompoundTag nbtData, @NonNull String name) {
-        if (name == null) {
+        if (name==null) {
             return;
         }
         CompoundTag display = (CompoundTag) nbtData.get("display");
-        if (display == null) {
+        if (display==null) {
             display = new CompoundTag();
         }
         final StringTag tag = new StringTag(name);
@@ -213,11 +212,11 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
             @NonNull CompoundTag nbtData,
             @NonNull List<BaseComponent[]> lore,
             int protocolVersion) {
-        if (lore == null) {
+        if (lore==null) {
             return;
         }
         CompoundTag display = (CompoundTag) nbtData.get("display");
-        if (display == null) {
+        if (display==null) {
             display = new CompoundTag();
         }
         if (protocolVersion < MINECRAFT_1_14) {

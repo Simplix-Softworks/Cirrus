@@ -1,13 +1,12 @@
 package dev.simplix.cirrus.velocity;
 
 import com.velocitypowered.api.proxy.Player;
-import dev.simplix.cirrus.api.business.PlayerWrapper;
+import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.player.ProtocolizePlayer;
+import java.util.UUID;
 import lombok.NonNull;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-
-import java.util.UUID;
 
 public class VelocityPlayerWrapper implements PlayerWrapper {
 
@@ -22,40 +21,40 @@ public class VelocityPlayerWrapper implements PlayerWrapper {
 
     @Override
     public UUID uniqueId() {
-        return handle.getUniqueId();
+        return this.handle.getUniqueId();
     }
 
     @Override
     public String name() {
-        return handle.getUsername();
+        return this.handle.getUsername();
     }
 
     @Override
     public int protocolVersion() {
-        return protocolizePlayer.protocolVersion();
+        return this.protocolizePlayer.protocolVersion();
     }
 
     @Override
     public void sendMessage(@NonNull String msg) {
-        handle.sendMessage(legacyComponentSerializer.deserialize(msg));
+        this.handle.sendMessage(this.legacyComponentSerializer.deserialize(msg));
     }
 
     @Override
     public void closeInventory() {
-        protocolizePlayer.closeInventory();
+        this.protocolizePlayer.closeInventory();
     }
 
     @Override
     public boolean hasPermission(@NonNull String permission) {
-        return handle.hasPermission(permission);
+        return this.handle.hasPermission(permission);
     }
 
     @Override
     public <T> T handle() {
-        return (T) handle;
+        return (T) this.handle;
     }
 
     public ProtocolizePlayer protocolizePlayer() {
-        return protocolizePlayer;
+        return this.protocolizePlayer;
     }
 }

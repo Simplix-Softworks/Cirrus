@@ -1,15 +1,16 @@
 package dev.simplix.cirrus.bungeecord.protocolize;
 
 import com.google.common.collect.Sets;
-import dev.simplix.cirrus.api.business.InventoryItemWrapper;
-import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.cirrus.api.i18n.Replacer;
-import dev.simplix.cirrus.api.menu.*;
 import dev.simplix.cirrus.bungeecord.BungeeCordPlayerWrapper;
-import dev.simplix.cirrus.common.menu.AbstractMenu;
+import dev.simplix.cirrus.common.business.InventoryItemWrapper;
+import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.i18n.Replacer;
+import dev.simplix.cirrus.common.menu.*;
 import dev.simplix.protocolize.api.ClickType;
 import dev.simplix.protocolize.api.inventory.Inventory;
 import dev.simplix.protocolize.api.item.ItemStack;
+import java.util.*;
+import java.util.Map.Entry;
 import lombok.NonNull;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -17,9 +18,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.*;
-import java.util.Map.Entry;
 
 public class ProtocolizeMenuBuilder implements MenuBuilder {
 
@@ -31,17 +29,17 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
         if (!(menu instanceof AbstractMenu)) {
             throw new IllegalArgumentException("This implementation can only build cirrus menus!");
         }
-        final boolean register = prebuild == null;
+        final boolean register = prebuild==null;
         if (prebuild instanceof Inventory) {
             String title = Replacer.of(menu.title()).replaceAll((Object[]) menu.replacements().get())
                     .replacedMessageJoined();
             final Inventory inventory = (Inventory) prebuild;
             if (!ComponentSerializer.toString((BaseComponent[]) inventory.title())
                     .equals(ComponentSerializer.toString(new TextComponent(title))) ||
-                    inventory.type().getTypicalSize(menu.player().protocolVersion()) != menu
+                    inventory.type().getTypicalSize(menu.player().protocolVersion())!=menu
                             .topContainer()
                             .capacity()
-                    || inventory.type() != menu.inventoryType()) {
+                    || inventory.type()!=menu.inventoryType()) {
                 prebuild = (T) makeInv(menu);
             }
         } else {
@@ -51,11 +49,11 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
         buildContainer(inventory, menu.topContainer());
         buildContainer(inventory, menu.bottomContainer());
 
-        buildMap.put(
+        this.buildMap.put(
                 menu.player().uniqueId(),
                 new AbstractMap.SimpleEntry<>(menu, System.currentTimeMillis()));
         if (register) {
-            menus.add(menu);
+            this.menus.add(menu);
         }
         open(menu.player(), inventory);
         return prebuild;
@@ -65,14 +63,14 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
         for (int i = container.baseSlot(); i < container.baseSlot() + container.capacity(); i++) {
             InventoryItemWrapper item = container.itemMap().get(i);
             ItemStack currentStack = inventory.item(i);
-            if (item == null) {
-                if (currentStack != null) {
+            if (item==null) {
+                if (currentStack!=null) {
                     inventory.item(i, ItemStack.NO_DATA);
                 }
             }
-            if (item != null) {
-                if (currentStack == null) {
-                    if (item.handle() == null) {
+            if (item!=null) {
+                if (currentStack==null) {
+                    if (item.handle()==null) {
                         ProxyServer.getInstance().getLogger()
                                 .severe("InventoryItem's ItemStackWrapper is null @ slot " + i);
                         continue;
@@ -94,7 +92,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
 
         inventory.onClose(inventoryClose -> {
             Map.Entry<Menu, Long> lastBuild = lastBuildOfPlayer(inventoryClose.player().uniqueId());
-            if (((AbstractMenu) lastBuild.getKey()).internalId() == ((AbstractMenu) menu).internalId()
+            if (((AbstractMenu) lastBuild.getKey()).internalId()==((AbstractMenu) menu).internalId()
                     && (System.currentTimeMillis() - lastBuild.getValue()) <= 55) {
                 return;
             }
@@ -103,17 +101,17 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
         });
 
         inventory.onClick(inventoryClick -> {
-            if (inventoryClick.clickType() == null) {
+            if (inventoryClick.clickType()==null) {
                 return;
             }
-            if (inventoryClick.player() == null) {
+            if (inventoryClick.player()==null) {
                 return;
             }
-            if (inventoryClick.clickedItem() == null) {
+            if (inventoryClick.clickedItem()==null) {
                 return;
             }
             Inventory i = inventoryClick.inventory();
-            if (i == null) {
+            if (i==null) {
                 return;
             }
 //            ProxyServer.getInstance().broadcast("Clicked inventory");
@@ -128,14 +126,14 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             }
             InventoryItemWrapper item = container.get(inventoryClick.slot());
             ClickType type = inventoryClick.clickType();
-            if (item == null) {
+            if (item==null) {
 //                ProxyServer.getInstance().broadcast("Clicked nothing");
-                if (menu.customActionHandler() != null) {
+                if (menu.customActionHandler()!=null) {
                     try {
                         CallResult callResult = menu
                                 .customActionHandler()
                                 .handle(new Click(type, menu, null, inventoryClick.slot()));
-                        inventoryClick.cancelled(callResult == null || callResult == CallResult.DENY_GRABBING);
+                        inventoryClick.cancelled(callResult==null || callResult==CallResult.DENY_GRABBING);
                     } catch (Exception ex) {
                         inventoryClick.cancelled(true);
                         menu.handleException(null, ex);
@@ -145,7 +143,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             }
 //            ProxyServer.getInstance().broadcast("Clicked " + item.displayName());
             ActionHandler actionHandler = menu.actionHandler(item.actionHandler());
-            if (actionHandler == null) {
+            if (actionHandler==null) {
                 inventoryClick.cancelled(true);
                 return;
             }
@@ -155,7 +153,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
                         menu,
                         item,
                         inventoryClick.slot()));
-                inventoryClick.cancelled(callResult == null || callResult == CallResult.DENY_GRABBING);
+                inventoryClick.cancelled(callResult==null || callResult==CallResult.DENY_GRABBING);
             } catch (final Exception ex) {
                 inventoryClick.cancelled(true);
                 menu.handleException(actionHandler, ex);
@@ -176,10 +174,10 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
     @Override
     @Nullable
     public Menu menuByHandle(Object handle) {
-        if (handle == null) {
+        if (handle==null) {
             return null;
         }
-        for (final Menu menu : menus) {
+        for (final Menu menu : this.menus) {
             if (menu.equals(handle)) {
                 return menu;
             }
@@ -189,19 +187,19 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
 
     @Override
     public void destroyMenusOfPlayer(@NonNull UUID uniqueId) {
-        menus.removeIf(
+        this.menus.removeIf(
                 wrapper -> ((ProxiedPlayer) wrapper.player().handle()).getUniqueId().equals(uniqueId));
-        buildMap.remove(uniqueId);
+        this.buildMap.remove(uniqueId);
     }
 
     @Override
     public Entry<Menu, Long> lastBuildOfPlayer(@NonNull UUID uniqueId) {
-        return buildMap.get(uniqueId);
+        return this.buildMap.get(uniqueId);
     }
 
     @Override
     public void invalidate(@NonNull Menu menu) {
-        menus.remove(menu);
+        this.menus.remove(menu);
     }
 
 }
