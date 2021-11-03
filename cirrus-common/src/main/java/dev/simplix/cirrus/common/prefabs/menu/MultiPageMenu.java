@@ -4,12 +4,11 @@ import dev.simplix.cirrus.common.Cirrus;
 import dev.simplix.cirrus.common.business.InventoryItemWrapper;
 import dev.simplix.cirrus.common.business.ItemStackWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
-import dev.simplix.cirrus.common.menu.*;
-import dev.simplix.cirrus.common.handler.ActionHandler;
-import dev.simplix.cirrus.common.model.CallResult;
 import dev.simplix.cirrus.common.configuration.MenuConfiguration;
 import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
-import dev.simplix.cirrus.common.configuration.impl.SimpleMultiPageMenuConfiguration;
+import dev.simplix.cirrus.common.handler.ActionHandler;
+import dev.simplix.cirrus.common.menu.*;
+import dev.simplix.cirrus.common.model.CallResult;
 import java.util.*;
 import java.util.function.Supplier;
 import lombok.Getter;
@@ -30,14 +29,14 @@ public class MultiPageMenu extends AbstractMenu {
 
     public MultiPageMenu(
             @NonNull PlayerWrapper player,
-            @NonNull SimpleMultiPageMenuConfiguration configuration,
+            @NonNull MultiPageMenuConfiguration configuration,
             @NonNull Locale locale) {
         this(player, configuration, locale, new HashMap<>());
     }
 
     public MultiPageMenu(
             @NonNull PlayerWrapper player,
-            @NonNull SimpleMultiPageMenuConfiguration configuration,
+            @NonNull MultiPageMenuConfiguration configuration,
             @NonNull Locale locale,
             @NonNull Map<String, ActionHandler> actionHandlerMap) {
         super(player, configuration.type(), locale, actionHandlerMap);

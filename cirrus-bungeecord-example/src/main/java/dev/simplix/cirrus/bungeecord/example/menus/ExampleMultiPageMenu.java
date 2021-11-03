@@ -1,6 +1,7 @@
 package dev.simplix.cirrus.bungeecord.example.menus;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.model.CallResult;
 import dev.simplix.cirrus.common.configuration.impl.SimpleMultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.prefabs.menu.MultiPageMenu;
@@ -17,7 +18,7 @@ public class ExampleMultiPageMenu extends MultiPageMenu {
 
     public ExampleMultiPageMenu(
             PlayerWrapper player,
-            SimpleMultiPageMenuConfiguration configuration) {
+            MultiPageMenuConfiguration configuration) {
         super(player, configuration, Locale.ENGLISH);
         registerMyActionHandlers();
         addItems();
