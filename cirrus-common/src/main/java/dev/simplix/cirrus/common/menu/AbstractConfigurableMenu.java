@@ -1,8 +1,9 @@
 package dev.simplix.cirrus.common.menu;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.handler.ActionHandler;
 import dev.simplix.cirrus.common.model.ItemStackModel;
-import dev.simplix.cirrus.common.model.MenuConfiguration;
+import dev.simplix.cirrus.common.configuration.MenuConfiguration;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;

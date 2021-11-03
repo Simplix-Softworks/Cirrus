@@ -1,4 +1,7 @@
-package dev.simplix.cirrus.common.menu;
+package dev.simplix.cirrus.common.handler;
+
+import dev.simplix.cirrus.common.model.CallResult;
+import dev.simplix.cirrus.common.model.Click;
 
 @FunctionalInterface
 public interface AutoCancellingActionHandler extends ActionHandler {

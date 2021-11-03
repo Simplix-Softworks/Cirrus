@@ -1,4 +1,4 @@
-package dev.simplix.cirrus.common.menu;
+package dev.simplix.cirrus.common.model;
 
 public enum CallResult {
 

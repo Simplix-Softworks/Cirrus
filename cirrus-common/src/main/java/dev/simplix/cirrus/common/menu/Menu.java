@@ -3,6 +3,8 @@ package dev.simplix.cirrus.common.menu;
 import dev.simplix.cirrus.common.business.ItemStackWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
+import dev.simplix.cirrus.common.handler.ActionHandler;
+import dev.simplix.cirrus.common.handler.AutoCancellingActionHandler;
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import java.util.Locale;
 import java.util.function.Supplier;

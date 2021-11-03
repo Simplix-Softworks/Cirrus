@@ -1,7 +1,7 @@
 package dev.simplix.cirrus.common.business;
 
-import dev.simplix.cirrus.common.model.MenuConfiguration;
-import dev.simplix.cirrus.common.model.SimpleMenuConfiguration;
+import dev.simplix.cirrus.common.configuration.MenuConfiguration;
+import dev.simplix.cirrus.common.configuration.impl.SimpleMenuConfiguration;
 import lombok.NonNull;
 
 public interface ConfigurationFactory {

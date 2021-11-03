@@ -5,6 +5,8 @@ import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 import dev.simplix.cirrus.common.i18n.Localizer;
 import dev.simplix.cirrus.common.i18n.Replacer;
+import dev.simplix.cirrus.common.handler.ActionHandler;
+import dev.simplix.cirrus.common.handler.AutoCancellingActionHandler;
 import dev.simplix.cirrus.common.model.ItemStackModel;
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import java.util.HashMap;

@@ -1,6 +1,8 @@
-package dev.simplix.cirrus.common.model;
+package dev.simplix.cirrus.common.configuration.impl;
 
+import dev.simplix.cirrus.common.configuration.MenuConfiguration;
 import dev.simplix.cirrus.common.i18n.LocalizedString;
+import dev.simplix.cirrus.common.model.ItemStackModel;
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import java.util.HashMap;
 import java.util.Map;

@@ -2,8 +2,8 @@ package dev.simplix.cirrus.spigot.example.menus;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.menu.AbstractConfigurableMenu;
-import dev.simplix.cirrus.common.menu.CallResult;
-import dev.simplix.cirrus.common.model.MenuConfiguration;
+import dev.simplix.cirrus.common.model.CallResult;
+import dev.simplix.cirrus.common.configuration.MenuConfiguration;
 import java.util.Locale;
 
 public class ExampleMenu extends AbstractConfigurableMenu {

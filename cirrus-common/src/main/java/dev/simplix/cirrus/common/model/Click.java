@@ -1,11 +1,14 @@
-package dev.simplix.cirrus.common.menu;
+package dev.simplix.cirrus.common.model;
 
 import dev.simplix.cirrus.common.business.InventoryItemWrapper;
 import dev.simplix.cirrus.common.business.ItemStackWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.menu.Menu;
 import dev.simplix.protocolize.api.ClickType;
 import java.util.List;
+import lombok.Data;
 import lombok.NonNull;
+import lombok.experimental.Accessors;
 
 /**
  * A click contains information about a click performed on an {@link InventoryItemWrapper}.

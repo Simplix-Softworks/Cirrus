@@ -1,8 +1,8 @@
 package dev.simplix.cirrus.bungeecord.example.menus;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
-import dev.simplix.cirrus.common.menu.CallResult;
-import dev.simplix.cirrus.common.model.SimpleMultiPageMenuConfiguration;
+import dev.simplix.cirrus.common.model.CallResult;
+import dev.simplix.cirrus.common.configuration.impl.SimpleMultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.prefabs.menu.MultiPageMenu;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.item.ItemStack;
