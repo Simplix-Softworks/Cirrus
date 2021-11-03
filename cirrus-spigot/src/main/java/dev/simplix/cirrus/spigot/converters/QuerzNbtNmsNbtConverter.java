@@ -11,6 +11,7 @@ import java.util.zip.GZIPOutputStream;
 import lombok.NonNull;
 import net.querz.nbt.io.NBTOutputStream;
 import net.querz.nbt.tag.CompoundTag;
+import org.jetbrains.annotations.NotNull;
 
 public class QuerzNbtNmsNbtConverter implements Converter<CompoundTag, Object> {
 
@@ -27,7 +28,7 @@ public class QuerzNbtNmsNbtConverter implements Converter<CompoundTag, Object> {
     }
 
     @Override
-    public Object convert(@NonNull CompoundTag src) {
+    public Object convert(@NonNull @NotNull CompoundTag src) {
         byte[] data = null;
         try (final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
             GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream);

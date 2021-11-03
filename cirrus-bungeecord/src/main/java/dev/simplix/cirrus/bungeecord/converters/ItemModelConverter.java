@@ -6,11 +6,12 @@ import dev.simplix.cirrus.common.converter.Converter;
 import dev.simplix.cirrus.common.converter.Converters;
 import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 import dev.simplix.protocolize.api.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class ItemModelConverter implements Converter<LocalizedItemStackModel, InventoryItemWrapper> {
 
     @Override
-    public InventoryItemWrapper convert(LocalizedItemStackModel model) {
+    public InventoryItemWrapper convert(@NotNull LocalizedItemStackModel model) {
         ItemStack itemStack = new ItemStack(model.itemType(), model.amount(), model.durability());
         itemStack.nbtData(model.nbt());
         itemStack.displayName(model.displayName());

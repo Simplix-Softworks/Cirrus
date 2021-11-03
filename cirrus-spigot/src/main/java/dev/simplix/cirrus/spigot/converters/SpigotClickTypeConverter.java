@@ -3,11 +3,12 @@ package dev.simplix.cirrus.spigot.converters;
 import dev.simplix.cirrus.common.converter.Converter;
 import lombok.NonNull;
 import org.bukkit.event.inventory.ClickType;
+import org.jetbrains.annotations.NotNull;
 
 public class SpigotClickTypeConverter implements Converter<ClickType, dev.simplix.protocolize.api.ClickType> {
 
     @Override
-    public dev.simplix.protocolize.api.ClickType convert(@NonNull ClickType src) {
+    public dev.simplix.protocolize.api.ClickType convert(@NonNull @NotNull ClickType src) {
         switch (src) {
 
             case LEFT:
