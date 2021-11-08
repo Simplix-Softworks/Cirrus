@@ -2,8 +2,8 @@ package dev.simplix.cirrus.spigot.menubuilder;
 
 import dev.simplix.cirrus.common.business.InventoryItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.menu.Container;
 import dev.simplix.cirrus.common.menu.Menu;
 import dev.simplix.cirrus.common.menu.MenuBuilder;
 import dev.simplix.cirrus.common.menus.MultiPageMenu;

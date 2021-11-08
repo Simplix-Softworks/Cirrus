@@ -1,6 +1,7 @@
-package dev.simplix.cirrus.common.menu;
+package dev.simplix.cirrus.common.container.impl;
 
 import dev.simplix.cirrus.common.business.InventoryItemWrapper;
+import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.util.InventoryContentMap;
 import java.util.HashSet;
 import java.util.Map;

@@ -2,9 +2,12 @@ package dev.simplix.cirrus.spigot.listener;
 
 import dev.simplix.cirrus.common.Cirrus;
 import dev.simplix.cirrus.common.business.InventoryItemWrapper;
+import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.menu.*;
 import dev.simplix.cirrus.common.handler.ActionHandler;
+import dev.simplix.cirrus.common.menu.AbstractMenu;
+import dev.simplix.cirrus.common.menu.Menu;
+import dev.simplix.cirrus.common.menu.MenuBuilder;
 import dev.simplix.cirrus.common.model.CallResult;
 import dev.simplix.cirrus.common.model.Click;
 import java.util.Map;
