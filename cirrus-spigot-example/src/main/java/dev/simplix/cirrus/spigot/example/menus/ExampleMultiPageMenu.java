@@ -2,8 +2,8 @@ package dev.simplix.cirrus.spigot.example.menus;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
+import dev.simplix.cirrus.common.menus.MultiPageMenu;
 import dev.simplix.cirrus.common.model.CallResult;
-import dev.simplix.cirrus.common.prefabs.menu.MultiPageMenu;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.item.ItemStack;
 import dev.simplix.protocolize.api.providers.MappingProvider;

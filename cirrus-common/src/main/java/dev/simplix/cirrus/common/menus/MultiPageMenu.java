@@ -1,4 +1,4 @@
-package dev.simplix.cirrus.common.prefabs.menu;
+package dev.simplix.cirrus.common.menus;
 
 import dev.simplix.cirrus.common.Cirrus;
 import dev.simplix.cirrus.common.business.InventoryItemWrapper;

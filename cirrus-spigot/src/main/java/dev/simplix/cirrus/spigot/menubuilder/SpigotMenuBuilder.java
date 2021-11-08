@@ -6,7 +6,7 @@ import dev.simplix.cirrus.common.converter.Converters;
 import dev.simplix.cirrus.common.menu.Container;
 import dev.simplix.cirrus.common.menu.Menu;
 import dev.simplix.cirrus.common.menu.MenuBuilder;
-import dev.simplix.cirrus.common.prefabs.menu.MultiPageMenu;
+import dev.simplix.cirrus.common.menus.MultiPageMenu;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
 import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.protocolize.api.util.ProtocolVersions;

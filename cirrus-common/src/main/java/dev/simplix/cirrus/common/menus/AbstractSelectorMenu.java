@@ -1,4 +1,4 @@
-package dev.simplix.cirrus.common.prefabs.menu;
+package dev.simplix.cirrus.common.menus;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
@@ -28,7 +28,7 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
         super(player, configuration, locale, actionHandlerMap);
 
         registerActionHandler("click", click -> {
-            final T value = slotValueMap.get(click.slot());
+            final T value = this.slotValueMap.get(click.slot());
             if (value==null) {
                 return;
             }
@@ -54,7 +54,7 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
     protected void insert() {
         for (Entry<T, LocalizedItemStackModel> entry : mappedValues().entrySet()) {
             final Integer slot = add(wrapItemStack(entry.getValue()), "click", new ArrayList<>());
-            slotValueMap.put(slot, entry.getKey());
+            this.slotValueMap.put(slot, entry.getKey());
         }
     }
 
