@@ -1,6 +1,7 @@
 package dev.simplix.cirrus.common.menu;
 
 import dev.simplix.cirrus.common.handler.ActionHandler;
+import dev.simplix.cirrus.common.util.SafeRunnable;
 import lombok.NonNull;
 import org.jetbrains.annotations.Nullable;
 
