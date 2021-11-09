@@ -15,16 +15,14 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
     public AbstractSelectorMenu(
             @NonNull PlayerWrapper player,
             @NonNull MultiPageMenuConfiguration configuration,
-            @NonNull Locale locale
-    ) {
+            @NonNull Locale locale) {
         super(player, configuration, locale);
     }
 
     public AbstractSelectorMenu(
             @NonNull PlayerWrapper player,
             @NonNull MultiPageMenuConfiguration configuration,
-            @NonNull Locale locale, @NonNull Map<String, ActionHandler> actionHandlerMap
-    ) {
+            @NonNull Locale locale, @NonNull Map<String, ActionHandler> actionHandlerMap) {
         super(player, configuration, locale, actionHandlerMap);
 
         registerActionHandler("click", click -> {
