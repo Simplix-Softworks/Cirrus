@@ -128,15 +128,15 @@ public class MultiPageMenu extends AbstractMenu {
         this.currentPage++;
     }
 
-    public void add(@NonNull InventoryItemWrapper inventoryItemWrapper) {
+    public int add(@NonNull InventoryItemWrapper inventoryItemWrapper) {
         int slot = currentPage().topContainer().nextFreeSlot();
         int oldPage = this.currentPage;
         if (slot==-1) {
             if (this.pages.size() > this.currentPage) {
                 this.currentPage = this.pages.size();
-                this.add(inventoryItemWrapper);
+                int out = this.add(inventoryItemWrapper);
                 currentPage(oldPage);
-                return;
+                return out;
             }
             newPage();
             if (currentPage().topContainer().nextFreeSlot()==-1) {
@@ -144,13 +144,14 @@ public class MultiPageMenu extends AbstractMenu {
                         + MultiPageMenu.this.getClass().getSimpleName()
                         + ": No space in new page!");
                 currentPage(oldPage);
-                return;
+                return -1;
             }
             this.add(inventoryItemWrapper);
         } else {
             currentPage().topContainer().set(slot, inventoryItemWrapper);
         }
         currentPage(oldPage);
+        return slot;
     }
 
     public int add(
