@@ -8,6 +8,7 @@ import dev.simplix.cirrus.common.configuration.MenuConfiguration;
 import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.handler.ActionHandler;
+import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 import dev.simplix.cirrus.common.menu.AbstractConfigurableMenu;
 import dev.simplix.cirrus.common.menu.AbstractMenu;
 import dev.simplix.cirrus.common.menu.Menu;
@@ -126,6 +127,10 @@ public class MultiPageMenu extends AbstractMenu {
     public void newPage() {
         this.pages.add(new PageMenu(player(), configuration(), locale()));
         this.currentPage++;
+    }
+
+    public int add(@NonNull LocalizedItemStackModel model, String actionHandler, List<String> arguments) {
+        return add(wrapItemStack(model), actionHandler, arguments);
     }
 
     public int add(@NonNull InventoryItemWrapper inventoryItemWrapper) {
