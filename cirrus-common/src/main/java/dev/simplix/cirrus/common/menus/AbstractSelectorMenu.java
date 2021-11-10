@@ -51,7 +51,8 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
 
     protected void insert() {
         for (Entry<T, LocalizedItemStackModel> entry : mappedValues().entrySet()) {
-            final Integer slot = add(wrapItemStack(entry.getValue()), "click", new ArrayList<>());
+            final LocalizedItemStackModel value = entry.getValue();
+            final Integer slot = add(value, "click", new ArrayList<>());
             this.slotValueMap.put(slot, entry.getKey());
         }
     }
