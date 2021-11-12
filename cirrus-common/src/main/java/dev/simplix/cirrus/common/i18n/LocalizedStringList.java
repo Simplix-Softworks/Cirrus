@@ -20,6 +20,9 @@ public class LocalizedStringList {
         return this.translations;
     }
 
+
+    private final List<String> forceAdded = new ArrayList<>();
+
     /**
      * Returns the localized string list for the given {@link Locale}. If the given locale is not
      * available, it will return the first available translation. If there aren't any translations, it
@@ -33,11 +36,15 @@ public class LocalizedStringList {
             return Collections.emptyList();
         }
         String fallback = this.translations.keySet().iterator().next();
-        return this.translations.getOrDefault(
+        final List<String> out = new ArrayList<>(this.translations.getOrDefault(
                 locale.getLanguage(),
                 this.translations.getOrDefault(
                         fallback,
-                        Collections.emptyList()));
+                        Collections.emptyList()))
+        );
+
+        out.addAll(this.forceAdded);
+        return out;
     }
 
 }
