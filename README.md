@@ -3,7 +3,7 @@
 </p>
 
 # WIP
-Cirrus is currently WIP. The documentation is invalid in parts. We will publish a fully usable version soon.
+Cirrus is currently WIP. The documentation is invalid in parts. We will publish a stable version soon.
 
 # Cirrus
 
