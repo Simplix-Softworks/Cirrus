@@ -74,7 +74,16 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
                     inventory.item(i, ItemStack.NO_DATA);
                 }
             }
+
             if (item!=null) {
+                for (BaseComponent[] loreComponent : item.loreComponents()) {
+                    for (BaseComponent baseComponent : loreComponent) {
+                        if (!baseComponent.isItalic()) {
+                            baseComponent.setItalic(false);
+                        }
+                    }
+                }
+                
                 if (currentStack==null) {
                     if (item.handle()==null) {
                         ProxyServer.getInstance().getLogger()
@@ -93,8 +102,12 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
 
     private Inventory makeInv(@NonNull Menu menu) {
         Inventory inventory = new Inventory(menu.inventoryType());
-        inventory.title(new BaseComponent[]{new TextComponent(Replacer.of(menu.title())
-                .replaceAll((Object[]) menu.replacements().get()).replacedMessageJoined())});
+        final TextComponent textComponent = new TextComponent(Replacer.of(menu.title())
+                .replaceAll((Object[]) menu.replacements().get()).replacedMessageJoined());
+        if (!textComponent.isItalic()) {
+            textComponent.setItalic(false); // Resolve client side behavior
+        }
+        inventory.title(new BaseComponent[]{textComponent});
 
         inventory.onClose(inventoryClose -> {
             Map.Entry<Menu, Long> lastBuild = lastBuildOfPlayer(inventoryClose.player().uniqueId());
