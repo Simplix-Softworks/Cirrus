@@ -146,6 +146,11 @@ public abstract class AbstractMenu implements Menu {
         if (o==null) {
             return false;
         }
+        if (o instanceof AbstractMenu) {
+            final AbstractMenu abstractMenu = (AbstractMenu) o;
+            return abstractMenu.internalId==this.internalId();
+        }
+
         if (this==o) {
             return true;
         }

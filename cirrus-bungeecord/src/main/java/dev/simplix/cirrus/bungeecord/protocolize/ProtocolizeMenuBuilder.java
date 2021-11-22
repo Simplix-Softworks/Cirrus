@@ -32,6 +32,10 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
 
     @Override
     public <T> T build(@Nullable T prebuild, @NonNull Menu menu) {
+        final Entry<Menu, Long> menuLongEntry = this.buildMap.get(menu.player().uniqueId());
+        if (menuLongEntry!=null && !menuLongEntry.getKey().equals(menu)) {
+            menuLongEntry.getKey().handleClose(true);
+        }
         if (!(menu instanceof AbstractMenu)) {
             throw new IllegalArgumentException("This implementation can only build cirrus menus!");
         }
