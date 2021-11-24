@@ -190,7 +190,52 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
     public <T> void open(
             PlayerWrapper playerWrapper, T inventoryImpl) {
         if (playerWrapper instanceof BungeeCordPlayerWrapper) {
-            ((BungeeCordPlayerWrapper) playerWrapper).protocolizePlayer().openInventory((Inventory) inventoryImpl);
+            final ProtocolizePlayer protocolizePlayer = ((BungeeCordPlayerWrapper) playerWrapper).protocolizePlayer();
+            final Inventory inventory = (Inventory) inventoryImpl;
+
+            boolean alreadyOpen = false;
+            int windowId = -1;
+            for (Integer id : protocolizePlayer.registeredInventories().keySet()) {
+                Inventory val = protocolizePlayer.registeredInventories().get(id);
+                if (val.type() == inventory.type() && val.title().equals(inventory.title())) {
+                    alreadyOpen = true;
+                    break;
+                }
+            }
+
+            // Close all inventories if not opened
+            if (!alreadyOpen) {
+                protocolizePlayer.closeInventory();
+            }
+
+            if (protocolizePlayer.registeredInventories().containsValue(inventory)) {
+                for (Integer id : protocolizePlayer.registeredInventories().keySet()) {
+                    Inventory val = protocolizePlayer.registeredInventories().get(id);
+                    if (val == inventory) {
+                        windowId = id;
+                        break;
+                    }
+                }
+                if (windowId == -1) {
+                    windowId = protocolizePlayer.generateWindowId();
+                    protocolizePlayer.registerInventory(windowId, inventory);
+                }
+            } else {
+                windowId = protocolizePlayer.generateWindowId();
+                protocolizePlayer.registerInventory(windowId, inventory);
+            }
+
+            if (!alreadyOpen) {
+                protocolizePlayer.sendPacket(new OpenWindow(windowId, inventory.type(), inventory.titleJson()));
+            }
+            int protocolVersion;
+            try {
+                protocolVersion = protocolizePlayer.protocolVersion();
+            } catch (Throwable t) {
+                protocolVersion = 47;
+            }
+            List<ItemStack> items = Lists.newArrayList(inventory.itemsIndexed(protocolVersion));
+            protocolizePlayer.sendPacket(new WindowItems((short) windowId, items, 0));
         }
     }
 
