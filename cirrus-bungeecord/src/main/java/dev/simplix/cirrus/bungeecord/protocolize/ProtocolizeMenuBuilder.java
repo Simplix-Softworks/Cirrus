@@ -222,7 +222,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             if (protocolizePlayer.registeredInventories().containsValue(inventory)) {
                 for (Integer id : protocolizePlayer.registeredInventories().keySet()) {
                     Inventory val = protocolizePlayer.registeredInventories().get(id);
-                    if (val == inventory) {
+                    if (val==inventory) {
                         windowId = id;
                         break;
                     }
