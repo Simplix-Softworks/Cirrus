@@ -1,6 +1,6 @@
 package dev.simplix.cirrus.spigot.modern;
 
-import dev.simplix.cirrus.api.menu.Menu;
+import dev.simplix.cirrus.common.menu.Menu;
 import lombok.NonNull;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryType;
