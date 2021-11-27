@@ -246,7 +246,26 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
                 protocolVersion = 47;
             }
             List<ItemStack> items = Lists.newArrayList(inventory.itemsIndexed(protocolVersion));
+            for (ItemStack item : items) {
+                if (item==null) {
+                    continue;
+                }
+                List<BaseComponent[]> lore = item.lore();
+                for (BaseComponent[] baseComponents : lore) {
+                    removeItalic(baseComponents);
+                }
+                item.lore(lore, false);
+                BaseComponent[] display = item.displayName();
+                removeItalic(display);
+                item.displayName(display);
+            }
             protocolizePlayer.sendPacket(new WindowItems((short) windowId, items, 0));
+        }
+    }
+
+    private void removeItalic(BaseComponent[] components) {
+        for (BaseComponent component : components) {
+            component.setItalic(false);
         }
     }
 
