@@ -6,6 +6,7 @@ import static dev.simplix.protocolize.api.util.ProtocolVersions.MINECRAFT_1_14;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import dev.simplix.cirrus.common.Utils;
 import dev.simplix.cirrus.common.converter.Converter;
 import dev.simplix.cirrus.common.converter.Converters;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
@@ -180,8 +181,9 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
         if (stack.displayName()!=null) {
             if (ProtocolVersionUtil.serverProtocolVersion() >= MINECRAFT_1_13) {
                 stack.nbtData().put("Damage", new IntTag(stack.durability()));
-                setDisplayNameTag(stack.nbtData(),
-                        ComponentSerializer.toString((BaseComponent[]) stack.displayName()));
+                final BaseComponent[] baseComponents = stack.displayName();
+                Utils.removeItalic(baseComponents);
+                setDisplayNameTag(stack.nbtData(), ComponentSerializer.toString(baseComponents));
             } else {
                 setDisplayNameTag(stack.nbtData(),
                         TextComponent.toLegacyText(stack.displayName()));
