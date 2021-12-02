@@ -3,7 +3,7 @@ package dev.simplix.cirrus.spigot.util;
 public class ReflectionClasses {
 
     public static Class<?> itemStackClass() throws ClassNotFoundException {
-        if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_17) {
+        if (ReflectionUtil.hasNewPackageStructure()) {
             return ReflectionUtil
                     .getClass("{nm}.world.item.ItemStack");
 
@@ -15,7 +15,7 @@ public class ReflectionClasses {
 
     public static Class<?> nbtCompressedStreamTools() throws ClassNotFoundException {
 
-        if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_17) {
+        if (ReflectionUtil.hasNewPackageStructure()) {
             return ReflectionUtil
                     .getClass("{nm}.nbt.NBTCompressedStreamTools");
 
@@ -26,7 +26,7 @@ public class ReflectionClasses {
     }
 
     public static Class<?> nbtTagCompound() throws ClassNotFoundException {
-        if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_17) {
+        if (ReflectionUtil.hasNewPackageStructure()) {
             return ReflectionUtil
                     .getClass("{nm}.nbt.NBTTagCompound");
 

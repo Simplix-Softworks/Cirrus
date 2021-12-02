@@ -31,18 +31,22 @@ public final class ReflectionUtil {
     private static final Map<Map.Entry<Class<?>, String>, Field> CACHED_FIELDS = new HashMap<>();
     private static final Map<String, Class<?>> CACHED_CLASSES = new HashMap<>();
 
+    public static boolean hasNewPackageStructure() {
+        return ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_17;
+    }
+
     public static Class<?> getClass(String classname) throws ClassNotFoundException {
         String path = classname
                 .replace(
                         "{nm}",
                         "net.minecraft" + (
-                                Bukkit.getBukkitVersion().startsWith("1.17")
+                                hasNewPackageStructure()
                                         ? ""
                                         : "." + serverVersion()))
                 .replace(
                         "{nms}",
                         "net.minecraft.server" + (
-                                Bukkit.getBukkitVersion().startsWith("1.17")
+                                hasNewPackageStructure()
                                         ? ""
                                         : "." + serverVersion()))
                 .replace("{obc}", "org.bukkit.craftbukkit." + serverVersion());
