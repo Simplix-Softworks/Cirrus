@@ -40,12 +40,13 @@ public class SpigotPlayerWrapper implements PlayerWrapper {
     }
 
     @Override
-    public int protocolVersion() {
-        return ProtocolVersionUtil.serverProtocolVersion();
-    }
 
     @Override
     public <T> T handle() {
         return (T) this.handle;
     }
+  @Override
+  public int protocolVersion() {
+    return Math.min(ProtocolVersionUtil.serverProtocolVersion(), ProtocolVersions.MINECRAFT_1_17_1);
+  }
 }
