@@ -2,9 +2,11 @@ package dev.simplix.cirrus.spigot;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
-import java.util.UUID;
+import dev.simplix.cirrus.spigot.util.ProtocolVersions;
 import lombok.NonNull;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 public class SpigotPlayerWrapper implements PlayerWrapper {
 
@@ -40,13 +42,12 @@ public class SpigotPlayerWrapper implements PlayerWrapper {
     }
 
     @Override
-
-    @Override
     public <T> T handle() {
         return (T) this.handle;
     }
-  @Override
-  public int protocolVersion() {
-    return Math.min(ProtocolVersionUtil.serverProtocolVersion(), ProtocolVersions.MINECRAFT_1_17_1);
-  }
+
+    @Override
+    public int protocolVersion() {
+        return Math.min(ProtocolVersionUtil.serverProtocolVersion(), ProtocolVersions.MINECRAFT_1_17_1);
+    }
 }
