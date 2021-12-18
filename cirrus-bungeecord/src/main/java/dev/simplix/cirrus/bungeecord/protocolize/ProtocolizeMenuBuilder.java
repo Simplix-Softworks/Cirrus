@@ -3,6 +3,7 @@ package dev.simplix.cirrus.bungeecord.protocolize;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import dev.simplix.cirrus.bungeecord.BungeeCordPlayerWrapper;
+import dev.simplix.cirrus.common.Utils;
 import dev.simplix.cirrus.common.business.InventoryItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.container.Container;

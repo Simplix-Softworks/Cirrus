@@ -4,6 +4,8 @@ import dev.simplix.protocolize.api.Platform;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.module.ProtocolizeModule;
 import dev.simplix.protocolize.api.providers.ModuleProvider;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ import java.util.List;
  * @author Exceptionflug
  */
 @Slf4j(topic = "Protocolize")
+@Getter
+@Accessors(fluent = true)
 public final class OtherModuleProvider implements ModuleProvider {
 
     private final List<ProtocolizeModule> modules = new ArrayList<>();
