@@ -1,15 +1,25 @@
 package dev.simplix.cirrus.bungeecord.protocolize;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import dev.simplix.cirrus.api.business.InventoryItemWrapper;
-import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.cirrus.api.i18n.Replacer;
-import dev.simplix.cirrus.api.menu.*;
 import dev.simplix.cirrus.bungeecord.BungeeCordPlayerWrapper;
+import dev.simplix.cirrus.common.Utils;
+import dev.simplix.cirrus.common.business.InventoryItemWrapper;
+import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.container.Container;
+import dev.simplix.cirrus.common.handler.ActionHandler;
+import dev.simplix.cirrus.common.i18n.Replacer;
 import dev.simplix.cirrus.common.menu.AbstractMenu;
+import dev.simplix.cirrus.common.menu.Menu;
+import dev.simplix.cirrus.common.menu.MenuBuilder;
+import dev.simplix.cirrus.common.model.CallResult;
+import dev.simplix.cirrus.common.model.Click;
 import dev.simplix.protocolize.api.ClickType;
 import dev.simplix.protocolize.api.inventory.Inventory;
 import dev.simplix.protocolize.api.item.ItemStack;
+import dev.simplix.protocolize.api.player.ProtocolizePlayer;
+import dev.simplix.protocolize.data.packets.OpenWindow;
+import dev.simplix.protocolize.data.packets.WindowItems;
 import lombok.NonNull;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -28,6 +38,10 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
 
     @Override
     public <T> T build(@Nullable T prebuild, @NonNull Menu menu) {
+        final Entry<Menu, Long> menuLongEntry = this.buildMap.get(menu.player().uniqueId());
+        if (menuLongEntry != null && !menuLongEntry.getKey().equals(menu)) {
+            menuLongEntry.getKey().handleClose(true);
+        }
         if (!(menu instanceof AbstractMenu)) {
             throw new IllegalArgumentException("This implementation can only build cirrus menus!");
         }
@@ -36,8 +50,12 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             String title = Replacer.of(menu.title()).replaceAll((Object[]) menu.replacements().get())
                     .replacedMessageJoined();
             final Inventory inventory = (Inventory) prebuild;
+            final BaseComponent[] component = TextComponent.fromLegacyText(title);
+            for (BaseComponent baseComponent : component) {
+                baseComponent.setItalic(false); // Wir kommen nicht aus Italien
+            }
             if (!ComponentSerializer.toString((BaseComponent[]) inventory.title())
-                    .equals(ComponentSerializer.toString(new TextComponent(title))) ||
+                    .equals(ComponentSerializer.toString(component)) ||
                     inventory.type().getTypicalSize(menu.player().protocolVersion()) != menu
                             .topContainer()
                             .capacity()
@@ -51,11 +69,11 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
         buildContainer(inventory, menu.topContainer());
         buildContainer(inventory, menu.bottomContainer());
 
-        buildMap.put(
+        this.buildMap.put(
                 menu.player().uniqueId(),
                 new AbstractMap.SimpleEntry<>(menu, System.currentTimeMillis()));
         if (register) {
-            menus.add(menu);
+            this.menus.add(menu);
         }
         open(menu.player(), inventory);
         return prebuild;
@@ -70,7 +88,16 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
                     inventory.item(i, ItemStack.NO_DATA);
                 }
             }
+
             if (item != null) {
+                for (BaseComponent[] loreComponent : item.loreComponents()) {
+                    for (BaseComponent baseComponent : loreComponent) {
+//                        if (!baseComponent.isItalic()) {
+//                            baseComponent.setItalic(false);
+//                        }
+                    }
+                }
+
                 if (currentStack == null) {
                     if (item.handle() == null) {
                         ProxyServer.getInstance().getLogger()
@@ -89,8 +116,14 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
 
     private Inventory makeInv(@NonNull Menu menu) {
         Inventory inventory = new Inventory(menu.inventoryType());
-        inventory.title(new BaseComponent[]{new TextComponent(Replacer.of(menu.title())
-                .replaceAll((Object[]) menu.replacements().get()).replacedMessageJoined())});
+        BaseComponent[] textComponent = TextComponent.fromLegacyText(Replacer.of(menu.title())
+                .replaceAll((Object[]) menu.replacements().get()).replacedMessageJoined());
+        for (BaseComponent component : textComponent) {
+            if (!component.isItalic()) {
+                component.setItalic(false); // Resolve client side behavior
+            }
+        }
+        inventory.title(textComponent);
 
         inventory.onClose(inventoryClose -> {
             Map.Entry<Menu, Long> lastBuild = lastBuildOfPlayer(inventoryClose.player().uniqueId());
@@ -169,7 +202,71 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
     public <T> void open(
             PlayerWrapper playerWrapper, T inventoryImpl) {
         if (playerWrapper instanceof BungeeCordPlayerWrapper) {
-            ((BungeeCordPlayerWrapper) playerWrapper).protocolizePlayer().openInventory((Inventory) inventoryImpl);
+            final ProtocolizePlayer protocolizePlayer = ((BungeeCordPlayerWrapper) playerWrapper).protocolizePlayer();
+            final Inventory inventory = (Inventory) inventoryImpl;
+
+            boolean alreadyOpen = false;
+            int windowId = -1;
+            for (Integer id : protocolizePlayer.registeredInventories().keySet()) {
+                Inventory val = protocolizePlayer.registeredInventories().get(id);
+                if (val.type() == inventory.type() && val.title().equals(inventory.title())) {
+                    alreadyOpen = true;
+                    break;
+                }
+            }
+
+            // Close all inventories if not opened
+            if (!alreadyOpen) {
+                protocolizePlayer.closeInventory();
+            }
+
+            if (protocolizePlayer.registeredInventories().containsValue(inventory)) {
+                for (Integer id : protocolizePlayer.registeredInventories().keySet()) {
+                    Inventory val = protocolizePlayer.registeredInventories().get(id);
+                    if (val==inventory) {
+                        windowId = id;
+                        break;
+                    }
+                }
+                if (windowId == -1) {
+                    windowId = protocolizePlayer.generateWindowId();
+                    protocolizePlayer.registerInventory(windowId, inventory);
+                }
+            } else {
+                windowId = protocolizePlayer.generateWindowId();
+                protocolizePlayer.registerInventory(windowId, inventory);
+            }
+
+            if (!alreadyOpen) {
+                protocolizePlayer.sendPacket(new OpenWindow(windowId, inventory.type(), inventory.titleJson()));
+            }
+            int protocolVersion;
+            try {
+                protocolVersion = protocolizePlayer.protocolVersion();
+            } catch (Throwable t) {
+                protocolVersion = 47;
+            }
+            List<ItemStack> items = Lists.newArrayList(inventory.itemsIndexed(protocolVersion));
+            for (ItemStack item : items) {
+                if (item==null) {
+                    continue;
+                }
+                List<BaseComponent[]> lore = item.lore();
+                for (BaseComponent[] baseComponents : lore) {
+                    Utils.removeItalic(baseComponents);
+                }
+                item.lore(lore, false);
+                BaseComponent[] display = item.displayName();
+                Utils.removeItalic(display);
+                item.displayName(display);
+            }
+            protocolizePlayer.sendPacket(new WindowItems((short) windowId, items, 0));
+        }
+    }
+
+    private void removeItalic(BaseComponent[] components) {
+        for (BaseComponent component : components) {
+            component.setItalic(false);
         }
     }
 
@@ -179,7 +276,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
         if (handle == null) {
             return null;
         }
-        for (final Menu menu : menus) {
+        for (final Menu menu : this.menus) {
             if (menu.equals(handle)) {
                 return menu;
             }
@@ -189,19 +286,19 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
 
     @Override
     public void destroyMenusOfPlayer(@NonNull UUID uniqueId) {
-        menus.removeIf(
+        this.menus.removeIf(
                 wrapper -> ((ProxiedPlayer) wrapper.player().handle()).getUniqueId().equals(uniqueId));
-        buildMap.remove(uniqueId);
+        this.buildMap.remove(uniqueId);
     }
 
     @Override
     public Entry<Menu, Long> lastBuildOfPlayer(@NonNull UUID uniqueId) {
-        return buildMap.get(uniqueId);
+        return this.buildMap.get(uniqueId);
     }
 
     @Override
     public void invalidate(@NonNull Menu menu) {
-        menus.remove(menu);
+        this.menus.remove(menu);
     }
 
 }

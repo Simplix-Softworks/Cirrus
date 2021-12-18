@@ -1,16 +1,15 @@
 package dev.simplix.cirrus.spigot.converters;
 
-import dev.simplix.cirrus.api.converter.Converter;
+import dev.simplix.cirrus.common.converter.Converter;
 import dev.simplix.cirrus.spigot.util.ReflectionClasses;
-import lombok.NonNull;
-import net.querz.nbt.io.NBTInputStream;
-import net.querz.nbt.tag.CompoundTag;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
+import lombok.NonNull;
+import net.querz.nbt.io.NBTInputStream;
+import net.querz.nbt.tag.CompoundTag;
 
 public class NmsNbtQuerzNbtConverter implements Converter<Object, CompoundTag> {
 

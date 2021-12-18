@@ -17,10 +17,9 @@ Our repository also participates in this year's [Hacktoberfest](https://hacktobe
 
 ## Platforms
 On Spigot Cirrus is fully independent of third party plugins. Protocolize is needed only only if Cirrus is used on proxies like BungeeCord or Velocity.
-
-- Spigot 
+- Spigot
 - BungeeCord
-- Velocity
+- Velocity (WIP)
 
 ## Tooling
 

@@ -3,8 +3,9 @@ package dev.simplix.cirrus.spigot.converters;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import dev.simplix.cirrus.api.converter.Converter;
-import dev.simplix.cirrus.api.converter.Converters;
+import dev.simplix.cirrus.common.Utils;
+import dev.simplix.cirrus.common.converter.Converter;
+import dev.simplix.cirrus.common.converter.Converters;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
 import dev.simplix.cirrus.spigot.util.ReflectionClasses;
 import dev.simplix.cirrus.spigot.util.ReflectionUtil;
@@ -37,6 +38,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
     private static Class<?> itemStackNMSClass;
     private static Method nmsCopyMethod;
     private static Method bukkitCopyMethod;
+    private static Method setTagMethod;
 
     static {
         try {
@@ -88,6 +90,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
                 final CompoundTag skullOwnerTag = tag.getCompoundTag("SkullOwner");
                 final Tag<?> propertiesRaw = skullOwnerTag.get("Properties");
 
+
                 if (propertiesRaw instanceof CompoundTag) {
                     try {
                         final ListTag<CompoundTag> textures = (ListTag<CompoundTag>) ((CompoundTag) propertiesRaw)
@@ -106,20 +109,29 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
         try {
             mutateMetaDataToHideAttributes(out);
             Object nmsItemStack = nmsCopyMethod.invoke(null, out);
-            Method setTag = itemStackNMSClass.getMethod("setTag", nbtTagCompoundClass);
             if (src.nbtData() != null) {
-                final CompoundTag nbtTag = src.nbtData().clone();
-                if (textureHashToInsert != null) {
-                    nbtTag.remove("SkullOwner");
+                try {
+
+                    Method setTag = method();
+                    ;
+                    final CompoundTag nbtTag = src.nbtData().clone();
+                    if (textureHashToInsert != null) {
+                        nbtTag.remove("SkullOwner");
+                    }
+
+                    setTag.invoke(nmsItemStack, Converters.convert(nbtTag, nbtTagCompoundClass));
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
                 }
-                setTag.invoke(nmsItemStack, Converters.convert(nbtTag, nbtTagCompoundClass));
             }
+            
             final org.bukkit.inventory.ItemStack itemStackCopy = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
                     .invoke(null, nmsItemStack);
 
             if (textureHashToInsert == null) {
                 return itemStackCopy;
             }
+
             final SkullMeta meta = (SkullMeta) itemStackCopy.getItemMeta();
             mutateItemMetaForTextureHash(meta, textureHashToInsert);
             itemStackCopy.setItemMeta(meta);
@@ -131,6 +143,20 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
         return out;
     }
 
+    private Method method() throws NoSuchMethodException {
+        if (setTagMethod != null) {
+            return setTagMethod;
+        }
+        Method setTag;
+        try {
+            setTag = itemStackNMSClass.getMethod("setTag", nbtTagCompoundClass);
+        } catch (NoSuchMethodException e) {
+            setTag = itemStackNMSClass.getDeclaredMethod("setTagClone", nbtTagCompoundClass);
+            setTag.setAccessible(true);
+        }
+        return setTagMethod = setTag;
+    }
+
     private void mutateMetaDataToHideAttributes(org.bukkit.inventory.ItemStack out) {
         try {
             final ItemMeta itemMeta = out.getItemMeta();
@@ -140,6 +166,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
             itemMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
             itemMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
             itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+
             out.setItemMeta(itemMeta);
         } catch (Throwable ignored) {
         }
@@ -181,8 +208,9 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
         if (stack.displayName() != null) {
             if (ProtocolVersionUtil.serverProtocolVersion() >= MINECRAFT_1_13) {
                 stack.nbtData().put("Damage", new IntTag(stack.durability()));
-                setDisplayNameTag(stack.nbtData(),
-                        ComponentSerializer.toString((BaseComponent[]) stack.displayName()));
+                final BaseComponent[] baseComponents = stack.displayName();
+                Utils.removeItalic(baseComponents);
+                setDisplayNameTag(stack.nbtData(), ComponentSerializer.toString(baseComponents));
             } else {
                 setDisplayNameTag(stack.nbtData(),
                         TextComponent.toLegacyText(stack.displayName()));

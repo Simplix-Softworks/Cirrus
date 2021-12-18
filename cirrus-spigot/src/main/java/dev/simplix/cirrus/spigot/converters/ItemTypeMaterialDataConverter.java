@@ -1,6 +1,6 @@
 package dev.simplix.cirrus.spigot.converters;
 
-import dev.simplix.cirrus.api.converter.Converter;
+import dev.simplix.cirrus.common.converter.Converter;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.mapping.ProtocolIdMapping;
@@ -18,8 +18,8 @@ public class ItemTypeMaterialDataConverter implements Converter<ItemType, Materi
 
     @Override
     public MaterialData convert(@NonNull ItemType src) {
-        ProtocolIdMapping mapping = mappingProvider.mapping(src, ProtocolVersionUtil.serverProtocolVersion());
-        if (mapping == null) {
+        ProtocolIdMapping mapping = this.mappingProvider.mapping(src, ProtocolVersionUtil.serverProtocolVersion());
+        if (mapping==null) {
             return null;
         }
         if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_13) {

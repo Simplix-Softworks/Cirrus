@@ -1,10 +1,6 @@
 package dev.simplix.cirrus.common.util;
 
-import dev.simplix.cirrus.api.business.InventoryItemWrapper;
-import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import dev.simplix.cirrus.common.business.InventoryItemWrapper;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -13,26 +9,29 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItemWrapper> {
 
-    private Map<Integer, InventoryItemWrapper> value = new ConcurrentHashMap<>();
+    private final Map<Integer, InventoryItemWrapper> value = new ConcurrentHashMap<>();
 
     // Delegate methods
 
     @Override
     public int size() {
-        return value.size();
+        return this.value.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return value.isEmpty();
+        return this.value.isEmpty();
     }
 
     @Override
     public boolean containsKey(@NonNull Object key) {
-        return value.containsKey(key);
+        return this.value.containsKey(key);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
 
     @Override
     public InventoryItemWrapper get(@NonNull Object key) {
-        return value.get(key);
+        return this.value.get(key);
     }
 
     @Nullable
@@ -53,60 +52,60 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
 
     @Override
     public InventoryItemWrapper remove(Object key) {
-        return value.remove(key);
+        return this.value.remove(key);
     }
 
     @Override
     public void putAll(@NotNull Map<? extends Integer, ? extends InventoryItemWrapper> m) {
-        value.putAll(m);
+        this.value.putAll(m);
     }
 
     @Override
     public void clear() {
-        value.clear();
+        this.value.clear();
     }
 
     @NotNull
     @Override
     public Set<Integer> keySet() {
-        return value.keySet();
+        return this.value.keySet();
     }
 
     @NotNull
     @Override
     public Collection<InventoryItemWrapper> values() {
-        return value.values();
+        return this.value.values();
     }
 
     @NotNull
     @Override
     public Set<Entry<Integer, InventoryItemWrapper>> entrySet() {
-        return value.entrySet();
+        return this.value.entrySet();
     }
 
     @Override
     public boolean equals(Object obj) {
-        return value.equals(obj);
+        return this.value.equals(obj);
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return this.value.hashCode();
     }
 
     @Override
     public InventoryItemWrapper getOrDefault(Object key, InventoryItemWrapper defaultValue) {
-        return value.getOrDefault(key, defaultValue);
+        return this.value.getOrDefault(key, defaultValue);
     }
 
     @Override
     public void forEach(BiConsumer<? super Integer, ? super InventoryItemWrapper> action) {
-        value.forEach(action);
+        this.value.forEach(action);
     }
 
     @Override
     public void replaceAll(BiFunction<? super Integer, ? super InventoryItemWrapper, ? extends InventoryItemWrapper> function) {
-        value.replaceAll(function);
+        this.value.replaceAll(function);
     }
 
     @Override
@@ -124,7 +123,7 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
             Integer key,
             InventoryItemWrapper oldValue,
             InventoryItemWrapper newValue) {
-        return value.replace(key, oldValue, newValue);
+        return this.value.replace(key, oldValue, newValue);
     }
 
     @Override
@@ -136,21 +135,21 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
     public InventoryItemWrapper computeIfAbsent(
             Integer key,
             @NotNull Function<? super Integer, ? extends InventoryItemWrapper> mappingFunction) {
-        return value.computeIfAbsent(key, mappingFunction);
+        return this.value.computeIfAbsent(key, mappingFunction);
     }
 
     @Override
     public InventoryItemWrapper computeIfPresent(
             Integer key,
             @NotNull BiFunction<? super Integer, ? super InventoryItemWrapper, ? extends InventoryItemWrapper> remappingFunction) {
-        return value.computeIfPresent(key, remappingFunction);
+        return this.value.computeIfPresent(key, remappingFunction);
     }
 
     @Override
     public InventoryItemWrapper compute(
             Integer key,
             @NotNull BiFunction<? super Integer, ? super InventoryItemWrapper, ? extends InventoryItemWrapper> remappingFunction) {
-        return value.compute(key, remappingFunction);
+        return this.value.compute(key, remappingFunction);
     }
 
     @Override

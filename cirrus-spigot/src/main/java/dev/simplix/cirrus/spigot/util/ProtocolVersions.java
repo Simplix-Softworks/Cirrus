@@ -1,6 +1,7 @@
 package dev.simplix.cirrus.spigot.util;
 
 public class ProtocolVersions {
+
     public final static int MINECRAFT_1_8 = 47;
     public final static int MINECRAFT_1_9 = 107;
     public final static int MINECRAFT_1_9_1 = 108;
@@ -32,9 +33,10 @@ public class ProtocolVersions {
     public final static int MINECRAFT_1_16_4 = 754;
     public final static int MINECRAFT_1_16_5 = MINECRAFT_1_16_4;
     public final static int MINECRAFT_1_17 = 755;
+    public final static int MINECRAFT_1_17_1 = 756;
+    public final static int MINECRAFT_1_18 = 757;
 
-
-    public final static int MINECRAFT_LATEST = MINECRAFT_1_17;
+    public final static int MINECRAFT_LATEST = MINECRAFT_1_18;
 
 
 }

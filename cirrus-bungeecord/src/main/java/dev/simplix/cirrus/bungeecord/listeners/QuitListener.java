@@ -1,7 +1,7 @@
 package dev.simplix.cirrus.bungeecord.listeners;
 
-import dev.simplix.cirrus.api.menu.MenuBuilder;
 import dev.simplix.cirrus.common.Cirrus;
+import dev.simplix.cirrus.common.menu.MenuBuilder;
 import lombok.NonNull;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.plugin.Listener;

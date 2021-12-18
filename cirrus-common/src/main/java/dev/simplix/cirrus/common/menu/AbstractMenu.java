@@ -1,28 +1,27 @@
 package dev.simplix.cirrus.common.menu;
 
-import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.cirrus.api.i18n.LocalizedItemStackModel;
-import dev.simplix.cirrus.api.i18n.Localizer;
-import dev.simplix.cirrus.api.i18n.Replacer;
-import dev.simplix.cirrus.api.menu.ActionHandler;
-import dev.simplix.cirrus.api.menu.Container;
-import dev.simplix.cirrus.api.menu.Menu;
-import dev.simplix.cirrus.api.menu.MenuBuilder;
-import dev.simplix.cirrus.api.model.ItemStackModel;
 import dev.simplix.cirrus.common.Cirrus;
+import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.container.Container;
+import dev.simplix.cirrus.common.container.impl.ItemContainer;
+import dev.simplix.cirrus.common.handler.ActionHandler;
+import dev.simplix.cirrus.common.handler.AutoCancellingActionHandler;
+import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.i18n.Localizer;
+import dev.simplix.cirrus.common.i18n.Replacer;
+import dev.simplix.cirrus.common.model.ItemStackModel;
 import dev.simplix.protocolize.data.inventory.InventoryType;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
-import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Nullable;
 
 @Getter
 @Accessors(fluent = true)
@@ -31,7 +30,7 @@ public abstract class AbstractMenu implements Menu {
 
     private static final AtomicInteger ID_GENERATOR = new AtomicInteger();
 
-    private final Map<String, ActionHandler> actionHandlerMap = new HashMap<>();
+    private final Map<String, ActionHandler> actionHandlerMap;
     private final MenuBuilder menuBuilder = Cirrus.getService(MenuBuilder.class);
     private final Container topContainer;
     private final Container bottomContainer;
@@ -48,24 +47,39 @@ public abstract class AbstractMenu implements Menu {
             @NonNull PlayerWrapper player,
             @NonNull InventoryType inventoryType,
             @NonNull Locale locale) {
+        this(player, inventoryType, locale, new HashMap<>());
+    }
+
+    public AbstractMenu(
+            @NonNull PlayerWrapper player,
+            @NonNull InventoryType inventoryType,
+            @NonNull Locale locale,
+            @NonNull Map<String, ActionHandler> actionHandlerMap) {
         this.inventoryType = inventoryType;
         this.locale = locale;
         this.player = player;
-        replacements = () -> new String[]{"viewer", player.name()};
-        topContainer = new ItemContainer(0, inventoryType.getTypicalSize(player.protocolVersion()));
-        bottomContainer = new ItemContainer(
+        this.replacements = () -> new String[]{"viewer", player.name()};
+        this.topContainer = new ItemContainer(0, inventoryType.getTypicalSize(player.protocolVersion()));
+        this.bottomContainer = new ItemContainer(
                 inventoryType.getTypicalSize(player.protocolVersion()),
                 4 * 9);
+        this.actionHandlerMap = actionHandlerMap;
+    }
+
+    @Override
+    public void registerActionHandler(@NonNull String name, @NonNull AutoCancellingActionHandler actionHandler) {
+        this.actionHandlerMap.put(name, actionHandler);
     }
 
     @Override
     public void registerActionHandler(@NonNull String name, @NonNull ActionHandler actionHandler) {
-        actionHandlerMap.put(name, actionHandler);
+        this.actionHandlerMap.put(name, actionHandler);
     }
 
     @Override
+    @Nullable
     public ActionHandler actionHandler(@NonNull String name) {
-        return actionHandlerMap.get(name);
+        return this.actionHandlerMap.get(name);
     }
 
     @Override
@@ -80,7 +94,7 @@ public abstract class AbstractMenu implements Menu {
 
     @Override
     public String title() {
-        return Replacer.of(title).replaceAll((Object[]) replacements().get()).replacedMessageJoined();
+        return Replacer.of(this.title).replaceAll((Object[]) replacements().get()).replacedMessageJoined();
     }
 
     @Override
@@ -98,7 +112,7 @@ public abstract class AbstractMenu implements Menu {
 
     @Override
     public void build() {
-        if (menuBuilder() == null) {
+        if (menuBuilder()==null) {
             return;
         }
         nativeInventory(menuBuilder().build(nativeInventory(), this));
@@ -107,7 +121,7 @@ public abstract class AbstractMenu implements Menu {
     @Override
     public void open() {
         build();
-        menuBuilder().open(player, nativeInventory());
+        menuBuilder().open(this.player, nativeInventory());
     }
 
     protected void set(@NonNull ItemStackModel model) {
@@ -129,10 +143,15 @@ public abstract class AbstractMenu implements Menu {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) {
+        if (o==null) {
             return false;
         }
-        if (this == o) {
+        if (o instanceof AbstractMenu) {
+            final AbstractMenu abstractMenu = (AbstractMenu) o;
+            return abstractMenu.internalId==this.internalId();
+        }
+
+        if (this==o) {
             return true;
         }
         return o.equals(nativeInventory());
@@ -141,30 +160,30 @@ public abstract class AbstractMenu implements Menu {
     @Override
     public int hashCode() {
         return Objects.hash(
-                actionHandlerMap,
-                topContainer,
-                bottomContainer,
-                inventoryType,
-                locale,
-                player,
-                internalId,
-                replacements,
-                customActionHandler,
-                nativeInventory,
-                title);
+                this.actionHandlerMap,
+                this.topContainer,
+                this.bottomContainer,
+                this.inventoryType,
+                this.locale,
+                this.player,
+                this.internalId,
+                this.replacements,
+                this.customActionHandler,
+                this.nativeInventory,
+                this.title);
     }
 
     @Override
     public void handleException(
             @Nullable ActionHandler actionHandler, Throwable throwable) {
-        if (actionHandler == null) {
-            player.sendMessage(
+        if (actionHandler==null) {
+            this.player.sendMessage(
                     "§cThere was a problem while running your menu. Please take a look at the console.");
             log.error(
                     "[Cirrus] Exception occurred while running menu " + getClass().getName(),
                     throwable);
         } else {
-            player.sendMessage(
+            this.player.sendMessage(
                     "§cThere was a problem while running your action handler. Please take a look at the console.");
             log.error("[Cirrus] Exception occurred while running action handler for menu "
                     + getClass().getName(), throwable);

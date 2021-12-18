@@ -1,8 +1,8 @@
 package dev.simplix.cirrus.velocity.converters;
 
 import com.velocitypowered.api.proxy.Player;
-import dev.simplix.cirrus.api.business.PlayerWrapper;
-import dev.simplix.cirrus.api.converter.Converter;
+import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.converter.Converter;
 import dev.simplix.cirrus.velocity.VelocityPlayerWrapper;
 import lombok.NonNull;
 
