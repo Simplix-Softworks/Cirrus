@@ -1,10 +1,9 @@
 package dev.simplix.cirrus.spigot.util;
 
+import java.lang.reflect.Field;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.lang.reflect.Field;
 
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -16,7 +15,7 @@ public final class ProtocolVersionUtil {
         if (protocolVersion == 0) {
             protocolVersion = detectVersion();
         }
-        return protocolVersion;
+        return Math.min(ProtocolVersions.MINECRAFT_1_17_1, protocolVersion);
     }
 
     private static int detectVersion() {
