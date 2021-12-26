@@ -107,7 +107,6 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
 
         // Finalizing the itemstack by inserting nbt data & hiding attributes
         try {
-            mutateMetaDataToHideAttributes(out);
             Object nmsItemStack = nmsCopyMethod.invoke(null, out);
             if (src.nbtData() != null) {
                 try {
@@ -128,6 +127,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
             final org.bukkit.inventory.ItemStack itemStackCopy = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
                     .invoke(null, nmsItemStack);
 
+            mutateMetaDataToHideAttributes(itemStackCopy);
             if (textureHashToInsert == null) {
                 return itemStackCopy;
             }
