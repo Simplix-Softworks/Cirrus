@@ -3,8 +3,7 @@ package dev.simplix.cirrus.common.model;
 import dev.simplix.cirrus.common.i18n.LocalizedString;
 import dev.simplix.cirrus.common.i18n.LocalizedStringList;
 import dev.simplix.protocolize.data.ItemType;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 import net.querz.nbt.tag.CompoundTag;
@@ -17,9 +16,12 @@ import net.querz.nbt.tag.CompoundTag;
 @AllArgsConstructor
 public class ItemStackModel {
 
-    private LocalizedString displayName;
-    private LocalizedStringList lore;
-    private ItemType itemType;
+    @Builder.Default
+    private LocalizedString displayName = new LocalizedString(new HashMap<>());
+    @Builder.Default
+    private LocalizedStringList lore = new LocalizedStringList(new HashMap<>());
+    @Builder.Default
+    private ItemType itemType = ItemType.STONE;
     @Builder.Default
     private byte amount = 1;
     @Builder.Default
@@ -30,6 +32,7 @@ public class ItemStackModel {
     private List<String> actionArguments = Collections.emptyList();
     @Builder.Default
     private int[] slots = new int[0];
-    private CompoundTag nbt;
+    @Builder.Default
+    private CompoundTag nbt = new CompoundTag();
 
 }
