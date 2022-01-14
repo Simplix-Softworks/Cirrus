@@ -1,7 +1,7 @@
-package dev.simplix.cirrus.common.menu.effects;
+package dev.simplix.cirrus.common.effects;
 
 import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
-import dev.simplix.cirrus.common.menu.effect.AbstractChangingItemEffect;
+import dev.simplix.cirrus.common.effect.AbstractChangingItemEffect;
 
 import java.util.List;
 

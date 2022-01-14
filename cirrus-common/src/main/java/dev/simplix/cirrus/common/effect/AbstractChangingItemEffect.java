@@ -1,4 +1,4 @@
-package dev.simplix.cirrus.common.menu.effect;
+package dev.simplix.cirrus.common.effect;
 
 import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 

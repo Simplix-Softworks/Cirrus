@@ -1,7 +1,7 @@
-package dev.simplix.cirrus.common.menu.effects;
+package dev.simplix.cirrus.common.effects;
 
 import com.google.common.base.Preconditions;
-import dev.simplix.cirrus.common.menu.effect.AbstractMenuEffect;
+import dev.simplix.cirrus.common.effect.AbstractMenuEffect;
 
 import java.util.ArrayList;
 import java.util.Collections;
