@@ -1,6 +1,6 @@
 package dev.simplix.cirrus.common.menu;
 
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.converter.Converters;
@@ -130,8 +130,8 @@ public interface Menu extends ErrorProne {
      * @param object the object to convert
      * @return the wrapper object
      */
-    default ItemStackWrapper wrapItemStack(@NonNull Object object) {
-        return Converters.convert(object, ItemStackWrapper.class);
+    default MenuItemWrapper wrapItemStack(@NonNull Object object) {
+        return Converters.convert(object, MenuItemWrapper.class);
     }
 
 }

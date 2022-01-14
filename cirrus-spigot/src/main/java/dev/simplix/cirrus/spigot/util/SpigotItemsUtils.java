@@ -1,8 +1,8 @@
 package dev.simplix.cirrus.spigot.util;
 
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.item.ProtocolizeItemStackWrapper;
+import dev.simplix.cirrus.common.item.ProtocolizeMenuItemWrapper;
 import dev.simplix.protocolize.data.ItemType;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
@@ -21,8 +21,8 @@ public class SpigotItemsUtils {
         return ItemType.valueOf(material.name());
     }
 
-    public ItemStackWrapper wrapBukkitItemStack(@NonNull ItemStack itemStack) {
+    public MenuItemWrapper wrapBukkitItemStack(@NonNull ItemStack itemStack) {
         dev.simplix.protocolize.api.item.ItemStack protocolizeStack = Converters.convert(itemStack, dev.simplix.protocolize.api.item.ItemStack.class);
-        return new ProtocolizeItemStackWrapper(protocolizeStack);
+        return new ProtocolizeMenuItemWrapper(protocolizeStack);
     }
 }

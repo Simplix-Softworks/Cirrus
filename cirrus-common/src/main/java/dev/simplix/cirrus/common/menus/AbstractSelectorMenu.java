@@ -3,7 +3,7 @@ package dev.simplix.cirrus.common.menus;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.handler.ActionHandler;
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 import dev.simplix.cirrus.common.model.Click;
 import java.util.*;
 import java.util.Map.Entry;
@@ -38,10 +38,10 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
 
     protected abstract List<T> values();
 
-    protected abstract LocalizedItemStackModel map(T value);
+    protected abstract MenuItem map(T value);
 
-    protected Map<T, LocalizedItemStackModel> mappedValues() {
-        final Map<T, LocalizedItemStackModel> out = new HashMap<>();
+    protected Map<T, MenuItem> mappedValues() {
+        final Map<T, MenuItem> out = new HashMap<>();
         for (T value : values()) {
             out.put(value, map(value));
         }
@@ -50,8 +50,8 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
     }
 
     protected void insert() {
-        for (Entry<T, LocalizedItemStackModel> entry : mappedValues().entrySet()) {
-            final LocalizedItemStackModel value = entry.getValue();
+        for (Entry<T, MenuItem> entry : mappedValues().entrySet()) {
+            final MenuItem value = entry.getValue();
             final Integer slot = add(value, "click", new ArrayList<>());
             this.slotValueMap.put(slot, entry.getKey());
         }

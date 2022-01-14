@@ -7,11 +7,11 @@ import dev.simplix.cirrus.bungeecord.converters.PlayerUniqueIdConverter;
 import dev.simplix.cirrus.bungeecord.listeners.QuitListener;
 import dev.simplix.cirrus.bungeecord.protocolize.ProtocolizeMenuBuilder;
 import dev.simplix.cirrus.common.Cirrus;
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 import dev.simplix.cirrus.common.menu.MenuBuilder;
 import dev.simplix.protocolize.api.item.ItemStack;
 import java.util.UUID;
@@ -29,8 +29,8 @@ public class CirrusBungeeCord {
         Converters.register(UUID.class, PlayerWrapper.class, new PlayerUniqueIdConverter());
 
         // Items
-        Converters.register(ItemStack.class, ItemStackWrapper.class, new ItemStackConverter());
-        Converters.register(LocalizedItemStackModel.class, InventoryItemWrapper.class, new ItemModelConverter());
+        Converters.register(ItemStack.class, MenuItemWrapper.class, new ItemStackConverter());
+        Converters.register(MenuItem.class, InventoryMenuItemWrapper.class, new ItemModelConverter());
     }
 
     public static void init(Plugin plugin) {

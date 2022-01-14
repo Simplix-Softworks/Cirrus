@@ -1,12 +1,12 @@
 package dev.simplix.cirrus.spigot;
 
 import dev.simplix.cirrus.common.Cirrus;
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
-import dev.simplix.cirrus.common.item.ProtocolizeItemStackWrapper;
+import dev.simplix.cirrus.common.item.MenuItem;
+import dev.simplix.cirrus.common.item.ProtocolizeMenuItemWrapper;
 import dev.simplix.cirrus.common.menu.MenuBuilder;
 import dev.simplix.cirrus.spigot.converters.*;
 import dev.simplix.cirrus.spigot.listener.InventoryListener;
@@ -71,14 +71,14 @@ public class CirrusSpigot {
                     new BukkitItemStackConverter());
             Converters.register(
                     ItemStack.class,
-                    ItemStackWrapper.class,
-                    o -> new ProtocolizeItemStackWrapper(
+                    MenuItemWrapper.class,
+                    o -> new ProtocolizeMenuItemWrapper(
                             (dev.simplix.protocolize.api.item.ItemStack) o));
             Converters.register(ItemType.class, MaterialData.class, new ItemTypeMaterialDataConverter());
             Converters.register(MaterialData.class, ItemType.class, new MaterialDataItemTypeConverter());
             Converters.register(
-                    LocalizedItemStackModel.class,
-                    InventoryItemWrapper.class,
+                    MenuItem.class,
+                    InventoryMenuItemWrapper.class,
                     new ItemModelConverter());
             Converters.register(
                     InventoryType.class,

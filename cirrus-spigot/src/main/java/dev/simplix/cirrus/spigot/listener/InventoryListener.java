@@ -1,7 +1,7 @@
 package dev.simplix.cirrus.spigot.listener;
 
 import dev.simplix.cirrus.common.Cirrus;
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.converter.Converters;
 import dev.simplix.cirrus.common.handler.ActionHandler;
@@ -49,7 +49,7 @@ public class InventoryListener implements Listener {
             container = menu.topContainer();
 //      Bukkit.broadcastMessage("Clicked top container");
         }
-        InventoryItemWrapper item = container.get(event.getRawSlot());
+        InventoryMenuItemWrapper item = container.get(event.getRawSlot());
         ClickType type = event.getClick();
         if (item==null) {
 //      Bukkit.broadcastMessage("Clicked nothing");

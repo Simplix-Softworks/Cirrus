@@ -1,29 +1,27 @@
 package dev.simplix.cirrus.common.model;
 
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.menu.Menu;
 import dev.simplix.protocolize.api.ClickType;
 import java.util.List;
-import lombok.Data;
 import lombok.NonNull;
-import lombok.experimental.Accessors;
 
 /**
- * A click contains information about a click performed on an {@link InventoryItemWrapper}.
+ * A click contains information about a click performed on an {@link InventoryMenuItemWrapper}.
  */
 public class Click {
 
     private final ClickType clickType;
     private final Menu clickedMenu;
-    private final InventoryItemWrapper clickedItem;
+    private final InventoryMenuItemWrapper clickedItem;
     private final int slot;
 
     public Click(
             @NonNull ClickType clickType,
             @NonNull Menu clickedMenu,
-            @NonNull InventoryItemWrapper clickedItem,
+            @NonNull InventoryMenuItemWrapper clickedItem,
             int slot) {
         this.clickType = clickType;
         this.clickedMenu = clickedMenu;
@@ -47,7 +45,7 @@ public class Click {
         return this.clickedItem.actionArguments();
     }
 
-    public <T extends ItemStackWrapper> T clickedItem() {
+    public <T extends MenuItemWrapper> T clickedItem() {
         return (T) this.clickedItem;
     }
 

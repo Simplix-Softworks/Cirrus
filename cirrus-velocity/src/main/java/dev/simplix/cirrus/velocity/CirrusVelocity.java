@@ -3,11 +3,11 @@ package dev.simplix.cirrus.velocity;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import dev.simplix.cirrus.common.Cirrus;
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 import dev.simplix.cirrus.common.menu.MenuBuilder;
 import dev.simplix.cirrus.velocity.converters.ItemModelConverter;
 import dev.simplix.cirrus.velocity.converters.ItemStackConverter;
@@ -40,8 +40,8 @@ public class CirrusVelocity {
         Converters.register(UUID.class, PlayerWrapper.class, new PlayerUniqueIdConverter(proxyServer));
 
         // Items
-        Converters.register(ItemStack.class, ItemStackWrapper.class, new ItemStackConverter());
-        Converters.register(LocalizedItemStackModel.class, InventoryItemWrapper.class, new ItemModelConverter());
+        Converters.register(ItemStack.class, MenuItemWrapper.class, new ItemStackConverter());
+        Converters.register(MenuItem.class, InventoryMenuItemWrapper.class, new ItemModelConverter());
     }
 
 }

@@ -6,10 +6,10 @@ import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.container.impl.ItemContainer;
 import dev.simplix.cirrus.common.handler.ActionHandler;
 import dev.simplix.cirrus.common.handler.AutoCancellingActionHandler;
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 import dev.simplix.cirrus.common.i18n.Localizer;
 import dev.simplix.cirrus.common.i18n.Replacer;
-import dev.simplix.cirrus.common.model.ItemStackModel;
+import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import java.util.HashMap;
 import java.util.Locale;
@@ -124,14 +124,14 @@ public abstract class AbstractMenu implements Menu {
         menuBuilder().open(this.player, nativeInventory());
     }
 
-    protected void set(@NonNull ItemStackModel model) {
+    protected void set(@NonNull LocalizedItemStackModel model) {
         set(Localizer.localize(
                 model,
                 locale(),
                 replacements().get()));
     }
 
-    protected void set(@NonNull LocalizedItemStackModel model) {
+    protected void set(@NonNull MenuItem model) {
         for (int slot : model.slots()) {
             if (slot > topContainer().capacity() - 1) {
                 bottomContainer().set(slot - bottomContainer().baseSlot(), model);

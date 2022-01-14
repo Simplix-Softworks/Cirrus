@@ -1,14 +1,14 @@
 package dev.simplix.cirrus.common.menus;
 
 import dev.simplix.cirrus.common.Cirrus;
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.configuration.MenuConfiguration;
 import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.handler.ActionHandler;
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 import dev.simplix.cirrus.common.menu.AbstractConfigurableMenu;
 import dev.simplix.cirrus.common.menu.AbstractMenu;
 import dev.simplix.cirrus.common.menu.Menu;
@@ -129,11 +129,11 @@ public class MultiPageMenu extends AbstractMenu {
         this.currentPage++;
     }
 
-    public int add(@NonNull LocalizedItemStackModel model, String actionHandler, List<String> arguments) {
+    public int add(@NonNull MenuItem model, String actionHandler, List<String> arguments) {
         return add(wrapItemStack(model), actionHandler, arguments);
     }
 
-    public int add(@NonNull InventoryItemWrapper inventoryItemWrapper) {
+    public int add(@NonNull InventoryMenuItemWrapper inventoryItemWrapper) {
         int slot = currentPage().topContainer().nextFreeSlot();
         int oldPage = this.currentPage;
         if (slot==-1) {
@@ -160,7 +160,7 @@ public class MultiPageMenu extends AbstractMenu {
     }
 
     public int add(
-            @NonNull ItemStackWrapper itemStackWrapper,
+            @NonNull MenuItemWrapper menuItemWrapper,
             @NonNull String actionHandler,
             @NonNull List<String> actionArgs) {
         int slot = currentPage().topContainer().nextFreeSlot();
@@ -168,7 +168,7 @@ public class MultiPageMenu extends AbstractMenu {
         if (slot==-1) {
             if (this.pages.size() > this.currentPage) {
                 this.currentPage = this.pages.size();
-                int out = this.add(itemStackWrapper, actionHandler, actionArgs);
+                int out = this.add(menuItemWrapper, actionHandler, actionArgs);
                 currentPage(oldPage);
                 return out;
             }
@@ -180,9 +180,9 @@ public class MultiPageMenu extends AbstractMenu {
                 currentPage(oldPage);
                 return -1;
             }
-            this.add(itemStackWrapper, actionHandler, actionArgs);
+            this.add(menuItemWrapper, actionHandler, actionArgs);
         } else {
-            currentPage().topContainer().add(itemStackWrapper, actionHandler, actionArgs);
+            currentPage().topContainer().add(menuItemWrapper, actionHandler, actionArgs);
         }
         currentPage(oldPage);
         return slot;

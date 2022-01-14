@@ -1,10 +1,10 @@
 package dev.simplix.cirrus.common.effect;
 
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 
-public abstract class AbstractChangingItemEffect extends AbstractMenuEffect<LocalizedItemStackModel> {
+public abstract class AbstractChangingItemEffect extends AbstractMenuEffect<MenuItem> {
 
-    protected AbstractChangingItemEffect(LocalizedItemStackModel input, int effectLength) {
+    protected AbstractChangingItemEffect(MenuItem input, int effectLength) {
         super(input, effectLength);
     }
 

@@ -12,9 +12,9 @@ import net.querz.nbt.tag.CompoundTag;
 
 @Accessors(fluent = true)
 @Builder
-public class InventoryItemWrapper implements ItemStackWrapper {
+public class InventoryMenuItemWrapper implements MenuItemWrapper {
 
-    private final ItemStackWrapper handle;
+    private final MenuItemWrapper handle;
 
     @Getter
     @Setter
@@ -108,7 +108,7 @@ public class InventoryItemWrapper implements ItemStackWrapper {
         return this.handle.handle();
     }
 
-    public ItemStackWrapper wrapper() {
+    public MenuItemWrapper wrapper() {
         return this.handle;
     }
 

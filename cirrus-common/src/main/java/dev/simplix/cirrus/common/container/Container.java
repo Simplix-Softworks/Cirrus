@@ -1,15 +1,15 @@
 package dev.simplix.cirrus.common.container;
 
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * A container stores {@link InventoryItemWrapper}s at a given slot position.
+ * A container stores {@link InventoryMenuItemWrapper}s at a given slot position.
  */
 public interface Container {
 
@@ -18,7 +18,7 @@ public interface Container {
      *
      * @return The map
      */
-    Map<Integer, InventoryItemWrapper> itemMap();
+    Map<Integer, InventoryMenuItemWrapper> itemMap();
 
     /**
      * Returns a set with slots that are marked as reserved
@@ -57,7 +57,7 @@ public interface Container {
      *
      * @param inventoryItemWrapper The item to set
      */
-    default void add(InventoryItemWrapper inventoryItemWrapper) {
+    default void add(InventoryMenuItemWrapper inventoryItemWrapper) {
         set(nextFreeSlot(), inventoryItemWrapper);
     }
 
@@ -65,16 +65,16 @@ public interface Container {
      * Sets an item into the next free slot. Free slots are slots where no item has been set and the
      * slot is not marked as reserved.
      *
-     * @param itemStackWrapper The item stack to set
+     * @param menuItemWrapper The item stack to set
      * @param actionHandler    The action handler which should be called on click
      * @param actionArgs       the arguments for that click
      */
     default void add(
-            ItemStackWrapper itemStackWrapper,
+            MenuItemWrapper menuItemWrapper,
             String actionHandler,
             List<String> actionArgs) {
-        set(nextFreeSlot(), InventoryItemWrapper.builder()
-                .handle(itemStackWrapper)
+        set(nextFreeSlot(), InventoryMenuItemWrapper.builder()
+                .handle(menuItemWrapper)
                 .actionHandler(actionHandler)
                 .actionArguments(actionArgs)
                 .build());
@@ -86,9 +86,9 @@ public interface Container {
      *
      * @param model The item stack model
      */
-    default void add(LocalizedItemStackModel model) {
-        set(nextFreeSlot(), InventoryItemWrapper.builder()
-                .handle(Converters.convert(model, InventoryItemWrapper.class))
+    default void add(MenuItem model) {
+        set(nextFreeSlot(), InventoryMenuItemWrapper.builder()
+                .handle(Converters.convert(model, InventoryMenuItemWrapper.class))
                 .actionHandler(model.actionHandler())
                 .actionArguments(model.actionArguments())
                 .build());
@@ -100,7 +100,7 @@ public interface Container {
      * @param slot                 The slot the item will be located at
      * @param inventoryItemWrapper The item stack wrapper
      */
-    default void set(int slot, InventoryItemWrapper inventoryItemWrapper) {
+    default void set(int slot, InventoryMenuItemWrapper inventoryItemWrapper) {
         itemMap().put(slot, inventoryItemWrapper);
     }
 
@@ -108,17 +108,17 @@ public interface Container {
      * Sets an item into a given position in the container
      *
      * @param slot             The slot the item will be located at
-     * @param itemStackWrapper The item stack wrapper
+     * @param menuItemWrapper The item stack wrapper
      * @param actionHandler    The handler that handles the click
      * @param actionArgs       Arguments for the action handler
      */
     default void set(
             int slot,
-            ItemStackWrapper itemStackWrapper,
+            MenuItemWrapper menuItemWrapper,
             String actionHandler,
             List<String> actionArgs) {
-        set(slot, InventoryItemWrapper.builder()
-                .handle(itemStackWrapper)
+        set(slot, InventoryMenuItemWrapper.builder()
+                .handle(menuItemWrapper)
                 .actionHandler(actionHandler)
                 .actionArguments(actionArgs)
                 .build());
@@ -130,9 +130,9 @@ public interface Container {
      * @param slot  The slot the item will be located at
      * @param model The item stack model
      */
-    default void set(int slot, LocalizedItemStackModel model) {
-        set(slot, InventoryItemWrapper.builder()
-                .handle(Converters.convert(model, InventoryItemWrapper.class))
+    default void set(int slot, MenuItem model) {
+        set(slot, InventoryMenuItemWrapper.builder()
+                .handle(Converters.convert(model, InventoryMenuItemWrapper.class))
                 .actionHandler(model.actionHandler())
                 .actionArguments(model.actionArguments())
                 .build());
@@ -144,7 +144,7 @@ public interface Container {
      * @param slot slot
      * @return item
      */
-    default InventoryItemWrapper get(int slot) {
+    default InventoryMenuItemWrapper get(int slot) {
         return itemMap().get(slot);
     }
 

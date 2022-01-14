@@ -1,6 +1,6 @@
 package dev.simplix.cirrus.common.i18n;
 
-import dev.simplix.cirrus.common.model.ItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,11 +37,11 @@ public final class Localizer {
                 .replacedMessageJoined();
     }
 
-    public static LocalizedItemStackModel localize(
-            @NonNull ItemStackModel model,
+    public static MenuItem localize(
+            @NonNull LocalizedItemStackModel model,
             @NonNull Locale locale,
             @NonNull String... replacements) {
-        return LocalizedItemStackModel.builder()
+        return MenuItem.builder()
                 .actionArguments(Arrays.asList(Replacer
                         .of(model.actionArguments()==null ? Collections.emptyList():model.actionArguments())
                         .replaceAll((Object[]) replacements)

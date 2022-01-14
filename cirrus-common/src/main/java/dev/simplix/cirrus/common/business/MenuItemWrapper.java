@@ -7,11 +7,11 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.querz.nbt.tag.CompoundTag;
 
 /**
- * An {@link ItemStackWrapper} provides uniform data access for items across different platforms.
+ * An {@link MenuItemWrapper} provides uniform data access for items across different platforms.
  * Please be aware, that most of the given properties are immutable, so you have to set them using
  * their setter after you have done some changes.
  */
-public interface ItemStackWrapper {
+public interface MenuItemWrapper {
 
     /**
      * Returns the display name of an item as a string.

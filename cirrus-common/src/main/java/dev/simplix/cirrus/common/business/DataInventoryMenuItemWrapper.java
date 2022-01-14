@@ -9,12 +9,12 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 @Getter
 @ToString(callSuper = true)
-public class DataInventoryItemWrapper<T> extends InventoryItemWrapper {
+public class DataInventoryMenuItemWrapper<T> extends InventoryMenuItemWrapper {
 
     private final T data;
 
-    public DataInventoryItemWrapper(
-            @NonNull ItemStackWrapper handle,
+    public DataInventoryMenuItemWrapper(
+            @NonNull MenuItemWrapper handle,
             @NonNull String actionHandler,
             @NonNull List<String> actionArguments, T data) {
         super(handle, actionHandler, actionArguments);

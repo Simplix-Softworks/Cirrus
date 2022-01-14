@@ -1,6 +1,6 @@
 package dev.simplix.cirrus.spigot.menus;
 
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.menu.Menu;
 import dev.simplix.cirrus.spigot.util.SpigotItemsUtils;
 import dev.simplix.protocolize.data.ItemType;
@@ -19,7 +19,7 @@ public interface SpigotMenu extends Menu {
         return SpigotItemsUtils.typeFromMaterial(material);
     }
 
-    default ItemStackWrapper wrapBukkitItemStack(@NonNull ItemStack itemStack) {
+    default MenuItemWrapper wrapBukkitItemStack(@NonNull ItemStack itemStack) {
         return SpigotItemsUtils.wrapBukkitItemStack(itemStack);
     }
 

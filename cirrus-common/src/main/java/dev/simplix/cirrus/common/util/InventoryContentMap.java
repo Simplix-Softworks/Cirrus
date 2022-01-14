@@ -1,6 +1,6 @@
 package dev.simplix.cirrus.common.util;
 
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -13,9 +13,9 @@ import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItemWrapper> {
+public class InventoryContentMap implements ConcurrentMap<Integer, InventoryMenuItemWrapper> {
 
-    private final Map<Integer, InventoryItemWrapper> value = new ConcurrentHashMap<>();
+    private final Map<Integer, InventoryMenuItemWrapper> value = new ConcurrentHashMap<>();
 
     // Delegate methods
 
@@ -40,23 +40,23 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
     }
 
     @Override
-    public InventoryItemWrapper get(@NonNull Object key) {
+    public InventoryMenuItemWrapper get(@NonNull Object key) {
         return this.value.get(key);
     }
 
     @Nullable
     @Override
-    public InventoryItemWrapper put(@NonNull Integer key, @NonNull InventoryItemWrapper value) {
+    public InventoryMenuItemWrapper put(@NonNull Integer key, @NonNull InventoryMenuItemWrapper value) {
         return this.value.put(key, value);
     }
 
     @Override
-    public InventoryItemWrapper remove(Object key) {
+    public InventoryMenuItemWrapper remove(Object key) {
         return this.value.remove(key);
     }
 
     @Override
-    public void putAll(@NotNull Map<? extends Integer, ? extends InventoryItemWrapper> m) {
+    public void putAll(@NotNull Map<? extends Integer, ? extends InventoryMenuItemWrapper> m) {
         this.value.putAll(m);
     }
 
@@ -73,13 +73,13 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
 
     @NotNull
     @Override
-    public Collection<InventoryItemWrapper> values() {
+    public Collection<InventoryMenuItemWrapper> values() {
         return this.value.values();
     }
 
     @NotNull
     @Override
-    public Set<Entry<Integer, InventoryItemWrapper>> entrySet() {
+    public Set<Entry<Integer, InventoryMenuItemWrapper>> entrySet() {
         return this.value.entrySet();
     }
 
@@ -94,22 +94,22 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
     }
 
     @Override
-    public InventoryItemWrapper getOrDefault(Object key, InventoryItemWrapper defaultValue) {
+    public InventoryMenuItemWrapper getOrDefault(Object key, InventoryMenuItemWrapper defaultValue) {
         return this.value.getOrDefault(key, defaultValue);
     }
 
     @Override
-    public void forEach(BiConsumer<? super Integer, ? super InventoryItemWrapper> action) {
+    public void forEach(BiConsumer<? super Integer, ? super InventoryMenuItemWrapper> action) {
         this.value.forEach(action);
     }
 
     @Override
-    public void replaceAll(BiFunction<? super Integer, ? super InventoryItemWrapper, ? extends InventoryItemWrapper> function) {
+    public void replaceAll(BiFunction<? super Integer, ? super InventoryMenuItemWrapper, ? extends InventoryMenuItemWrapper> function) {
         this.value.replaceAll(function);
     }
 
     @Override
-    public InventoryItemWrapper putIfAbsent(Integer key, InventoryItemWrapper value) {
+    public InventoryMenuItemWrapper putIfAbsent(Integer key, InventoryMenuItemWrapper value) {
         return this.value.putIfAbsent(key, value);
     }
 
@@ -121,42 +121,42 @@ public class InventoryContentMap implements ConcurrentMap<Integer, InventoryItem
     @Override
     public boolean replace(
             Integer key,
-            InventoryItemWrapper oldValue,
-            InventoryItemWrapper newValue) {
+            InventoryMenuItemWrapper oldValue,
+            InventoryMenuItemWrapper newValue) {
         return this.value.replace(key, oldValue, newValue);
     }
 
     @Override
-    public InventoryItemWrapper replace(Integer key, InventoryItemWrapper value) {
+    public InventoryMenuItemWrapper replace(Integer key, InventoryMenuItemWrapper value) {
         return this.value.replace(key, value);
     }
 
     @Override
-    public InventoryItemWrapper computeIfAbsent(
+    public InventoryMenuItemWrapper computeIfAbsent(
             Integer key,
-            @NotNull Function<? super Integer, ? extends InventoryItemWrapper> mappingFunction) {
+            @NotNull Function<? super Integer, ? extends InventoryMenuItemWrapper> mappingFunction) {
         return this.value.computeIfAbsent(key, mappingFunction);
     }
 
     @Override
-    public InventoryItemWrapper computeIfPresent(
+    public InventoryMenuItemWrapper computeIfPresent(
             Integer key,
-            @NotNull BiFunction<? super Integer, ? super InventoryItemWrapper, ? extends InventoryItemWrapper> remappingFunction) {
+            @NotNull BiFunction<? super Integer, ? super InventoryMenuItemWrapper, ? extends InventoryMenuItemWrapper> remappingFunction) {
         return this.value.computeIfPresent(key, remappingFunction);
     }
 
     @Override
-    public InventoryItemWrapper compute(
+    public InventoryMenuItemWrapper compute(
             Integer key,
-            @NotNull BiFunction<? super Integer, ? super InventoryItemWrapper, ? extends InventoryItemWrapper> remappingFunction) {
+            @NotNull BiFunction<? super Integer, ? super InventoryMenuItemWrapper, ? extends InventoryMenuItemWrapper> remappingFunction) {
         return this.value.compute(key, remappingFunction);
     }
 
     @Override
-    public InventoryItemWrapper merge(
+    public InventoryMenuItemWrapper merge(
             Integer key,
-            @NotNull InventoryItemWrapper value,
-            @NotNull BiFunction<? super InventoryItemWrapper, ? super InventoryItemWrapper, ? extends InventoryItemWrapper> remappingFunction) {
+            @NotNull InventoryMenuItemWrapper value,
+            @NotNull BiFunction<? super InventoryMenuItemWrapper, ? super InventoryMenuItemWrapper, ? extends InventoryMenuItemWrapper> remappingFunction) {
         return this.value.merge(key, value, remappingFunction);
     }
 }

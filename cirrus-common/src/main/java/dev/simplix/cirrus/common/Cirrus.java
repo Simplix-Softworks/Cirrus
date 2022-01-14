@@ -3,8 +3,8 @@ package dev.simplix.cirrus.common;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.simplix.cirrus.common.business.ConfigurationFactory;
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
-import dev.simplix.cirrus.common.business.ItemStackWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
+import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.config.JsonConfigurationFactory;
 import dev.simplix.cirrus.common.converter.Converter;
 import dev.simplix.cirrus.common.converter.Converters;
@@ -31,8 +31,8 @@ public class Cirrus {
 
     static {
         Converters.register(
-                InventoryItemWrapper.class, ItemStackWrapper.class,
-                (Converter<InventoryItemWrapper, ItemStackWrapper>) InventoryItemWrapper::wrapper);
+                InventoryMenuItemWrapper.class, MenuItemWrapper.class,
+                (Converter<InventoryMenuItemWrapper, MenuItemWrapper>) InventoryMenuItemWrapper::wrapper);
         registerService(ConfigurationFactory.class, new JsonConfigurationFactory(GSON));
     }
 

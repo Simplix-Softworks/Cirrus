@@ -2,7 +2,7 @@ package dev.simplix.cirrus.common.configuration.impl;
 
 import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.i18n.LocalizedString;
-import dev.simplix.cirrus.common.model.ItemStackModel;
+import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,12 +19,12 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 public class SimpleMultiPageMenuConfiguration implements MultiPageMenuConfiguration {
 
-    private ItemStackModel nextPageItem;
-    private ItemStackModel previousPageItem;
+    private LocalizedItemStackModel nextPageItem;
+    private LocalizedItemStackModel previousPageItem;
     private LocalizedString title;
     private InventoryType type;
-    private ItemStackModel placeholderItem;
+    private LocalizedItemStackModel placeholderItem;
     private int[] reservedSlots = new int[0];
-    private ItemStackModel[] items = new ItemStackModel[0];
-    private Map<String, ItemStackModel> businessItems = new HashMap<>();
+    private LocalizedItemStackModel[] items = new LocalizedItemStackModel[0];
+    private Map<String, LocalizedItemStackModel> businessItems = new HashMap<>();
 }

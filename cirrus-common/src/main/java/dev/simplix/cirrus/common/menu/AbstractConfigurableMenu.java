@@ -2,7 +2,7 @@ package dev.simplix.cirrus.common.menu;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.handler.ActionHandler;
-import dev.simplix.cirrus.common.model.ItemStackModel;
+import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 import dev.simplix.cirrus.common.configuration.MenuConfiguration;
 import java.util.HashMap;
 import java.util.Locale;
@@ -58,7 +58,7 @@ public abstract class AbstractConfigurableMenu<T extends MenuConfiguration> exte
         set(this.configuration.placeholderItem());
 
         // Set other items
-        for (ItemStackModel model : this.configuration.items()) {
+        for (LocalizedItemStackModel model : this.configuration.items()) {
             set(model);
         }
     }

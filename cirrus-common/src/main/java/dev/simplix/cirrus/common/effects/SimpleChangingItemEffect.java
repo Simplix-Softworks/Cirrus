@@ -1,20 +1,20 @@
 package dev.simplix.cirrus.common.effects;
 
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 import dev.simplix.cirrus.common.effect.AbstractChangingItemEffect;
 
 import java.util.List;
 
 public class SimpleChangingItemEffect extends AbstractChangingItemEffect {
-    private final List<LocalizedItemStackModel> values;
+    private final List<MenuItem> values;
 
-    protected SimpleChangingItemEffect(LocalizedItemStackModel basis, List<LocalizedItemStackModel> values, int effectLength) {
+    protected SimpleChangingItemEffect(MenuItem basis, List<MenuItem> values, int effectLength) {
         super(basis, effectLength);
         this.values = values;
     }
 
     @Override
-    public List<LocalizedItemStackModel> calculate() {
+    public List<MenuItem> calculate() {
         return this.values;
     }
 }

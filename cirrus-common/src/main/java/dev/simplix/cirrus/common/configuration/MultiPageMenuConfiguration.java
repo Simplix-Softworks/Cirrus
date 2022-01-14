@@ -1,23 +1,23 @@
 package dev.simplix.cirrus.common.configuration;
 
 import dev.simplix.cirrus.common.i18n.LocalizedString;
-import dev.simplix.cirrus.common.model.ItemStackModel;
+import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 
 public interface MultiPageMenuConfiguration extends MenuConfiguration {
-    ItemStackModel nextPageItem();
+    LocalizedItemStackModel nextPageItem();
 
-    ItemStackModel previousPageItem();
+    LocalizedItemStackModel previousPageItem();
 
     MultiPageMenuConfiguration title(LocalizedString title);
 
     MultiPageMenuConfiguration type(dev.simplix.protocolize.data.inventory.InventoryType type);
 
-    MultiPageMenuConfiguration placeholderItem(ItemStackModel placeholderItem);
+    MultiPageMenuConfiguration placeholderItem(LocalizedItemStackModel placeholderItem);
 
     MultiPageMenuConfiguration reservedSlots(int[] reservedSlots);
 
-    MultiPageMenuConfiguration items(ItemStackModel[] items);
+    MultiPageMenuConfiguration items(LocalizedItemStackModel[] items);
 
-    MultiPageMenuConfiguration businessItems(java.util.Map<String, ItemStackModel> businessItems);
+    MultiPageMenuConfiguration businessItems(java.util.Map<String, LocalizedItemStackModel> businessItems);
 
 }

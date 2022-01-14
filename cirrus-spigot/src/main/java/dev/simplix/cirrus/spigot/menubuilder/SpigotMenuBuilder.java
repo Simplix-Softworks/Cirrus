@@ -1,6 +1,6 @@
 package dev.simplix.cirrus.spigot.menubuilder;
 
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.converter.Converters;
@@ -79,7 +79,7 @@ public final class SpigotMenuBuilder implements MenuBuilder {
 
     private void buildContainer(Inventory inventory, Container container, boolean bottom) {
         for (int i = 0; i < container.capacity(); i++) {
-            InventoryItemWrapper item = container.itemMap().get(i + container.baseSlot());
+            InventoryMenuItemWrapper item = container.itemMap().get(i + container.baseSlot());
             ItemStack currentStack = inventory.getItem(i);
             if (item==null) {
                 if (currentStack!=null) {

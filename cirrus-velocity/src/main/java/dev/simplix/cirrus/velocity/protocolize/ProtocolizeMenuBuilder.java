@@ -2,7 +2,7 @@ package dev.simplix.cirrus.velocity.protocolize;
 
 import com.google.common.collect.Sets;
 import com.velocitypowered.api.proxy.Player;
-import dev.simplix.cirrus.common.business.InventoryItemWrapper;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.handler.ActionHandler;
@@ -68,7 +68,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
 
     private void buildContainer(@NonNull Inventory inventory, @NonNull Container container) {
         for (int i = container.baseSlot(); i < container.baseSlot() + container.capacity(); i++) {
-            InventoryItemWrapper item = container.itemMap().get(i);
+            InventoryMenuItemWrapper item = container.itemMap().get(i);
             ItemStack currentStack = inventory.item(i);
             if (item==null) {
                 if (currentStack!=null) {
@@ -129,7 +129,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
                 container = menu.topContainer();
 //      ProxyServer.getInstance().broadcast("Clicked top container");
             }
-            InventoryItemWrapper item = container.get(inventoryClick.slot());
+            InventoryMenuItemWrapper item = container.get(inventoryClick.slot());
             ClickType type = inventoryClick.clickType();
             if (item==null) {
 //      ProxyServer.getInstance().broadcast("Clicked nothing");
