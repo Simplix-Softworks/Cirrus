@@ -20,6 +20,8 @@ import java.util.*;
 import java.util.Map.Entry;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
@@ -41,8 +43,8 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             String title = Replacer.of(menu.title()).replaceAll((Object[]) menu.replacements().get())
                     .replacedMessageJoined();
             final Inventory inventory = (Inventory) prebuild;
-            if (!ComponentSerializer.toString((BaseComponent[]) inventory.title())
-                    .equals(ComponentSerializer.toString(new TextComponent(title))) ||
+            if (!GsonComponentSerializer.gson().serialize(inventory.title())
+                    .equals(GsonComponentSerializer.gson().serialize(Component.text(title))) ||
                     inventory.type().getTypicalSize(menu.player().protocolVersion())!=menu
                             .topContainer()
                             .capacity()
