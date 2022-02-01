@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Date: 23.08.2021
@@ -32,6 +33,16 @@ public final class OtherModuleProvider implements ModuleProvider {
         }
         modules.add(module);
         enableModule(module);
+    }
+
+    @Override
+    public boolean moduleInstalled(String s) {
+        return this.modules.stream().map(module -> module.getClass().getSimpleName()).collect(Collectors.toList()).contains(s);
+    }
+
+    @Override
+    public ProtocolizeModule module(String s) {
+        return this.modules.stream().filter(module -> module.getClass().getSimpleName().equalsIgnoreCase(s)).findFirst().orElse(null);
     }
 
     private boolean supportedPlatform(Platform[] supportedPlatforms) {
