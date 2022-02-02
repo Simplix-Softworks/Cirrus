@@ -43,13 +43,6 @@
     <velocity.version>3.0.0</velocity.version>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>velocity</id>
-      <url>https://repo.velocitypowered.com/snapshots/</url>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <artifactId>cirrus-common</artifactId>

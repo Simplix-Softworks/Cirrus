@@ -55,6 +55,7 @@
         <module>cirrus-spigot-modern</module>
         <module>cirrus-bungeecord-example</module>
         <module>cirrus-spigot-example</module>
+        <module>cirrus-velocity-example</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -79,6 +80,10 @@
         <repository>
             <id>exceptionflug</id>
             <url>https://mvn.exceptionflug.de/repository/exceptionflug-public/</url>
+        </repository>
+        <repository>
+            <id>velocity</id>
+            <url>https://repo.velocitypowered.com/snapshots/</url>
         </repository>
     </repositories>
 
