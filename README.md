@@ -6,6 +6,9 @@
 Cirrus is currently WIP. The documentation is invalid in parts. We will publish a stable version soon.
 Spigot & BungeeCord implementations will work, Velocity implementations are currently not working.
 
+# Version
+Current version is 2.0.0
+
 # Cirrus
 
 [![Build Status](http://ci.exceptionflug.de/buildStatus/icon?job=Cirrus)](http://ci.exceptionflug.de/job/Cirrus/) [![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/15194-cirrus-tooling)](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling) [![Discord](https://img.shields.io/discord/752533664696369204?label=Discord)](https://discord.simplixsoft.com/) ![GitHub](https://img.shields.io/github/license/Exceptionflug/Protocolize)
