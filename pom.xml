@@ -22,7 +22,7 @@
             <artifactId>lombok</artifactId>
             <groupId>org.projectlombok</groupId>
             <scope>provided</scope>
-            <version>1.18.12</version>
+            <version>1.18.22</version>
         </dependency>
         <dependency>
             <artifactId>gson</artifactId>
