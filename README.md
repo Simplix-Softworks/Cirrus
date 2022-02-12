@@ -5,6 +5,11 @@
 # WIP
 Cirrus is currently WIP. The documentation is invalid in parts. We will publish a stable version soon.
 Spigot & BungeeCord implementations will work, Velocity implementations are currently not working.
+We aim to publish documentation & production ready versions in march.
+
+# PR
+If you have any improvements regarding Cirrus feel free to create a PR. We are happy to review & merge it.
+Keep in mind that to use our codestyle as defined in .editorconfig.
 
 # Version
 Current version is 2.0.0
