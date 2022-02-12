@@ -18,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.InventoryView;
 
@@ -25,6 +26,21 @@ import org.bukkit.inventory.InventoryView;
 public class InventoryListener implements Listener {
 
     private final MenuBuilder menuBuilder = Cirrus.getService(MenuBuilder.class);
+
+    @EventHandler
+    public void onDrag(InventoryDragEvent event) {
+        InventoryView inventoryView = event.getWhoClicked().getOpenInventory();
+        if (event.getInventory() == null) {
+            return;
+        }
+
+        Menu menu = this.menuBuilder.menuByHandle(inventoryView);
+        if (menu==null) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
