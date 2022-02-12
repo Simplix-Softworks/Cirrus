@@ -60,7 +60,11 @@ public final class ReflectionUtil {
     }
 
     public static String serverVersion() {
-        return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+        try {
+            return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+        } catch (Exception exception) {
+            return "v1_17_1";
+        }
     }
 
     public static GameProfile gameProfile(@NonNull Player player)
