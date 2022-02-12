@@ -111,9 +111,6 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             if (inventoryClick.player()==null) {
                 return;
             }
-            if (inventoryClick.clickedItem()==null) {
-                return;
-            }
             Inventory i = inventoryClick.inventory();
             if (i==null) {
                 return;
