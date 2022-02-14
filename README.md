@@ -4,7 +4,7 @@
 
 # WIP
 Cirrus is currently WIP. The documentation is invalid in parts. We will publish a stable version soon.
-Spigot & BungeeCord implementations will work, Velocity implementations are currently not working.
+Spigot & BungeeCord implementations will work, Velocity implementations are currently very experimental.
 We aim to publish documentation & production ready versions in march.
 
 # Version
