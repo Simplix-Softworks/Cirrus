@@ -48,5 +48,12 @@ public class LocalizedItemStackModel {
         return this;
     }
 
+    public MenuItem localize(Locale locale, String... replacements) {
+        return Localizer.localize(
+                this,
+                locale,
+                replacements
+        );
+    }
 
 }
