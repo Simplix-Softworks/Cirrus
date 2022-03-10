@@ -42,11 +42,15 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
 
     protected Map<T, MenuItem> mappedValues() {
         final Map<T, MenuItem> out = new HashMap<>();
+        if (this.out != null && !this.out.isEmpty()) {
+            return this.out;
+        }
+        this.out = new HashMap<>();
         for (T value : values()) {
-            out.put(value, map(value));
+            this.out.put(value, map(value));
         }
 
-        return out;
+        return this.out;
     }
 
     protected void insert() {
