@@ -124,6 +124,19 @@ public abstract class AbstractMenu implements Menu {
         menuBuilder().open(this.player, nativeInventory());
     }
 
+
+    protected int add(@NonNull LocalizedItemStackModel localizedItemStackModel) {
+        return add(localizedItemStackModel.localize(locale(), this.replacements.get()));
+    }
+
+    protected int add(@NonNull MenuItem menuItem) {
+        int slot = topContainer().nextFreeSlot();
+        this.topContainer.set(slot, menuItem);
+        return slot;
+    }
+
+    protected int add(@NonNull InventoryMenuItemWrapper inventoryMenuItemWrapper) {
+        int slot = topContainer().nextFreeSlot();
     protected void set(@NonNull LocalizedItemStackModel model) {
         set(Localizer.localize(
                 model,
