@@ -1,9 +1,18 @@
 package dev.simplix.cirrus.common.configuration;
 
-import dev.simplix.cirrus.common.i18n.LocalizedString;
+import com.google.common.base.Preconditions;
 import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.i18n.LocalizedString;
 
 public interface MenuConfiguration {
+
+    default LocalizedItemStackModel forceBusinessItem(String keyword) {
+        return Preconditions.checkNotNull(
+                businessItems().get(keyword),
+                "No business-item named '" + keyword + "' found"
+        );
+    }
+
     LocalizedString title();
 
     dev.simplix.protocolize.data.inventory.InventoryType type();
