@@ -137,6 +137,11 @@ public abstract class AbstractMenu implements Menu {
 
     protected int add(@NonNull InventoryMenuItemWrapper inventoryMenuItemWrapper) {
         int slot = topContainer().nextFreeSlot();
+        this.topContainer.set(slot, inventoryMenuItemWrapper);
+        return slot;
+
+    }
+
     protected void set(@NonNull LocalizedItemStackModel model) {
         set(Localizer.localize(
                 model,
