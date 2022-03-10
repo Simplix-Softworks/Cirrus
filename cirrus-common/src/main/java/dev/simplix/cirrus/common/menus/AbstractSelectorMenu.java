@@ -10,7 +10,8 @@ import java.util.Map.Entry;
 import lombok.NonNull;
 
 public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
-    final Map<Integer, T> slotValueMap = new HashMap<>();
+    protected Map<Integer, T> slotValueMap = null;
+    protected Map<T, MenuItem> out = null;
 
     public AbstractSelectorMenu(
             @NonNull PlayerWrapper player,
@@ -41,7 +42,6 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
     protected abstract MenuItem map(T value);
 
     protected Map<T, MenuItem> mappedValues() {
-        final Map<T, MenuItem> out = new HashMap<>();
         if (this.out != null && !this.out.isEmpty()) {
             return this.out;
         }
