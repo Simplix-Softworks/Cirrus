@@ -2,6 +2,7 @@ package dev.simplix.cirrus.spigot.converters;
 
 import dev.simplix.cirrus.common.converter.Converter;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
+import dev.simplix.cirrus.spigot.util.XMaterial;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.mapping.ProtocolIdMapping;
 import dev.simplix.protocolize.api.providers.MappingProvider;
@@ -19,16 +20,26 @@ public class ItemTypeMaterialDataConverter implements Converter<ItemType, Materi
     @Override
     public MaterialData convert(@NonNull ItemType src) {
         ProtocolIdMapping mapping = this.mappingProvider.mapping(src, ProtocolVersionUtil.serverProtocolVersion());
-        if (mapping==null) {
+        if (mapping == null) {
             return null;
         }
         if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_13) {
             return new MaterialData(Material.valueOf(src.name()));
         }
         if (mapping instanceof LegacyItemProtocolIdMapping) {
-            return new MaterialData(mapping.id(), (byte) ((LegacyItemProtocolIdMapping) mapping).data());
+            final Material material = XMaterial
+                    .matchXMaterial(mapping.id(), (byte) ((LegacyItemProtocolIdMapping) mapping).data())
+                    .map(XMaterial::parseMaterial)
+                    .orElse(null);
+            if (material == null) {
+                return null;
+            }
         }
-        return new MaterialData(mapping.id(), (byte) 0);
+        final Material material = XMaterial.matchXMaterial(mapping.id(), (byte) 0).map(XMaterial::parseMaterial).orElse(null);
+        if (material == null) {
+            return null;
+        }
+        return material.getNewData((byte) 0);
     }
 
 }
