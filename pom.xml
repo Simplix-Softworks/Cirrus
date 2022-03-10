@@ -34,7 +34,7 @@
             <artifactId>bungeecord-chat</artifactId>
             <groupId>net.md-5</groupId>
             <scope>provided</scope>
-            <version>1.15-SNAPSHOT</version>
+            <version>1.16-R0.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>junit-jupiter</artifactId>
