@@ -8,7 +8,7 @@ Spigot & BungeeCord implementations will work, Velocity implementations are curr
 We aim to publish documentation & production ready versions in march.
 
 # Version
-Current version is 2.0.0
+Current version is 2.0.0-SNAPSHOT
 
 # Cirrus
 
