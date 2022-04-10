@@ -20,6 +20,9 @@ public class Cirrus {
     private static final Map<Class<?>, Object> SERVICES = new ConcurrentHashMap<>();
 
     private static final Gson GSON = new GsonBuilder()
+    public static Gson gson() {
+       return GSON;
+    }
             .registerTypeAdapter(CompoundTag.class, new TagSerializer())
             .registerTypeAdapter(CompoundTag.class, new TagDeserializer())
             .registerTypeAdapter(LocalizedString.class, new LocalizedStringSerializer())
