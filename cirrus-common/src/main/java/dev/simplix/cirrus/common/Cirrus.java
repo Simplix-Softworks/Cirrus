@@ -2,9 +2,7 @@ package dev.simplix.cirrus.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.simplix.cirrus.common.business.ConfigurationFactory;
-import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
-import dev.simplix.cirrus.common.business.MenuItemWrapper;
+import dev.simplix.cirrus.common.business.*;
 import dev.simplix.cirrus.common.config.JsonConfigurationFactory;
 import dev.simplix.cirrus.common.converter.Converter;
 import dev.simplix.cirrus.common.converter.Converters;
@@ -19,10 +17,11 @@ public class Cirrus {
 
     private static final Map<Class<?>, Object> SERVICES = new ConcurrentHashMap<>();
 
-    private static final Gson GSON = new GsonBuilder()
     public static Gson gson() {
        return GSON;
     }
+
+  private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(CompoundTag.class, new TagSerializer())
             .registerTypeAdapter(CompoundTag.class, new TagDeserializer())
             .registerTypeAdapter(LocalizedString.class, new LocalizedStringSerializer())
