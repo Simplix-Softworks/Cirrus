@@ -1,27 +1,29 @@
 package dev.simplix.cirrus.common.menu;
 
 import dev.simplix.cirrus.common.Cirrus;
+import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.container.impl.ItemContainer;
 import dev.simplix.cirrus.common.handler.ActionHandler;
 import dev.simplix.cirrus.common.handler.AutoCancellingActionHandler;
-import dev.simplix.cirrus.common.item.MenuItem;
+import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 import dev.simplix.cirrus.common.i18n.Localizer;
 import dev.simplix.cirrus.common.i18n.Replacer;
-import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
+import dev.simplix.cirrus.common.item.MenuItem;
 import dev.simplix.protocolize.data.inventory.InventoryType;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
-import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.Nullable;
 
 @Getter
 @Accessors(fluent = true)
@@ -112,7 +114,7 @@ public abstract class AbstractMenu implements Menu {
 
     @Override
     public void build() {
-        if (menuBuilder()==null) {
+        if (menuBuilder() == null) {
             return;
         }
         nativeInventory(menuBuilder().build(nativeInventory(), this));
@@ -161,15 +163,15 @@ public abstract class AbstractMenu implements Menu {
 
     @Override
     public boolean equals(Object o) {
-        if (o==null) {
+        if (o == null) {
             return false;
         }
         if (o instanceof AbstractMenu) {
             final AbstractMenu abstractMenu = (AbstractMenu) o;
-            return abstractMenu.internalId==this.internalId();
+            return abstractMenu.internalId == this.internalId();
         }
 
-        if (this==o) {
+        if (this == o) {
             return true;
         }
         return o.equals(nativeInventory());
@@ -194,7 +196,7 @@ public abstract class AbstractMenu implements Menu {
     @Override
     public void handleException(
             @Nullable ActionHandler actionHandler, Throwable throwable) {
-        if (actionHandler==null) {
+        if (actionHandler == null) {
             this.player.sendMessage(
                     "§cThere was a problem while running your menu. Please take a look at the console.");
             log.error(
