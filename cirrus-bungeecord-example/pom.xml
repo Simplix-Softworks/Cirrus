@@ -7,25 +7,25 @@
     <parent>
         <groupId>dev.simplix.cirrus</groupId>
         <artifactId>cirrus</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.0-SNAPSHOT</version>
     </parent>
 
     <groupId>dev.simplix.cirrus</groupId>
     <artifactId>cirrus-bungeecord-example</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <artifactId>cirrus-common</artifactId>
             <groupId>dev.simplix.cirrus</groupId>
             <scope>compile</scope>
-            <version>2.0.0</version>
+            <version>2.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>cirrus-bungeecord</artifactId>
             <groupId>dev.simplix.cirrus</groupId>
             <scope>compile</scope>
-            <version>2.0.0</version>
+            <version>2.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.md-5</groupId>

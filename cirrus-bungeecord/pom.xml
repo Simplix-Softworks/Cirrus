@@ -10,9 +10,9 @@
     <parent>
         <artifactId>cirrus</artifactId>
         <groupId>dev.simplix.cirrus</groupId>
-        <version>2.0.0</version>
+        <version>2.0.0-SNAPSHOT</version>
     </parent>
-    <version>2.0.0</version>
+    <version>2.0.0-SNAPSHOT</version>
 
     <properties>
         <protocolize.version>1.7.0-SNAPSHOT</protocolize.version>
@@ -23,7 +23,7 @@
             <artifactId>cirrus-common</artifactId>
             <groupId>dev.simplix.cirrus</groupId>
             <scope>compile</scope>
-            <version>2.0.0</version>
+            <version>2.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.md-5</groupId>
