@@ -2,6 +2,14 @@
   <img src="https://i.imgur.com/vmfZcvS.png" />
 </p>
 
+
+# Cirrus
+Cirrus enables you to develop platform-independent versatile graphical menus for Spigot, BungeeCord, and Velocity! The
+goal of Cirrus is to aim for maximum compatibility. Cirrus had been tested on several well-known BungeeCord-Forks as
+well on all Spigot versions beginning from 1.8 till the latest 1.17.1 release.
+
+[![Build Status](http://ci.exceptionflug.de/buildStatus/icon?job=Cirrus)](http://ci.exceptionflug.de/job/Cirrus/) [![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/15194-cirrus-tooling)](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling) [![Discord](https://img.shields.io/discord/752533664696369204?label=Discord)](https://discord.simplixsoft.com/) ![GitHub](https://img.shields.io/github/license/Exceptionflug/Protocolize)
+
 # WIP
 
 Cirrus is currently WIP. The documentation is invalid in parts. We will publish a stable version soon.
@@ -11,14 +19,6 @@ We aim to publish documentation & production ready versions in the coming month.
 # Version
 
 Current version is 2.0.0-SNAPSHOT
-
-# Cirrus
-
-[![Build Status](http://ci.exceptionflug.de/buildStatus/icon?job=Cirrus)](http://ci.exceptionflug.de/job/Cirrus/) [![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/15194-cirrus-tooling)](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling) [![Discord](https://img.shields.io/discord/752533664696369204?label=Discord)](https://discord.simplixsoft.com/) ![GitHub](https://img.shields.io/github/license/Exceptionflug/Protocolize)
-
-Cirrus enables you to develop platform-independent versatile graphical menus for Spigot, BungeeCord, and Velocity! The
-goal of Cirrus is to aim for maximum compatibility. Cirrus had been tested on several well-known BungeeCord-Forks as
-well on all Spigot versions beginning from 1.8 till the latest 1.17.1 release.
 
 The first-ever way of creating menus for Velocity.
 
