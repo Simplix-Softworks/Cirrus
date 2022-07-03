@@ -9,7 +9,7 @@
 The first-ever way of creating menus for Velocity.
 Cirrus enables you to develop platform-independent versatile graphical menus for Spigot, BungeeCord, and Velocity! The
 goal of Cirrus is to aim for maximum compatibility. Cirrus had been tested on several well-known BungeeCord-Forks as
-well on all Spigot versions beginning from 1.8 till the latest 1.17.1 release.
+well on all Spigot versions beginning from 1.16.5 till the latest release.
 
 
 
