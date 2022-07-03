@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Will generate: https://media3.giphy.com/media/bvuK2KpLTip6vtemxY/giphy.gif?cid=790b7611af638e257a5f310fdd6d3015bfb9ee3119298826&rid=giphy.gif&ct=g
  */
-public final class GradualColorChangeEffect extends AbstractMenuEffect<String> {
+public class GradualColorChangeEffect extends AbstractMenuEffect<String> {
 
     protected final String primaryColor;
     protected final String secondaryColor;
