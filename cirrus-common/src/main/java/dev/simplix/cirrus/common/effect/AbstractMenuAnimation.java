@@ -5,13 +5,13 @@ import com.google.common.collect.Iterators;
 
 import java.util.Iterator;
 
-public abstract class AbstractMenuEffect<T> implements MenuEffect<T> {
+public abstract class AbstractMenuAnimation<T> implements MenuAnimation<T> {
     protected final T input;
     protected final int effectLength;
 
     private Iterator<T> iterator;
 
-    protected AbstractMenuEffect(
+    protected AbstractMenuAnimation(
             T input,
             int effectLength) {
         this.input = Preconditions.checkNotNull(input, "input must not be null");

@@ -1,6 +1,6 @@
 package dev.simplix.cirrus.common.i18n;
 
-import dev.simplix.cirrus.common.item.MenuItem;
+import dev.simplix.cirrus.common.item.CirrusItem;
 import lombok.NonNull;
 import net.querz.nbt.io.SNBTUtil;
 import net.querz.nbt.tag.CompoundTag;
@@ -38,11 +38,11 @@ public final class Localizer {
                 .replacedMessageJoined();
     }
 
-    public static MenuItem localize(
+    public static CirrusItem localize(
             @NonNull LocalizedItemStackModel model,
             @NonNull Locale locale,
             @NonNull String... replacements) {
-        return MenuItem.builder()
+        return CirrusItem.of(localize(model.displayName(), locale, replacements))
                 .actionArguments(Arrays.asList(Replacer
                         .of(model.actionArguments() == null ? Collections.emptyList() : model.actionArguments())
                         .replaceAll((Object[]) replacements)
@@ -51,11 +51,9 @@ public final class Localizer {
                 .amount(model.amount())
                 .durability(model.durability())
                 .itemType(model.itemType())
-                .displayName(localize(model.displayName(), locale, replacements))
                 .lore(localize(model.lore(), locale, replacements))
                 .nbt(formatNbt(model.nbt(), replacements))
-                .slots(model.slots())
-                .build();
+                .slots(model.slots());
     }
 
     private static CompoundTag formatNbt(

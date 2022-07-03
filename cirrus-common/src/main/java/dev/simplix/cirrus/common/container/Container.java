@@ -3,7 +3,7 @@ package dev.simplix.cirrus.common.container;
 import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.item.MenuItem;
+import dev.simplix.cirrus.common.item.CirrusItem;
 
 import java.util.List;
 import java.util.Map;
@@ -87,7 +87,7 @@ public interface Container {
      *
      * @param model The item stack model
      */
-    default void add(MenuItem model) {
+    default void add(CirrusItem model) {
         set(nextFreeSlot(), InventoryMenuItemWrapper.builder()
                 .handle(Converters.convert(model, InventoryMenuItemWrapper.class))
                 .actionHandler(model.actionHandler())
@@ -131,7 +131,7 @@ public interface Container {
      * @param slot  The slot the item will be located at
      * @param model The item stack model
      */
-    default void set(int slot, MenuItem model) {
+    default void set(int slot, CirrusItem model) {
         set(slot, InventoryMenuItemWrapper.builder()
                 .handle(Converters.convert(model, InventoryMenuItemWrapper.class))
                 .actionHandler(model.actionHandler())

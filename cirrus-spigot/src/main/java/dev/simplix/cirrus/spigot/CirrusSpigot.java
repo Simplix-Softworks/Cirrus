@@ -5,7 +5,8 @@ import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.item.MenuItem;
+import dev.simplix.cirrus.common.effect.MenuAnimator;
+import dev.simplix.cirrus.common.item.CirrusItem;
 import dev.simplix.cirrus.common.item.ProtocolizeMenuItemWrapper;
 import dev.simplix.cirrus.common.menu.MenuBuilder;
 import dev.simplix.cirrus.spigot.converters.*;
@@ -78,7 +79,7 @@ public class CirrusSpigot {
             Converters.register(ItemType.class, MaterialData.class, new ItemTypeMaterialDataConverter());
             Converters.register(MaterialData.class, ItemType.class, new MaterialDataItemTypeConverter());
             Converters.register(
-                    MenuItem.class,
+                    CirrusItem.class,
                     InventoryMenuItemWrapper.class,
                     new ItemModelConverter());
             Converters.register(
@@ -103,6 +104,14 @@ public class CirrusSpigot {
         } catch (Exception exception) {
             log.error("Cannot register cirrus converters", exception);
         }
+
+
+        Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, () -> {
+            if (!MenuAnimator.isEmpty()) {
+                MenuAnimator.updateAll();
+            }
+
+        }, 2, 2);
     }
 
     public static JavaPlugin plugin() {

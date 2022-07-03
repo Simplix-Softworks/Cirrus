@@ -1,7 +1,7 @@
 package dev.simplix.cirrus.common.effects;
 
 import com.google.common.base.Preconditions;
-import dev.simplix.cirrus.common.effect.AbstractMenuEffect;
+import dev.simplix.cirrus.common.effect.AbstractMenuAnimation;
 import dev.simplix.cirrus.common.util.ColorUtils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -11,13 +11,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class RGBColorChangeEffect extends AbstractMenuEffect<String> {
+public class RGBColorChangeAnimation extends AbstractMenuAnimation<String> {
 
     private final List<Color> colors;
     private String colorSuffix;
     private double step;
 
-    private RGBColorChangeEffect(
+    private RGBColorChangeAnimation(
             String input,
             int effectLength,
             double step,
@@ -31,20 +31,20 @@ public class RGBColorChangeEffect extends AbstractMenuEffect<String> {
         Preconditions.checkState(colors.size() >= 2, "At least 2 colors must be provided¥");
     }
 
-    public static RGBColorChangeEffect fat(String input, Color... colors) {
+    public static RGBColorChangeAnimation fat(String input, Color... colors) {
         return of(input, "§l", 2, 40, colors);
     }
 
-    public static RGBColorChangeEffect of(String input, String colorSuffix, int effectLength, double step, Color... colors) {
-        return new RGBColorChangeEffect(input, effectLength, step, colorSuffix, Arrays.asList(colors));
+    public static RGBColorChangeAnimation of(String input, String colorSuffix, int effectLength, double step, Color... colors) {
+        return new RGBColorChangeAnimation(input, effectLength, step, colorSuffix, Arrays.asList(colors));
     }
 
-    public RGBColorChangeEffect step(int step) {
+    public RGBColorChangeAnimation step(int step) {
         this.step = step;
         return this;
     }
 
-    public RGBColorChangeEffect colorSuffix(String colorSuffix) {
+    public RGBColorChangeAnimation colorSuffix(String colorSuffix) {
         this.colorSuffix = colorSuffix;
         return this;
     }

@@ -1,7 +1,7 @@
 package dev.simplix.cirrus.common.i18n;
 
 import dev.simplix.cirrus.common.Utils;
-import dev.simplix.cirrus.common.item.MenuItem;
+import dev.simplix.cirrus.common.item.CirrusItem;
 import dev.simplix.protocolize.data.ItemType;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -50,7 +50,7 @@ public class LocalizedItemStackModel {
         return this;
     }
 
-    public MenuItem localize(Locale locale, String... replacements) {
+    public CirrusItem localize(Locale locale, String... replacements) {
         return Localizer.localize(
                 this,
                 locale,

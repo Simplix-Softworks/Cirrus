@@ -7,7 +7,8 @@ import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
-import dev.simplix.cirrus.common.item.MenuItem;
+import dev.simplix.cirrus.common.effect.MenuAnimator;
+import dev.simplix.cirrus.common.item.CirrusItem;
 import dev.simplix.cirrus.common.menu.MenuBuilder;
 import dev.simplix.cirrus.velocity.converters.ItemModelConverter;
 import dev.simplix.cirrus.velocity.converters.ItemStackConverter;
@@ -18,6 +19,7 @@ import dev.simplix.cirrus.velocity.protocolize.ProtocolizeMenuBuilder;
 import dev.simplix.protocolize.api.item.ItemStack;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Date: 18.09.2021
@@ -42,7 +44,13 @@ public class CirrusVelocity {
 
         // Items
         Converters.register(ItemStack.class, MenuItemWrapper.class, new ItemStackConverter());
-        Converters.register(MenuItem.class, InventoryMenuItemWrapper.class, new ItemModelConverter());
+        Converters.register(CirrusItem.class, InventoryMenuItemWrapper.class, new ItemModelConverter());
+
+        proxyServer.getScheduler().buildTask(plugin, () -> {
+            if (proxyServer.getPlayerCount() > 0 && !MenuAnimator.isEmpty()) {
+                MenuAnimator.updateAll();
+            }
+        }).repeat(50 * 2, TimeUnit.MILLISECONDS).schedule();
     }
 
 }

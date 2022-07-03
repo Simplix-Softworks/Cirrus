@@ -1,7 +1,7 @@
 package dev.simplix.cirrus.common.effects;
 
 import com.google.common.base.Preconditions;
-import dev.simplix.cirrus.common.effect.AbstractMenuEffect;
+import dev.simplix.cirrus.common.effect.AbstractMenuAnimation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Will generate: https://media3.giphy.com/media/bvuK2KpLTip6vtemxY/giphy.gif?cid=790b7611af638e257a5f310fdd6d3015bfb9ee3119298826&rid=giphy.gif&ct=g
  */
-public class GradualColorChangeEffect extends AbstractMenuEffect<String> {
+public class GradualColorChangeAnimation extends AbstractMenuAnimation<String> {
 
     protected final String primaryColor;
     protected final String secondaryColor;
@@ -18,13 +18,13 @@ public class GradualColorChangeEffect extends AbstractMenuEffect<String> {
     protected boolean reverse = false;
     protected int transitionCount = 0;
 
-    public GradualColorChangeEffect(
+    public GradualColorChangeAnimation(
             String primaryColor,
             String input) {
         this(primaryColor, "§f§l", input, 2);
     }
 
-    public GradualColorChangeEffect(
+    public GradualColorChangeAnimation(
             String primaryColor,
             String secondaryColor,
             String input,
@@ -34,23 +34,23 @@ public class GradualColorChangeEffect extends AbstractMenuEffect<String> {
         this.secondaryColor = Preconditions.checkNotNull(secondaryColor, "secondaryColor must not be null");
     }
 
-    public GradualColorChangeEffect reversed() {
+    public GradualColorChangeAnimation reversed() {
         this.reverse = true;
         return this;
     }
 
-    public GradualColorChangeEffect reverse(boolean reverse) {
+    public GradualColorChangeAnimation reverse(boolean reverse) {
         this.reverse = reverse;
         return this;
     }
 
-    public GradualColorChangeEffect transitionCount(int transitionCount) {
+    public GradualColorChangeAnimation transitionCount(int transitionCount) {
         this.transitionCount = transitionCount;
         return this;
     }
 
-    public GradualColorChangeEffect length(int length) {
-        return new GradualColorChangeEffect(this.primaryColor, this.secondaryColor, this.input, length).reverse(this.reverse).transitionCount(this.transitionCount);
+    public GradualColorChangeAnimation length(int length) {
+        return new GradualColorChangeAnimation(this.primaryColor, this.secondaryColor, this.input, length).reverse(this.reverse).transitionCount(this.transitionCount);
     }
 
     @Override

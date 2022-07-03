@@ -5,17 +5,16 @@ import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.menu.Menu;
 import dev.simplix.protocolize.api.ClickType;
-
-import java.util.List;
-
+import lombok.NonNull;
 import org.jetbrains.annotations.Nullable;
 
-import lombok.NonNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A click contains information about a click performed on an {@link InventoryMenuItemWrapper}.
  */
-public class Click {
+public final class Click {
 
     private final ClickType clickType;
     private final Menu clickedMenu;
@@ -44,9 +43,12 @@ public class Click {
     public Menu clickedMenu() {
         return this.clickedMenu;
     }
-
+    
     public List<String> arguments() {
-        return this.clickedItem.actionArguments();
+        if (this.clickedItem != null) {
+            return this.clickedItem.actionArguments();
+        }
+        return new ArrayList<>();
     }
 
     public <T extends MenuItemWrapper> T clickedItem() {

@@ -2,7 +2,7 @@ package dev.simplix.cirrus.common.effect;
 
 import java.util.List;
 
-public interface MenuEffect<T> {
+public interface MenuAnimation<T> {
 
     /**
      * Duration of the effect in the menu in ticks
@@ -21,7 +21,7 @@ public interface MenuEffect<T> {
 
     /**
      * Next effect frame. Usually calculated with an
-     * infinite iterable calculated with {@link MenuEffect#calculate()}
+     * infinite iterable calculated with {@link MenuAnimation#calculate()}
      * and created with {@link com.google.common.collect.Iterables#cycle(Object[])}
      */
     T next();

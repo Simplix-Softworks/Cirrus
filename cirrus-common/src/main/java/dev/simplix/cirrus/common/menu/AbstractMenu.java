@@ -10,7 +10,7 @@ import dev.simplix.cirrus.common.handler.AutoCancellingActionHandler;
 import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 import dev.simplix.cirrus.common.i18n.Localizer;
 import dev.simplix.cirrus.common.i18n.Replacer;
-import dev.simplix.cirrus.common.item.MenuItem;
+import dev.simplix.cirrus.common.item.CirrusItem;
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import lombok.Getter;
 import lombok.NonNull;
@@ -131,7 +131,7 @@ public abstract class AbstractMenu implements Menu {
         return add(localizedItemStackModel.localize(locale(), this.replacements.get()));
     }
 
-    protected int add(@NonNull MenuItem menuItem) {
+    protected int add(@NonNull CirrusItem menuItem) {
         int slot = topContainer().nextFreeSlot();
         this.topContainer.set(slot, menuItem);
         return slot;
@@ -151,7 +151,7 @@ public abstract class AbstractMenu implements Menu {
                 replacements().get()));
     }
 
-    protected void set(@NonNull MenuItem model) {
+    protected void set(@NonNull CirrusItem model) {
         for (int slot : model.slots()) {
             if (slot > topContainer().capacity() - 1) {
                 bottomContainer().set(slot - bottomContainer().baseSlot(), model);

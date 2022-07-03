@@ -3,7 +3,7 @@ package dev.simplix.cirrus.common.menus;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.handler.ActionHandler;
-import dev.simplix.cirrus.common.item.MenuItem;
+import dev.simplix.cirrus.common.item.CirrusItem;
 import dev.simplix.cirrus.common.model.Click;
 import lombok.NonNull;
 
@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 
 public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
     protected Map<Integer, T> slotValueMap = null;
-    protected Map<T, MenuItem> out = null;
+    protected Map<T, CirrusItem> out = null;
 
     public AbstractSelectorMenu(
             @NonNull PlayerWrapper player,
@@ -40,9 +40,9 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
 
     protected abstract List<T> values();
 
-    protected abstract MenuItem map(T value);
+    protected abstract CirrusItem map(T value);
 
-    protected Map<T, MenuItem> mappedValues() {
+    protected Map<T, CirrusItem> mappedValues() {
         if (this.out != null && !this.out.isEmpty()) {
             return this.out;
         }
@@ -55,8 +55,8 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
     }
 
     protected void insert() {
-        for (Entry<T, MenuItem> entry : mappedValues().entrySet()) {
-            final MenuItem value = entry.getValue();
+        for (Entry<T, CirrusItem> entry : mappedValues().entrySet()) {
+            final CirrusItem value = entry.getValue();
             final Integer slot = add(value, "click", new ArrayList<>());
             this.slotValueMap.put(slot, entry.getKey());
         }
