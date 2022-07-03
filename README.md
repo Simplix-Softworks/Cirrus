@@ -55,7 +55,7 @@ configuration files.
 ### Protocolize
 
 Cirrus is powered by [Protocolize](https://github.com/Exceptionflug/protocolize). A protocol manipulation library by one
-of the Simplix Softworks founders, Exceptionflug. Protocolize enables you to do so much more on BungeeCord!
+of the Simplix Softworks founders, Exceptionflug. Protocolize enables you to do so much more on BungeeCord/Velocity!
 
 ## Installation
 
