@@ -6,7 +6,7 @@
 
 Cirrus is currently WIP. The documentation is invalid in parts. We will publish a stable version soon.
 Spigot & BungeeCord implementations will work, Velocity implementations are currently very experimental.
-We aim to publish documentation & production ready versions in march.
+We aim to publish documentation & production ready versions in the coming month.
 
 # Version
 
@@ -32,9 +32,14 @@ Keep in mind that to use our codestyle as defined in .editorconfig.
 On Spigot Cirrus is fully independent of third party plugins. Protocolize is needed only only if Cirrus is used on
 proxies like BungeeCord or Velocity.
 
-- Spigot
+- Spigot 
 - BungeeCord
 - Velocity (WIP)
+
+## Supported Bukkit Versions
+
+Due to the changes in the API we only officially support 1.16.5-LATEST (which is 1.19 by the time this is written)
+Since Cirrus is designed to be mostly version independent, older versions will likely function as well but they are deprecated (so we won't attempt to resolve issues with these versions).
 
 ## Tooling
 
