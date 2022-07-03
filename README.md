@@ -20,7 +20,7 @@ Spigot & BungeeCord implementations will work, Velocity implementations are curr
 We aim to publish documentation & production ready versions in the coming month.
 
 ## Version
-Current version is 2.0.0-SNAPSHOT
+Current version is 2.0.0
 
 ## PR
 
@@ -55,7 +55,7 @@ configuration files.
 ### Protocolize
 
 Cirrus is powered by [Protocolize](https://github.com/Exceptionflug/protocolize). A protocol manipulation library by one
-of the Simplix Softworks founders, Exceptionflug. Protocolize enables you to do so much more on BungeeCord!
+of the Simplix Softworks founders, Exceptionflug. Protocolize enables you to do so much more on BungeeCord/Velocity!
 
 ## Installation
 
