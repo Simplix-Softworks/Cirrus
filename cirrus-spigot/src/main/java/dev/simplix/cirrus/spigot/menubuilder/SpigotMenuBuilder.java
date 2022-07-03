@@ -129,9 +129,17 @@ public final class SpigotMenuBuilder implements MenuBuilder {
         }
     }
 
+    private static boolean isChest(dev.simplix.protocolize.data.inventory.InventoryType type) {
+        if (type == dev.simplix.protocolize.data.inventory.InventoryType.GENERIC_3X3) {
+            return false;
+        } else {
+            return type.name().startsWith("GENERIC") || type.name().contains("CHEST");
+        }
+    }
+
     private InventoryView makeView(Menu menu) {
         Inventory top;
-        if (menu.inventoryType().isChest()) {
+        if (isChest(menu.inventoryType())) {
             top = Bukkit.createInventory(
                     menu.player().handle(),
                     menu.inventoryType().getTypicalSize(ProtocolVersionUtil.serverProtocolVersion()),
