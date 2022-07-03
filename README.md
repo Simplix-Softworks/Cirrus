@@ -6,6 +6,7 @@
 # Cirrus
 [![Build Status](http://ci.exceptionflug.de/buildStatus/icon?job=Cirrus)](http://ci.exceptionflug.de/job/Cirrus/) [![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/15194-cirrus-tooling)](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling) [![Discord](https://img.shields.io/discord/752533664696369204?label=Discord)](https://discord.simplixsoft.com/) ![GitHub](https://img.shields.io/github/license/Exceptionflug/Protocolize)
 
+The first-ever way of creating menus for Velocity.
 Cirrus enables you to develop platform-independent versatile graphical menus for Spigot, BungeeCord, and Velocity! The
 goal of Cirrus is to aim for maximum compatibility. Cirrus had been tested on several well-known BungeeCord-Forks as
 well on all Spigot versions beginning from 1.8 till the latest 1.17.1 release.
@@ -18,13 +19,10 @@ Cirrus is currently WIP. The documentation is invalid in parts. We will publish 
 Spigot & BungeeCord implementations will work, Velocity implementations are currently very experimental.
 We aim to publish documentation & production ready versions in the coming month.
 
-# Version
-
+## Version
 Current version is 2.0.0-SNAPSHOT
 
-The first-ever way of creating menus for Velocity.
-
-# PR
+## PR
 
 If you have any improvements regarding Cirrus feel free to create a PR. We are happy to review & merge it.
 Keep in mind that to use our codestyle as defined in .editorconfig.
