@@ -10,9 +10,6 @@ import dev.simplix.cirrus.common.menus.MultiPageMenu;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
 import dev.simplix.cirrus.spigot.util.ReflectionUtil;
 import dev.simplix.protocolize.api.util.ProtocolVersions;
-import java.lang.reflect.Constructor;
-import java.util.*;
-import java.util.Map.Entry;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.bukkit.Bukkit;
@@ -23,6 +20,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
+
+import java.lang.reflect.Constructor;
+import java.util.*;
+import java.util.Map.Entry;
 
 @Slf4j
 public final class SpigotMenuBuilder implements MenuBuilder {
@@ -48,13 +49,13 @@ public final class SpigotMenuBuilder implements MenuBuilder {
     @Override
     public <T> T build(@Nullable T prebuild, @NonNull Menu menu) {
         boolean reopen = false;
-        boolean register = prebuild==null;
+        boolean register = prebuild == null;
         if (prebuild instanceof InventoryView) {
             InventoryView inventoryView = (InventoryView) prebuild;
             if (!inventoryView.getTitle().equals(menu.title())
-                    || inventoryView.getTopInventory().getSize()!=menu.inventoryType()
+                    || inventoryView.getTopInventory().getSize() != menu.inventoryType()
                     .getTypicalSize(ProtocolVersionUtil.serverProtocolVersion())
-                    || inventoryView.getTopInventory().getType()!=Converters
+                    || inventoryView.getTopInventory().getType() != Converters
                     .convert(menu.inventoryType(), org.bukkit.event.inventory.InventoryType.class)) {
                 prebuild = (T) makeView(menu);
                 reopen = true;
@@ -81,8 +82,8 @@ public final class SpigotMenuBuilder implements MenuBuilder {
         for (int i = 0; i < container.capacity(); i++) {
             InventoryMenuItemWrapper item = container.itemMap().get(i + container.baseSlot());
             ItemStack currentStack = inventory.getItem(i);
-            if (item==null) {
-                if (currentStack!=null) {
+            if (item == null) {
+                if (currentStack != null) {
                     if (bottom) {
                         inventory.setItem(
                                 container.baseSlot() + container.capacity() - 1 - (
@@ -94,10 +95,10 @@ public final class SpigotMenuBuilder implements MenuBuilder {
                     }
                 }
             }
-            if (item!=null) {
+            if (item != null) {
                 ItemStack bukkitItemStack = Converters.convert(item.handle(), ItemStack.class);
-                if (currentStack==null) {
-                    if (item.handle()==null) {
+                if (currentStack == null) {
+                    if (item.handle() == null) {
                         Bukkit.getLogger()
                                 .severe("InventoryItem's ItemStackWrapper is null @ slot " + i);
                         continue;
@@ -225,7 +226,7 @@ public final class SpigotMenuBuilder implements MenuBuilder {
 
     @Override
     public Menu menuByHandle(Object handle) {
-        if (handle==null) {
+        if (handle == null) {
             return null;
         }
         for (final Menu menu : this.menus) {

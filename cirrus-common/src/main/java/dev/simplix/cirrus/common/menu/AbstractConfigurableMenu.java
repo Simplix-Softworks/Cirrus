@@ -1,15 +1,16 @@
 package dev.simplix.cirrus.common.menu;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
+import dev.simplix.cirrus.common.configuration.MenuConfiguration;
 import dev.simplix.cirrus.common.handler.ActionHandler;
 import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
-import dev.simplix.cirrus.common.configuration.MenuConfiguration;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 @Getter
 @Accessors(fluent = true)

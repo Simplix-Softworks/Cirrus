@@ -10,7 +10,6 @@ import dev.simplix.cirrus.common.menu.Menu;
 import dev.simplix.cirrus.common.menu.MenuBuilder;
 import dev.simplix.cirrus.common.model.CallResult;
 import dev.simplix.cirrus.common.model.Click;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +20,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.InventoryView;
+
+import java.util.Map;
 
 @Slf4j
 public class InventoryListener implements Listener {
@@ -35,7 +36,7 @@ public class InventoryListener implements Listener {
         }
 
         Menu menu = this.menuBuilder.menuByHandle(inventoryView);
-        if (menu==null) {
+        if (menu == null) {
             return;
         }
 
@@ -45,12 +46,12 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         InventoryView inventoryView = event.getWhoClicked().getOpenInventory();
-        if (event.getClickedInventory()==null) {
+        if (event.getClickedInventory() == null) {
             return;
         }
 //    Bukkit.broadcastMessage("Clicked inventoryView");
         Menu menu = this.menuBuilder.menuByHandle(inventoryView);
-        if (menu==null) {
+        if (menu == null) {
             return;
         }
 //    Bukkit.broadcastMessage("Clicked menu: "
@@ -67,9 +68,9 @@ public class InventoryListener implements Listener {
         }
         InventoryMenuItemWrapper item = container.get(event.getRawSlot());
         ClickType type = event.getClick();
-        if (item==null) {
+        if (item == null) {
 //      Bukkit.broadcastMessage("Clicked nothing");
-            if (menu.customActionHandler()!=null) {
+            if (menu.customActionHandler() != null) {
                 try {
                     CallResult callResult = menu
                             .customActionHandler()
@@ -77,7 +78,7 @@ public class InventoryListener implements Listener {
                                     type,
                                     dev.simplix.protocolize.api.ClickType.class),
                                     menu, null, event.getSlot()));
-                    event.setCancelled(callResult==null || callResult==CallResult.DENY_GRABBING);
+                    event.setCancelled(callResult == null || callResult == CallResult.DENY_GRABBING);
                 } catch (Exception ex) {
                     event.setCancelled(true);
                     menu.handleException(null, ex);
@@ -87,7 +88,7 @@ public class InventoryListener implements Listener {
         }
 //    Bukkit.broadcastMessage("Clicked " + item.displayName());
         ActionHandler actionHandler = menu.actionHandler(item.actionHandler());
-        if (actionHandler==null) {
+        if (actionHandler == null) {
             event.setCancelled(true);
             return;
         }
@@ -97,7 +98,7 @@ public class InventoryListener implements Listener {
                     menu,
                     item,
                     event.getSlot()));
-            event.setCancelled(callResult==null || callResult==CallResult.DENY_GRABBING);
+            event.setCancelled(callResult == null || callResult == CallResult.DENY_GRABBING);
         } catch (final Exception ex) {
             event.setCancelled(true);
             menu.handleException(actionHandler, ex);
@@ -112,16 +113,16 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent inventoryCloseEvent) {
         InventoryView inventoryView = inventoryCloseEvent.getPlayer().getOpenInventory();
-        if (inventoryView==null) {
+        if (inventoryView == null) {
             return;
         }
         Menu menu = this.menuBuilder.menuByHandle(inventoryView);
-        if (menu==null) {
+        if (menu == null) {
             return;
         }
         ((Player) inventoryCloseEvent.getPlayer()).updateInventory();
         Map.Entry<Menu, Long> lastBuild = this.menuBuilder.lastBuildOfPlayer(inventoryCloseEvent.getPlayer().getUniqueId());
-        if (lastBuild==null) {
+        if (lastBuild == null) {
             log.warn("[Cirrus] Exiting from unbuilt menu? Class = "
                     + menu.getClass().getName()
                     + ", Player = "
@@ -130,7 +131,7 @@ public class InventoryListener implements Listener {
             this.menuBuilder.invalidate(menu);
             return;
         }
-        if (((AbstractMenu) lastBuild.getKey()).internalId()==((AbstractMenu) menu).internalId()
+        if (((AbstractMenu) lastBuild.getKey()).internalId() == ((AbstractMenu) menu).internalId()
                 && (System.currentTimeMillis() - lastBuild.getValue()) <= 55) {
             return;
         }

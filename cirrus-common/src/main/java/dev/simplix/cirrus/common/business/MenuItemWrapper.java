@@ -1,10 +1,11 @@
 package dev.simplix.cirrus.common.business;
 
 import dev.simplix.protocolize.data.ItemType;
-import java.util.List;
 import lombok.NonNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.querz.nbt.tag.CompoundTag;
+
+import java.util.List;
 
 /**
  * An {@link MenuItemWrapper} provides uniform data access for items across different platforms.

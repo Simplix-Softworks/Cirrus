@@ -7,10 +7,11 @@ import dev.simplix.cirrus.common.converter.Converters;
 import dev.simplix.cirrus.common.handler.ActionHandler;
 import dev.simplix.cirrus.common.handler.AutoCancellingActionHandler;
 import dev.simplix.protocolize.data.inventory.InventoryType;
-import java.util.Locale;
-import java.util.function.Supplier;
 import lombok.NonNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
+import java.util.function.Supplier;
 
 public interface Menu extends ErrorProne {
 

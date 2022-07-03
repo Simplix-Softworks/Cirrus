@@ -5,6 +5,7 @@ import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.menu.Menu;
 import dev.simplix.protocolize.api.ClickType;
+
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;

@@ -1,15 +1,16 @@
 package dev.simplix.cirrus.common.i18n;
 
 import dev.simplix.cirrus.common.item.MenuItem;
+import lombok.NonNull;
+import net.querz.nbt.io.SNBTUtil;
+import net.querz.nbt.tag.CompoundTag;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import lombok.NonNull;
-import net.querz.nbt.io.SNBTUtil;
-import net.querz.nbt.tag.CompoundTag;
-import org.jetbrains.annotations.Nullable;
 
 public final class Localizer {
 
@@ -17,7 +18,7 @@ public final class Localizer {
             LocalizedStringList localizedStringList,
             @NonNull Locale locale,
             String... replacements) {
-        if (localizedStringList==null) {
+        if (localizedStringList == null) {
             return Collections.emptyList();
         }
         return Arrays.asList(Replacer.of(localizedStringList.translated(locale))
@@ -28,7 +29,7 @@ public final class Localizer {
             LocalizedString localizedString,
             @NonNull Locale locale,
             String... replacements) {
-        if (localizedString==null) {
+        if (localizedString == null) {
             return "";
         }
         return Replacer
@@ -43,7 +44,7 @@ public final class Localizer {
             @NonNull String... replacements) {
         return MenuItem.builder()
                 .actionArguments(Arrays.asList(Replacer
-                        .of(model.actionArguments()==null ? Collections.emptyList():model.actionArguments())
+                        .of(model.actionArguments() == null ? Collections.emptyList() : model.actionArguments())
                         .replaceAll((Object[]) replacements)
                         .replacedMessage()))
                 .actionHandler(model.actionHandler())
@@ -60,7 +61,7 @@ public final class Localizer {
     private static CompoundTag formatNbt(
             @Nullable CompoundTag compoundTag,
             @NonNull String... replacements) {
-        if (compoundTag==null) {
+        if (compoundTag == null) {
             return null;
         }
         try {

@@ -4,6 +4,7 @@ import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.cirrus.common.converter.Converters;
 import dev.simplix.cirrus.common.item.MenuItem;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,8 +67,8 @@ public interface Container {
      * slot is not marked as reserved.
      *
      * @param menuItemWrapper The item stack to set
-     * @param actionHandler    The action handler which should be called on click
-     * @param actionArgs       the arguments for that click
+     * @param actionHandler   The action handler which should be called on click
+     * @param actionArgs      the arguments for that click
      */
     default void add(
             MenuItemWrapper menuItemWrapper,
@@ -107,10 +108,10 @@ public interface Container {
     /**
      * Sets an item into a given position in the container
      *
-     * @param slot             The slot the item will be located at
+     * @param slot            The slot the item will be located at
      * @param menuItemWrapper The item stack wrapper
-     * @param actionHandler    The handler that handles the click
-     * @param actionArgs       Arguments for the action handler
+     * @param actionHandler   The handler that handles the click
+     * @param actionArgs      Arguments for the action handler
      */
     default void set(
             int slot,

@@ -1,10 +1,11 @@
 package dev.simplix.cirrus.common.converter;
 
+import lombok.NonNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.AbstractMap.SimpleEntry;
 import java.util.*;
 import java.util.Map.Entry;
-import lombok.NonNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Central registration class for {@link Converter}s.
@@ -27,10 +28,10 @@ public final class Converters {
      */
     public static <T> T convert(@NonNull final Object source, @NonNull final Class<T> to) {
         Converter converter = getConverter(source.getClass(), to);
-        if (converter==null) {
+        if (converter == null) {
             converter = getMultiConverter(source.getClass(), to);
         }
-        if (converter==null) {
+        if (converter == null) {
             throw new NullPointerException("No converter available to convert " + source
                     .getClass()
                     .getName() + " to " + to.getName());
@@ -119,7 +120,7 @@ public final class Converters {
             final Class<S> sourceType,
             final Class<T> targetType) {
         Converter converter = CONVERTER_MAP.get(new SimpleEntry<>(sourceType, targetType));
-        if (converter==null) {
+        if (converter == null) {
             for (Entry<Class, Class> entry : CONVERTER_MAP.keySet()) {
                 if (entry.getKey().isAssignableFrom(sourceType)) {
                     if (entry.getValue().equals(targetType)) {

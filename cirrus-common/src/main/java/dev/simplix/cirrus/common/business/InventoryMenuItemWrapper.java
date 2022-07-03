@@ -1,7 +1,6 @@
 package dev.simplix.cirrus.common.business;
 
 import dev.simplix.protocolize.data.ItemType;
-import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -9,6 +8,8 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.querz.nbt.tag.CompoundTag;
+
+import java.util.List;
 
 @Accessors(fluent = true)
 @Builder

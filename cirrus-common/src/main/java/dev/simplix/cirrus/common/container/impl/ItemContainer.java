@@ -3,9 +3,11 @@ package dev.simplix.cirrus.common.container.impl;
 import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
 import dev.simplix.cirrus.common.container.Container;
 import dev.simplix.cirrus.common.util.InventoryContentMap;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import lombok.NonNull;
 
 public class ItemContainer implements Container {

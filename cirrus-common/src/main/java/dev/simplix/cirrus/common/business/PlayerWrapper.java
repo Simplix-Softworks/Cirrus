@@ -1,7 +1,8 @@
 package dev.simplix.cirrus.common.business;
 
-import java.util.UUID;
 import lombok.NonNull;
+
+import java.util.UUID;
 
 public interface PlayerWrapper {
 

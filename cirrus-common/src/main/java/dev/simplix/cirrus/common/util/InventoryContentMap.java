@@ -1,6 +1,10 @@
 package dev.simplix.cirrus.common.util;
 
 import dev.simplix.cirrus.common.business.InventoryMenuItemWrapper;
+import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -9,9 +13,6 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class InventoryContentMap implements ConcurrentMap<Integer, InventoryMenuItemWrapper> {
 

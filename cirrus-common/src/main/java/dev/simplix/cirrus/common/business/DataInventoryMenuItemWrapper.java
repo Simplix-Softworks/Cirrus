@@ -1,10 +1,11 @@
 package dev.simplix.cirrus.common.business;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 @Accessors(fluent = true)
 @Getter

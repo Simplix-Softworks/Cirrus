@@ -16,6 +16,7 @@ import dev.simplix.cirrus.velocity.converters.PlayerUniqueIdConverter;
 import dev.simplix.cirrus.velocity.listener.QuitListener;
 import dev.simplix.cirrus.velocity.protocolize.ProtocolizeMenuBuilder;
 import dev.simplix.protocolize.api.item.ItemStack;
+
 import java.util.UUID;
 
 /**
@@ -28,7 +29,7 @@ public class CirrusVelocity {
     private static ProxyServer proxyServer;
 
     public static void init(ProxyServer proxyServer, Object plugin) {
-        if (CirrusVelocity.proxyServer!=null) {
+        if (CirrusVelocity.proxyServer != null) {
             return;
         }
         CirrusVelocity.proxyServer = proxyServer;

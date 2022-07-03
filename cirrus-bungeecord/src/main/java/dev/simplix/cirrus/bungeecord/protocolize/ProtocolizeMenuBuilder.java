@@ -220,7 +220,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             if (protocolizePlayer.registeredInventories().containsValue(inventory)) {
                 for (Integer id : protocolizePlayer.registeredInventories().keySet()) {
                     Inventory val = protocolizePlayer.registeredInventories().get(id);
-                    if (val==inventory) {
+                    if (val == inventory) {
                         windowId = id;
                         break;
                     }
@@ -245,7 +245,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             }
             List<ItemStack> items = Lists.newArrayList(inventory.itemsIndexed(protocolVersion));
             for (ItemStack item : items) {
-                if (item==null) {
+                if (item == null) {
                     continue;
                 }
                 List<BaseComponent[]> lore = item.lore();

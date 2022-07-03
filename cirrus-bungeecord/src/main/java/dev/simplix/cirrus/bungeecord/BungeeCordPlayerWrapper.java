@@ -3,9 +3,10 @@ package dev.simplix.cirrus.bungeecord;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.player.ProtocolizePlayer;
-import java.util.UUID;
 import lombok.NonNull;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+
+import java.util.UUID;
 
 public class BungeeCordPlayerWrapper implements PlayerWrapper {
 

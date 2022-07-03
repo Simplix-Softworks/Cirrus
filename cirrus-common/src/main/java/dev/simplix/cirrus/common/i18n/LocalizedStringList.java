@@ -1,8 +1,9 @@
 package dev.simplix.cirrus.common.i18n;
 
-import java.util.*;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+
+import java.util.*;
 
 @NoArgsConstructor
 public class LocalizedStringList {

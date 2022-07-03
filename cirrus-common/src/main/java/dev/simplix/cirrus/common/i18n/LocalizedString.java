@@ -1,9 +1,10 @@
 package dev.simplix.cirrus.common.i18n;
 
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import lombok.NonNull;
 
 public class LocalizedString {
 

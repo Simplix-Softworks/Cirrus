@@ -1,14 +1,16 @@
 package dev.simplix.cirrus.common.i18n;
 
 import dev.simplix.cirrus.common.Utils;
-import dev.simplix.cirrus.common.i18n.LocalizedString;
-import dev.simplix.cirrus.common.i18n.LocalizedStringList;
 import dev.simplix.cirrus.common.item.MenuItem;
 import dev.simplix.protocolize.data.ItemType;
-import java.util.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 import net.querz.nbt.tag.CompoundTag;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 @Data
 @Builder
@@ -39,12 +41,12 @@ public class LocalizedItemStackModel {
     private CompoundTag nbt = new CompoundTag();
 
     public LocalizedItemStackModel glow() {
-        Utils.glow(nbt);
+        Utils.glow(this.nbt);
         return this;
     }
 
     public LocalizedItemStackModel texture(@NonNull String texture) {
-        Utils.texture(nbt, texture);
+        Utils.texture(this.nbt, texture);
         return this;
     }
 

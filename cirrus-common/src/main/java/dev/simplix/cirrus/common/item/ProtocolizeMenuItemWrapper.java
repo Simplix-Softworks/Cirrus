@@ -3,10 +3,11 @@ package dev.simplix.cirrus.common.item;
 import dev.simplix.cirrus.common.business.MenuItemWrapper;
 import dev.simplix.protocolize.api.item.ItemStack;
 import dev.simplix.protocolize.data.ItemType;
-import java.util.List;
 import lombok.NonNull;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.querz.nbt.tag.CompoundTag;
+
+import java.util.List;
 
 public class ProtocolizeMenuItemWrapper implements MenuItemWrapper {
 

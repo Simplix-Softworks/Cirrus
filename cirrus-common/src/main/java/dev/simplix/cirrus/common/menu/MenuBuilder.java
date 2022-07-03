@@ -1,11 +1,12 @@
 package dev.simplix.cirrus.common.menu;
 
 import dev.simplix.cirrus.common.business.PlayerWrapper;
+import lombok.NonNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import lombok.NonNull;
-import org.jetbrains.annotations.Nullable;
 
 public interface MenuBuilder {
 

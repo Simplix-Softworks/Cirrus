@@ -4,8 +4,10 @@ import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.i18n.LocalizedString;
 import dev.simplix.cirrus.common.i18n.LocalizedItemStackModel;
 import dev.simplix.protocolize.data.inventory.InventoryType;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

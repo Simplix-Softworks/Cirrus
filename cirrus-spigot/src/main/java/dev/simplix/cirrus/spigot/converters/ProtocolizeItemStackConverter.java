@@ -123,7 +123,7 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
                     throwable.printStackTrace();
                 }
             }
-            
+
             final org.bukkit.inventory.ItemStack itemStackCopy = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
                     .invoke(null, nmsItemStack);
 
@@ -190,7 +190,8 @@ public class ProtocolizeItemStackConverter implements Converter<ItemStack, org.b
                     .getDeclaredMethod("setProfile", GameProfile.class);
             metaSetProfileMethod.setAccessible(true);
             metaSetProfileMethod.invoke(meta, makeProfile(textureHash));
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException reflectiveOperationException) {
+        } catch (NoSuchMethodException | IllegalAccessException |
+                 InvocationTargetException reflectiveOperationException) {
             // if in an older API where there is no setProfile method,
             // we set the profile field directly.
             try {

@@ -5,10 +5,11 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import lombok.NonNull;
+
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
-import lombok.NonNull;
 
 public class LocalizedStringListDeserializer implements JsonDeserializer<LocalizedStringList> {
 

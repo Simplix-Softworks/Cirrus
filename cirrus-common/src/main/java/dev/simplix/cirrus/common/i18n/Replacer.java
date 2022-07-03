@@ -1,13 +1,14 @@
 package dev.simplix.cirrus.common.i18n;
 
 import com.google.common.base.Preconditions;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 import lombok.val;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This is a utility class for handy message replacements. Placeholders begin with { and are ending
@@ -76,7 +77,7 @@ public final class Replacer {
 
         //Even: Value
         for (int i = 0; i < associativeArray.length; i++) {
-            if (i % 2==0) {
+            if (i % 2 == 0) {
                 //Odd: Key
                 val raw = associativeArray[i];
                 Preconditions.checkState(
@@ -96,7 +97,7 @@ public final class Replacer {
      */
     public String[] replacedMessage() {
         Preconditions.checkState(
-                this.replacements.size()==this.variables.size(),
+                this.replacements.size() == this.variables.size(),
                 "Variables " + this.variables.size()
                         + " != replacements " + this.replacements.size(),
                 "Variables: " + this.variables.toString(),
@@ -117,9 +118,9 @@ public final class Replacer {
                     found = found + "}";
                 }
             }
-            final Object rep = i <= this.replacements.size() ? this.replacements.get(i):null;
+            final Object rep = i <= this.replacements.size() ? this.replacements.get(i) : null;
 
-            message = message.replace(found, rep==null ? "":rep.toString());
+            message = message.replace(found, rep == null ? "" : rep.toString());
         }
 
         return message.split(DELIMITER);

@@ -33,7 +33,7 @@ public class ExampleMultiPageMenu extends MultiPageMenu {
 
     private void addItems() {
         for (ItemType type : ItemType.values()) {
-            if (this.mappingProvider.mapping(type, player().protocolVersion())!=null) {
+            if (this.mappingProvider.mapping(type, player().protocolVersion()) != null) {
                 add(wrapItemStack(new ItemStack(type)), "test", Collections.emptyList());
             }
         }

@@ -4,7 +4,9 @@ import com.velocitypowered.api.proxy.Player;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.player.ProtocolizePlayer;
+
 import java.util.UUID;
+
 import lombok.NonNull;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 

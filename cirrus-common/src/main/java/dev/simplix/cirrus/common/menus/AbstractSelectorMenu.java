@@ -5,9 +5,10 @@ import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.handler.ActionHandler;
 import dev.simplix.cirrus.common.item.MenuItem;
 import dev.simplix.cirrus.common.model.Click;
+import lombok.NonNull;
+
 import java.util.*;
 import java.util.Map.Entry;
-import lombok.NonNull;
 
 public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
     protected Map<Integer, T> slotValueMap = null;
@@ -28,7 +29,7 @@ public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
 
         registerActionHandler("click", click -> {
             final T value = this.slotValueMap.get(click.slot());
-            if (value==null) {
+            if (value == null) {
                 return;
             }
             click(click, value);

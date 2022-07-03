@@ -5,9 +5,11 @@ import com.google.gson.Gson;
 import dev.simplix.cirrus.common.Cirrus;
 import dev.simplix.cirrus.common.business.ConfigurationFactory;
 import dev.simplix.cirrus.common.configuration.MenuConfiguration;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.NoSuchFileException;
+
 import lombok.NonNull;
 
 public class JsonConfigurationFactory implements ConfigurationFactory {
@@ -24,7 +26,7 @@ public class JsonConfigurationFactory implements ConfigurationFactory {
             @NonNull Class<T> type) {
         File file = new File(filename);
         if (!file.exists()) {
-            if (file.getParentFile()!=null) {
+            if (file.getParentFile() != null) {
                 file.getParentFile().mkdirs();
             }
             copyResourceToFile("/cirrus/" + type.getSimpleName() + ".json", file);
@@ -45,7 +47,7 @@ public class JsonConfigurationFactory implements ConfigurationFactory {
             @NonNull Class<?> caller,
             @NonNull Class<T> type) {
         try (InputStream stream = caller.getResourceAsStream(resourcePath)) {
-            if (stream==null) {
+            if (stream == null) {
                 throw new NoSuchFileException("Unable to find resource " + resourcePath);
             }
             String contents = new String(ByteStreams.toByteArray(stream), StandardCharsets.UTF_8);
