@@ -63,6 +63,6 @@
         <version>2.0.0</version>
     </parent>
 
-    <version>2.0.0</version>
+    <version>${cirrus.version}</version>
 
 </project>
