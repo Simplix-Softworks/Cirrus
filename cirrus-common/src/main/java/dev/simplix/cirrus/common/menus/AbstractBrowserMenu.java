@@ -11,14 +11,15 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public abstract class AbstractBrowserMenu<T> extends MultiPageMenu {
-    protected Map<Integer, T> slotValueMap = null;
-    protected Map<T, CirrusItem> out = null;
+    protected Map<Integer, T> slotValueMap = new HashMap<>();
+
+    protected Map<T, CirrusItem> out = new HashMap<>();
 
     public AbstractBrowserMenu(
             @NonNull PlayerWrapper player,
             @NonNull MultiPageMenuConfiguration configuration,
             @NonNull Locale locale) {
-        super(player, configuration, locale);
+        this(player, configuration, locale, new HashMap<>());
     }
 
     public AbstractBrowserMenu(
