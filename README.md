@@ -20,7 +20,9 @@ Spigot & BungeeCord implementations will work, Velocity implementations are curr
 We aim to publish documentation & production ready versions in the coming month.
 
 ## Version
-Current version is 2.0.0
+Current version is:
+- Stable: 2.0.0
+- Development: 2.1.0-SNAPHOT
 
 ## PR
 
