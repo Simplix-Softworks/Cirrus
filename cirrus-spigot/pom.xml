@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>cirrus-spigot</artifactId>
-    <version>2.0.0</version>
+    <version>${cirrus.version}</version>
 
     <dependencies>
         <dependency>
@@ -29,13 +29,13 @@
         <dependency>
             <groupId>dev.simplix.cirrus</groupId>
             <artifactId>cirrus-common</artifactId>
-            <version>2.0.0</version>
+            <version>${cirrus.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>dev.simplix.cirrus</groupId>
             <artifactId>cirrus-spigot-modern</artifactId>
-            <version>2.0.0</version>
+            <version>${cirrus.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

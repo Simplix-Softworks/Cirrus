@@ -4,26 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <artifactId>cirrus-bungeecord</artifactId>
 
-    <groupId>dev.simplix.cirrus</groupId>
-
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>cirrus</artifactId>
         <groupId>dev.simplix.cirrus</groupId>
         <version>2.0.0</version>
     </parent>
-    <version>2.0.0</version>
-
-    <properties>
-        <protocolize.version>1.7.0-SNAPSHOT</protocolize.version>
-    </properties>
+    <version>${cirrus.version}</version>
 
     <dependencies>
         <dependency>
             <artifactId>cirrus-common</artifactId>
             <groupId>dev.simplix.cirrus</groupId>
             <scope>compile</scope>
-            <version>2.0.0</version>
+            <version>${cirrus.version}</version>
         </dependency>
         <dependency>
             <groupId>net.md-5</groupId>
@@ -54,6 +48,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <minimizeJar>true</minimizeJar>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

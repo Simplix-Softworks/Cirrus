@@ -35,9 +35,8 @@
         <version>2.0.0</version>
     </parent>
 
-    <groupId>dev.simplix.cirrus</groupId>
     <artifactId>cirrus-velocity</artifactId>
-    <version>2.0.0</version>
+    <version>${cirrus.version}</version>
 
     <properties>
         <velocity.version>3.0.0</velocity.version>
@@ -48,7 +47,7 @@
             <artifactId>cirrus-common</artifactId>
             <groupId>dev.simplix.cirrus</groupId>
             <scope>compile</scope>
-            <version>2.0.0</version>
+            <version>${cirrus.version}</version>
         </dependency>
         <dependency>
             <groupId>com.velocitypowered</groupId>
