@@ -20,7 +20,7 @@ public class MaterialDataItemTypeConverter implements Converter<MaterialData, It
     public ItemType convert(@NonNull MaterialData src) {
         // Modern versioning
         if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_14) {
-            return ItemType.valueOf(src.getItemType().name());
+            return ItemType.valueOf(src.getItemType().name().replace("LEGACY_", ""));
         }
 
         // Deprecated Legacy versioning
