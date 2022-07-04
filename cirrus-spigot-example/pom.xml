@@ -11,20 +11,20 @@
     </parent>
 
     <artifactId>cirrus-spigot-example</artifactId>
-    <version>2.0.0</version>
+    <version>${cirrus.version}</version>
 
     <dependencies>
         <dependency>
             <artifactId>cirrus-common</artifactId>
             <groupId>dev.simplix.cirrus</groupId>
             <scope>compile</scope>
-            <version>2.0.0</version>
+            <version>${cirrus.version}</version>
         </dependency>
         <dependency>
             <artifactId>cirrus-spigot</artifactId>
             <groupId>dev.simplix.cirrus</groupId>
             <scope>compile</scope>
-            <version>2.0.0</version>
+            <version>${cirrus.version}</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
