@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Will generate: https://media3.giphy.com/media/bvuK2KpLTip6vtemxY/giphy.gif?cid=790b7611af638e257a5f310fdd6d3015bfb9ee3119298826&rid=giphy.gif&ct=g
+ * Will generate: <a href="https://media3.giphy.com/media/bvuK2KpLTip6vtemxY/giphy.gif?cid=790b7611af638e257a5f310fdd6d3015bfb9ee3119298826&rid=giphy.gif&ct=g">...</a>
  */
 public class GradualColorChangeAnimation extends AbstractMenuAnimation<String> {
 
