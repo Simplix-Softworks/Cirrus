@@ -10,18 +10,18 @@ import lombok.NonNull;
 import java.util.*;
 import java.util.Map.Entry;
 
-public abstract class AbstractSelectorMenu<T> extends MultiPageMenu {
+public abstract class AbstractBrowserMenu<T> extends MultiPageMenu {
     protected Map<Integer, T> slotValueMap = null;
     protected Map<T, CirrusItem> out = null;
 
-    public AbstractSelectorMenu(
+    public AbstractBrowserMenu(
             @NonNull PlayerWrapper player,
             @NonNull MultiPageMenuConfiguration configuration,
             @NonNull Locale locale) {
         super(player, configuration, locale);
     }
 
-    public AbstractSelectorMenu(
+    public AbstractBrowserMenu(
             @NonNull PlayerWrapper player,
             @NonNull MultiPageMenuConfiguration configuration,
             @NonNull Locale locale, @NonNull Map<String, ActionHandler> actionHandlerMap) {
