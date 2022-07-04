@@ -125,6 +125,9 @@ public class CirrusItem {
     }
 
     public List<String> lore() {
+        if (this.loreSupplier != null) {
+            return this.loreSupplier.get();
+        }
         return this.lore;
     }
 
