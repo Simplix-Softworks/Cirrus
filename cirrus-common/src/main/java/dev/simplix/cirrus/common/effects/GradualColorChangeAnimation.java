@@ -2,7 +2,9 @@ package dev.simplix.cirrus.common.effects;
 
 import com.google.common.base.Preconditions;
 import dev.simplix.cirrus.common.effect.AbstractMenuAnimation;
+import net.md_5.bungee.api.ChatColor;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,26 +14,25 @@ import java.util.List;
  */
 public class GradualColorChangeAnimation extends AbstractMenuAnimation<String> {
 
-    protected final String primaryColor;
-    protected final String secondaryColor;
+    protected final Color[] colors;
 
+    protected final String colorSuffix;
     protected boolean reverse = false;
     protected int transitionCount = 0;
 
-    public GradualColorChangeAnimation(
-            String primaryColor,
-            String input) {
-        this(primaryColor, "§f§l", input, 2);
+    public GradualColorChangeAnimation(String input, Color[] colors) {
+        this(input, "§l", colors, 2);
     }
 
     public GradualColorChangeAnimation(
-            String primaryColor,
-            String secondaryColor,
             String input,
+            String colorSuffix,
+            Color[] colors,
             int effectLength) {
         super(input, effectLength);
-        this.primaryColor = Preconditions.checkNotNull(primaryColor, "primaryColor must not be null");
-        this.secondaryColor = Preconditions.checkNotNull(secondaryColor, "secondaryColor must not be null");
+        this.colors = Preconditions.checkNotNull(colors, "colors must not be null");
+        this.colorSuffix = Preconditions.checkNotNull(colorSuffix, "colorSuffix must not be null");
+        Preconditions.checkArgument(colors.length > 0, "colors must not be empty");
     }
 
     public GradualColorChangeAnimation reversed() {
@@ -50,15 +51,25 @@ public class GradualColorChangeAnimation extends AbstractMenuAnimation<String> {
     }
 
     public GradualColorChangeAnimation length(int length) {
-        return new GradualColorChangeAnimation(this.primaryColor, this.secondaryColor, this.input, length).reverse(this.reverse).transitionCount(this.transitionCount);
+        return new GradualColorChangeAnimation(this.input, this.colorSuffix, this.colors, length).reverse(this.reverse).transitionCount(this.transitionCount);
     }
 
     @Override
     public List<String> calculate() {
 
         final List<String> out = new ArrayList<>();
-        out.addAll(insertEffect(this.primaryColor, this.secondaryColor));
-        out.addAll(insertEffect(this.secondaryColor, this.primaryColor));
+
+        for (int i = 0; i < this.colors.length; i++) {
+            final Color color = this.colors[i];
+            final int index = (this.colors.length == i + 1) ? 0 : (i + 1);
+            final Color color2 = this.colors[index];
+
+            out.addAll(insertEffect(
+                    ChatColor.of(color) + this.colorSuffix,
+                    ChatColor.of(color2) + this.colorSuffix
+            ));
+
+        }
 
         return out;
     }
