@@ -27,13 +27,13 @@ public final class ProtocolVersionUtil {
         try {
             Field field = dev.simplix.cirrus.spigot.util.ProtocolVersions.class.getField("MINECRAFT_" + majorVersion);
             return field.getInt(null);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException("Cirrus is not compatible with server version "
-                    + ReflectionUtil.serverVersion());
-        } catch (IllegalAccessException e) {
-            log.error("[Cirrus] Unable to detect protocol version", e);
-            return ProtocolVersions.MINECRAFT_1_18_1;
+        } catch (IllegalAccessException exception) {
+            log.error("Could not access field MINECRAFT_" + majorVersion, exception);
+        } catch (NoSuchFieldException exception) {
+            log.warn("[Cirrus] Cirrus is not compatible with this version ", exception);
+            log.warn("[Cirrus] [Compatibility Mode] Proceeding as if in Minecraft 1.18");
         }
+        return ProtocolVersions.MINECRAFT_1_18_1;
     }
 
 }
