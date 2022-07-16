@@ -1,11 +1,10 @@
 package dev.simplix.cirrus.spigot.util;
 
-import java.lang.reflect.Field;
-
-import dev.simplix.protocolize.data.inventory.InventoryType;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.lang.reflect.Field;
 
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -18,6 +17,7 @@ public final class ProtocolVersionUtil {
             protocolVersion = detectVersion();
         }
         return protocolVersion;
+
     }
 
     private static int detectVersion() {
@@ -32,7 +32,7 @@ public final class ProtocolVersionUtil {
                     + ReflectionUtil.serverVersion());
         } catch (IllegalAccessException e) {
             log.error("[Cirrus] Unable to detect protocol version", e);
-            return ProtocolVersions.MINECRAFT_1_8;
+            return ProtocolVersions.MINECRAFT_1_18_1;
         }
     }
 
