@@ -31,6 +31,10 @@ public final class ReflectionUtil {
     private static final Map<Map.Entry<Class<?>, String>, Field> CACHED_FIELDS = new HashMap<>();
     private static final Map<String, Class<?>> CACHED_CLASSES = new HashMap<>();
 
+    public static boolean hasNewItemTypeStructure() {
+        return ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_14;
+    }
+
     public static boolean hasNewPackageStructure() {
         return ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_17;
     }
@@ -60,10 +64,13 @@ public final class ReflectionUtil {
     }
 
     public static String serverVersion() {
+        String packageString = null;
         try {
-            return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+            packageString = Bukkit.getServer().getClass().getPackage().getName();
+            return packageString.split("\\.")[3];
         } catch (Exception exception) {
-            return "v1_17_1";
+            log.warn("[Cirrus] Could not determine server version from " + packageString, exception);
+            return "v1_18_1";
         }
     }
 
