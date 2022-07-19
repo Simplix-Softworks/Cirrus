@@ -1,5 +1,7 @@
 package dev.simplix.cirrus.common.menus;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import dev.simplix.cirrus.common.business.PlayerWrapper;
 import dev.simplix.cirrus.common.configuration.MultiPageMenuConfiguration;
 import dev.simplix.cirrus.common.handler.ActionHandler;
@@ -12,9 +14,9 @@ import java.util.Map.Entry;
 
 public abstract class AbstractBrowser<T> extends MultiPageMenu {
 
-    protected Map<Integer, T> slotValueMap = new HashMap<>();
+    protected final Map<Integer, T> slotValueMap = new HashMap<>();
 
-    protected Map<T, CirrusItem> out = new HashMap<>();
+    protected final BiMap<T, CirrusItem> out = HashBiMap.create();
 
     public AbstractBrowser(
             @NonNull PlayerWrapper player,
@@ -30,7 +32,8 @@ public abstract class AbstractBrowser<T> extends MultiPageMenu {
         super(player, configuration, locale, actionHandlerMap);
 
         registerActionHandler("click", click -> {
-            final T value = this.slotValueMap.get(click.slot());
+            final String identifier = this.topContainer().get(click.slot()).actionArguments().get(0);
+            final T value = this.slotValueMap.get(Integer.parseInt(identifier));
             if (value == null) {
                 return;
             }
@@ -45,10 +48,10 @@ public abstract class AbstractBrowser<T> extends MultiPageMenu {
     protected abstract CirrusItem map(T value);
 
     protected Map<T, CirrusItem> mappedValues() {
-        if (this.out != null && !this.out.isEmpty()) {
+        if (!this.out.isEmpty()) {
             return this.out;
         }
-        this.out = new HashMap<>();
+
         for (T value : values()) {
             this.out.put(value, map(value));
         }
@@ -59,8 +62,9 @@ public abstract class AbstractBrowser<T> extends MultiPageMenu {
     protected void insert() {
         for (Entry<T, CirrusItem> entry : mappedValues().entrySet()) {
             final CirrusItem value = entry.getValue();
-            final Integer slot = add(value, "click", new ArrayList<>());
-            this.slotValueMap.put(slot, entry.getKey());
+            final int identifier = entry.getKey().hashCode();
+            add(value, "click", new ArrayList<>(Collections.singletonList(identifier + "")));
+            this.slotValueMap.put(identifier, entry.getKey());
         }
     }
 
