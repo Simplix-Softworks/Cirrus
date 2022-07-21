@@ -36,7 +36,7 @@ public class GradualColorChangeAnimation extends AbstractMenuAnimation<String> {
     }
 
     public static GradualColorChangeAnimation fat(String input, Color... colors) {
-        return new GradualColorChangeAnimation(input, "§b", colors, 2);
+        return new GradualColorChangeAnimation(input, "§l", colors, 2);
     }
 
     public GradualColorChangeAnimation reversed() {
