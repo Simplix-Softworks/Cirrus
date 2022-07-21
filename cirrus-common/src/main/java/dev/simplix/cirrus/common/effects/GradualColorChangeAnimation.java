@@ -35,6 +35,10 @@ public class GradualColorChangeAnimation extends AbstractMenuAnimation<String> {
         Preconditions.checkArgument(colors.length > 0, "colors must not be empty");
     }
 
+    public static GradualColorChangeAnimation fat(String input, Color... colors) {
+        return new GradualColorChangeAnimation(input, "§b", colors, 2);
+    }
+
     public GradualColorChangeAnimation reversed() {
         this.reverse = true;
         return this;
