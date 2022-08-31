@@ -16,8 +16,9 @@ public class TestCommandExecutor implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
+            final PlayerWrapper wrapper = Converters.getConverter(Player.class, PlayerWrapper.class).convert(player);
             new ExampleMultiPageMenu(
-                    Converters.convert(player, PlayerWrapper.class),
+                    wrapper,
                     Cirrus.configurationFactory().loadFile(
                             "plugins/Cirrus/example2.json", SimpleMultiPageMenuConfiguration.class)).open();
         }
