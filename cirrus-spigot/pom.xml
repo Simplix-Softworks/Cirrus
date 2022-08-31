@@ -73,9 +73,9 @@
                         </goals>
                     </execution>
                 </executions>
-                <!--                <configuration>-->
-                <!--                    <minimizeJar>true</minimizeJar>-->
-                <!--                </configuration>-->
+                <configuration>
+                    <minimizeJar>false</minimizeJar>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
