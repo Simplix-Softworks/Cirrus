@@ -59,7 +59,7 @@ public class CirrusSpigot {
             Converters.register(
                     Player.class,
                     PlayerWrapper.class,
-                    o -> new SpigotPlayerWrapper((Player) o));
+                    new PlayerConverter());
             Converters.register(UUID.class, PlayerWrapper.class, o -> Bukkit.getPlayer((UUID) o));
 
             // Items
