@@ -13,19 +13,19 @@ import org.bukkit.material.MaterialData;
 
 public class ItemTypeMaterialDataConverter implements Converter<ItemType, MaterialData> {
 
-  private final MappingProvider mappingProvider = Protocolize.mappingProvider();
+    private final MappingProvider mappingProvider = Protocolize.mappingProvider();
 
-  @Override
-  public MaterialData convert(@NonNull ItemType src) {
-    ProtocolIdMapping mapping = this.mappingProvider.mapping(src, ProtocolVersionUtil.serverProtocolVersion());
-    if (mapping==null) {
-      return null;
-    }
-    if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_13) {
-      return new MaterialData(Material.valueOf(src.name()));
-    }
+    @Override
+    public MaterialData convert(@NonNull ItemType src) {
+        ProtocolIdMapping mapping = this.mappingProvider.mapping(src, ProtocolVersionUtil.serverProtocolVersion());
+        if (mapping == null) {
+            return null;
+        }
+        if (ProtocolVersionUtil.serverProtocolVersion() >= ProtocolVersions.MINECRAFT_1_13) {
+            return new MaterialData(Material.valueOf(src.name()));
+        }
 
-    return null;
-  }
+        throw new IllegalArgumentException("Unsupported type " + src.name() + " on protocol version: " + ProtocolVersionUtil.serverProtocolVersion());
+    }
 
 }
