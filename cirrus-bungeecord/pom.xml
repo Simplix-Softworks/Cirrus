@@ -49,7 +49,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <minimizeJar>true</minimizeJar>
+                    <minimizeJar>false</minimizeJar>
                 </configuration>
             </plugin>
             <plugin>
