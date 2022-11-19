@@ -11,6 +11,8 @@ Cirrus enables you to develop platform-independent versatile graphical menus for
 goal of Cirrus is to aim for maximum compatibility. Cirrus had been tested on several well-known BungeeCord-Forks as
 well on all Spigot versions beginning from 1.16.5 till the latest release. The first-ever way of creating menus for Velocity.
 
+# Cirrus v3.
+Currently Cirrus v3 is under active development. Message Leonhard#5800 on Discord to get in touch & help with the development process.
 
 
 # WIP
