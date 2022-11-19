@@ -5,8 +5,10 @@ import dev.simplix.cirrus.menu.Menu;
 import dev.simplix.cirrus.player.CirrusPlayerWrapper;
 
 public interface MenuBuildService {
-  default DisplayedMenu buildAndOpenMenu(Menu menu,
-                                         CirrusPlayerWrapper playerWrapper) {
+
+  default DisplayedMenu buildAndOpenMenu(
+      Menu menu,
+      CirrusPlayerWrapper playerWrapper) {
     menu.handleDisplay();
     return openAndBuildMenu0(menu, playerWrapper);
   }
@@ -15,13 +17,12 @@ public interface MenuBuildService {
 
   void updateMenu(DisplayedMenu displayedMenu);
 
-  default void closeMenu(DisplayedMenu displayedMenu){
+  default void closeMenu(DisplayedMenu displayedMenu) {
     displayedMenu.closed().set(true);
     closeMenu0(displayedMenu);
     displayedMenu.value().handleClose();
   }
 
   void closeMenu0(DisplayedMenu displayedMenu);
-
 
 }

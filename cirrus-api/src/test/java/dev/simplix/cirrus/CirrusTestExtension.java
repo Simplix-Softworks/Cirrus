@@ -12,26 +12,28 @@ public class CirrusTestExtension implements BeforeAllCallback {
   public void beforeAll(ExtensionContext context) throws Exception {
     Cirrus.init();
 
-    Cirrus.registerService(ComponentConverterProvider.class, () -> new ComponentConverter<Object>() {
-      @Override
-      public String toLegacyText(Object o) {
-        return o.toString();
-      }
+    Cirrus.registerService(
+        ComponentConverterProvider.class,
+        () -> new ComponentConverter<Object>() {
+          @Override
+          public String toLegacyText(Object o) {
+            return o.toString();
+          }
 
-      @Override
-      public String toJson(Object o) {
-        return o.toString();
-      }
+          @Override
+          public String toJson(Object o) {
+            return o.toString();
+          }
 
-      @Override
-      public Object fromLegacyText(String s) {
-        return s;
-      }
+          @Override
+          public Object fromLegacyText(String s) {
+            return s;
+          }
 
-      @Override
-      public Object fromJson(String s) {
-        return s;
-      }
-    });
+          @Override
+          public Object fromJson(String s) {
+            return s;
+          }
+        });
   }
 }

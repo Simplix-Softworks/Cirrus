@@ -12,16 +12,13 @@ import lombok.experimental.UtilityClass;
 
 import java.util.function.Function;
 
-
 /**
- * Utility class for action-handlers, providing the most common actions in a
- * streamlined form
+ * Utility class for action-handlers, providing the most common actions in a streamlined form
  */
 @UtilityClass
 public class ActionHandlers {
 
-
-  public ActionHandler changeClickedItemType(ItemType newType){
+  public ActionHandler changeClickedItemType(ItemType newType) {
     return (click) -> {
       final BaseItemStack baseItemStack = click.clickedItem();
       baseItemStack.itemType(newType);

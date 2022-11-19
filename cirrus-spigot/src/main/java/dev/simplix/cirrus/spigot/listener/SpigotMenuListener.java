@@ -20,17 +20,25 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-
 @Slf4j
 public class SpigotMenuListener implements Listener {
 
-  private static void handleClick(InventoryClickEvent event, DisplayedMenu displayedMenu, ActionHandler actionHandler) {
+  private static void handleClick(
+      InventoryClickEvent event,
+      DisplayedMenu displayedMenu,
+      ActionHandler actionHandler) {
 
     CallResult handle = null;
 
     try {
-      final ClickType spigotClickType = Cirrus.service(SpigotClickTypeConverter.class).apply(event.getClick());
-      final Click click = new Click(spigotClickType, displayedMenu, displayedMenu.value().get(event.getSlot()), event.getSlot());
+      final ClickType spigotClickType = Cirrus
+          .service(SpigotClickTypeConverter.class)
+          .apply(event.getClick());
+      final Click click = new Click(
+          spigotClickType,
+          displayedMenu,
+          displayedMenu.value().get(event.getSlot()),
+          event.getSlot());
       handle = actionHandler.handle(click);
     } catch (Exception exception) {
       log.warn("Exception caught in clickhandler", exception);
@@ -58,9 +66,9 @@ public class SpigotMenuListener implements Listener {
 
       final DisplayedMenu displayedMenu = of.get();
       final ActionHandler actionHandler = displayedMenu
-        .value()
-        .actionHandler(event.getSlot())
-        .orElse(null);
+          .value()
+          .actionHandler(event.getSlot())
+          .orElse(null);
       if (actionHandler != null) {
         handleClick(event, displayedMenu, actionHandler);
         return;

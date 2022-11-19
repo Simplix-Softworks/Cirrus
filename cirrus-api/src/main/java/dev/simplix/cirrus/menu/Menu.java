@@ -10,16 +10,16 @@ import java.util.function.Consumer;
 public interface Menu extends MenuSchematic {
 
   /**
-   * Register an action that should apply when an item with the given actionhandler String
-   * is clicked
+   * Register an action that should apply when an item with the given actionhandler String is
+   * clicked
    *
    * @param actionHandlerString actionhandlerstring of the menu
    */
   void registerActionHandler(String actionHandlerString, Consumer<Click> clickConsumer);
 
   /**
-   * Register an action that should apply when an item with the given actionhandler String
-   * is clicked
+   * Register an action that should apply when an item with the given actionhandler String is
+   * clicked
    *
    * @param actionHandlerString actionhandlerstring of the menu
    */

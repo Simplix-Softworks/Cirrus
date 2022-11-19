@@ -18,7 +18,7 @@ public class UUIDNameService {
     //Not yet set
     //Getting from Mojang & Setting it manually
     String name = UUIDFetcher.getName(uuid);
-    if (name==null) {
+    if (name == null) {
       return Optional.empty();
     }
 
@@ -38,7 +38,6 @@ public class UUIDNameService {
     //Not yet set.
     //Getting from Mojang & Setting it manually.
     UUID uuid = UUIDFetcher.getUUID(name);
-
 
 //    StorageManager.getPlayerData().set(uuid.toString(), name);
     return Optional.ofNullable(uuid);

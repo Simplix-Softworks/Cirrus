@@ -1,28 +1,29 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="cirrus:cirrus-bungee[runWaterfall] " type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="cirrus:cirrus-bungee[runWaterfall] "
+    type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="env">
         <map>
-          <entry key="simplix.dev" value="on" />
+          <entry key="simplix.dev" value="on"/>
         </map>
       </option>
-      <option name="executionName" />
-      <option name="externalProjectPath" value="$PROJECT_DIR$/cirrus-bungeecord" />
-      <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="" />
+      <option name="executionName"/>
+      <option name="externalProjectPath" value="$PROJECT_DIR$/cirrus-bungeecord"/>
+      <option name="externalSystemIdString" value="GRADLE"/>
+      <option name="scriptParameters" value=""/>
       <option name="taskDescriptions">
-        <list />
+        <list/>
       </option>
       <option name="taskNames">
         <list>
-          <option value="runWaterfall" />
+          <option value="runWaterfall"/>
         </list>
       </option>
-      <option name="vmOptions" value="" />
+      <option name="vmOptions" value=""/>
     </ExternalSystemSettings>
     <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
     <DebugAllEnabled>false</DebugAllEnabled>
-    <method v="2" />
+    <method v="2"/>
   </configuration>
 </component>

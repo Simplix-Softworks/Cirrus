@@ -9,22 +9,22 @@ public class ExampleMenuSchematic extends SimpleMenuSchematic {
 
   public ExampleMenuSchematic() {
     set(CirrusItem
-            .of(ItemType.ITEM_FRAME)
-            .displayName("item-1")
-            .lore("test123")
-            .actionHandler("sheep")
-            .slot(0));
+        .of(ItemType.ITEM_FRAME)
+        .displayName("item-1")
+        .lore("test123")
+        .actionHandler("sheep")
+        .slot(0));
     set(Items
-            .withWaveEffect(ItemType.ITEM_FRAME, "test", "test123")
-            .displayName("item-2")
-            .lore("test123")
-            .actionHandler("sheep")
-            .slot(1));
+        .withWaveEffect(ItemType.ITEM_FRAME, "test", "test123")
+        .displayName("item-2")
+        .lore("test123")
+        .actionHandler("sheep")
+        .slot(1));
     set(Items
-            .withSpectrumEffect(ItemType.ITEM_FRAME, "test", "test123")
-            .displayName("item-3")
-            .lore("test123")
-            .actionHandler("sheep")
-            .slot(2));
+        .withSpectrumEffect(ItemType.ITEM_FRAME, "test", "test123")
+        .displayName("item-3")
+        .lore("test123")
+        .actionHandler("sheep")
+        .slot(2));
   }
 }

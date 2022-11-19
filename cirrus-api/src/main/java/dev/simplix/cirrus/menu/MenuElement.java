@@ -16,6 +16,7 @@ import lombok.experimental.Accessors;
 @ToString
 @Accessors(fluent = true)
 public class MenuElement {
+
   @Nullable
   private transient MenuSchematic menuSchematic;
 
@@ -27,7 +28,6 @@ public class MenuElement {
 
   @Nullable
   private String actionHandler;
-
 
   public void set(@NonNull CirrusItem cirrusItem) {
     this.set(cirrusItem, cirrusItem.actionHandler());
@@ -45,7 +45,7 @@ public class MenuElement {
     }
   }
 
-  public Optional<MenuSchematic> menuSchematic(){
+  public Optional<MenuSchematic> menuSchematic() {
     return Optional.ofNullable(menuSchematic);
   }
 
@@ -53,9 +53,9 @@ public class MenuElement {
     return Optional.ofNullable(actionHandler);
   }
 
-  public void applyChanges(@NonNull MenuSchematic menuSchematic, int slot){
-      this.slot = slot;
-      menuSchematic.set(item, slot, actionHandler);
+  public void applyChanges(@NonNull MenuSchematic menuSchematic, int slot) {
+    this.slot = slot;
+    menuSchematic.set(item, slot, actionHandler);
   }
 
   public Optional<BaseItemStack> item() {

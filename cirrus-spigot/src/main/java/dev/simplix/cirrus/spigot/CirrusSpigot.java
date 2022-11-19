@@ -16,6 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 @Slf4j
 @RequiredArgsConstructor
 public class CirrusSpigot {
+
   private final JavaPlugin plugin;
 
   public void init() {
@@ -30,8 +31,12 @@ public class CirrusSpigot {
     Cirrus.registerService(SpigotClickTypeConverter.class, new SpigotClickTypeConverter());
     Cirrus.registerService(SpigotInventoryTypeConverter.class, new SpigotInventoryTypeConverter());
     Cirrus.registerService(MenuBuildService.class, new SpigotMenuBuildService(plugin));
-    Cirrus.registerService(ComponentConverterProvider.class, new SimpleComponentConverterProvider());
-    Cirrus.registerService(RunSyncService.class, runnable -> Bukkit.getScheduler().runTask(plugin, runnable));
+    Cirrus.registerService(
+        ComponentConverterProvider.class,
+        new SimpleComponentConverterProvider());
+    Cirrus.registerService(
+        RunSyncService.class,
+        runnable -> Bukkit.getScheduler().runTask(plugin, runnable));
 
     Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, new MenuUpdateTask(), 0L, 1L);
     Bukkit.getPluginManager().registerEvents(new SpigotMenuListener(), plugin);

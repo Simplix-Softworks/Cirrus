@@ -16,8 +16,9 @@ public class ItemStackSerializer implements JsonSerializer<BaseItemStack> {
     new Throwable().printStackTrace();
     final JsonObject jsonObject = new JsonObject();
 
-    jsonObject.add(RuntimeTypeAdapterFactory.TYPE,
-            new JsonPrimitive(src.getClass().getSimpleName().toLowerCase()));
+    jsonObject.add(
+        RuntimeTypeAdapterFactory.TYPE,
+        new JsonPrimitive(src.getClass().getSimpleName().toLowerCase()));
 
     jsonObject.add("type", context.serialize(src.itemType()));
     jsonObject.add("amount", new JsonPrimitive(src.amount()));

@@ -1,6 +1,5 @@
 package dev.simplix.cirrus.menu;
 
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.experimental.UtilityClass;
@@ -20,17 +19,18 @@ public class Menus {
 
   /**
    * Removes the menu from the map
+   *
    * @return return = null -> Nothing was removed
    */
   public DisplayedMenu remove(UUID uuid) {
     final DisplayedMenu remove = menuMap.remove(uuid);
-    if(remove != null) {
+    if (remove != null) {
       remove.value().handleClose();
     }
     return remove;
   }
 
   public Collection<DisplayedMenu> all() {
-      return Collections.unmodifiableCollection(menuMap.values());
+    return Collections.unmodifiableCollection(menuMap.values());
   }
 }

@@ -1,6 +1,5 @@
 package dev.simplix.cirrus.spigot.plugin;
 
-
 import dev.simplix.cirrus.Cirrus;
 import dev.simplix.cirrus.actionhandler.ActionHandlers;
 import dev.simplix.cirrus.item.CirrusItem;
@@ -30,7 +29,10 @@ public class CirrusSpigotPlugin extends JavaPlugin implements Listener {
     log.info("Enabling Cirrus test plugin");
     new CirrusSpigot(this).init();
     Bukkit.getPluginManager().registerEvents(this, this);
-    log.info("--> Detected Minecraft version " + ProtocolVersionUtil.versionString() + " on " + ProtocolVersionUtil.serverProtocolVersion());
+    log.info("--> Detected Minecraft version "
+             + ProtocolVersionUtil.versionString()
+             + " on "
+             + ProtocolVersionUtil.serverProtocolVersion());
   }
 
   @EventHandler
@@ -44,12 +46,14 @@ public class CirrusSpigotPlugin extends JavaPlugin implements Listener {
     SpigotPlayerWrapper playerWrapper = new SpigotPlayerWrapper(asyncPlayerChatEvent.getPlayer());
 
     Bukkit.getScheduler().runTask(this, () -> {
-      var displayedMenu = Cirrus.service(MenuBuildService.class).buildAndOpenMenu(exampleMenu, playerWrapper);
+      var displayedMenu = Cirrus
+          .service(MenuBuildService.class)
+          .buildAndOpenMenu(exampleMenu, playerWrapper);
 
     });
   }
 
-  static class ExampleBrowser extends AbstractBrowser<ItemType>{
+  static class ExampleBrowser extends AbstractBrowser<ItemType> {
 
     @Override
     protected void handleClick(Click click, ItemType value) {
@@ -72,13 +76,13 @@ public class CirrusSpigotPlugin extends JavaPlugin implements Listener {
     public ActionMenu() {
       title("Action");
       set(
-              Items.withWaveEffect(
-                              ItemType.EMERALD_BLOCK,
-                              "Back",
-                              "§7Get back to the main menu")
-                      .slot(13)
-                      .actionHandler("back")
-      );
+          Items.withWaveEffect(
+                  ItemType.EMERALD_BLOCK,
+                  "Back",
+                  "§7Get back to the main menu")
+              .slot(13)
+              .actionHandler("back")
+         );
     }
 
     @Override
@@ -92,28 +96,27 @@ public class CirrusSpigotPlugin extends JavaPlugin implements Listener {
     }
   }
 
-
   static class SelectMenu extends SimpleMenu {
 
     public SelectMenu() {
       title("Select Menu");
       type(InventoryType.GENERIC_9X5);
       set(
-              Items.withSpectrumEffect(
-                              ItemType.STONE,
-                              "Click to open the browser menu",
-                              "§7Open the action menu")
-                      .actionHandler("browser")
-                      .slot(0)
-      );
+          Items.withSpectrumEffect(
+                  ItemType.STONE,
+                  "Click to open the browser menu",
+                  "§7Open the action menu")
+              .actionHandler("browser")
+              .slot(0)
+         );
 
       set(Items.withSpectrumEffect(
-                      ItemType.DIAMOND_BLOCK,
-                      "Action menu",
-                      "§7Open the action menu")
-              .actionHandler("select")
-              .slot(2)
-      );
+              ItemType.DIAMOND_BLOCK,
+              "Action menu",
+              "§7Open the action menu")
+          .actionHandler("select")
+          .slot(2)
+         );
     }
 
     @Override

@@ -24,7 +24,7 @@ public final class UUIDTypeAdapter extends TypeAdapter<UUID> {
 
   private static UUID fromString(final String input) {
     return UUID.fromString(input.replaceFirst(
-            "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})",
-            "$1-$2-$3-$4-$5"));
+        "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})",
+        "$1-$2-$3-$4-$5"));
   }
 }

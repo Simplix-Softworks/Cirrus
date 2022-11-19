@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class PlaceholderItem {
+
   private final BaseItemStack item;
   private final String actionHandler;
   private final int[] slots;
@@ -15,6 +16,9 @@ public class PlaceholderItem {
   }
 
   public PlaceholderItem copy() {
-    return new PlaceholderItem(this.item, this.actionHandler, Arrays.copyOf(this.slots, this.slots.length));
+    return new PlaceholderItem(
+        this.item,
+        this.actionHandler,
+        Arrays.copyOf(this.slots, this.slots.length));
   }
 }

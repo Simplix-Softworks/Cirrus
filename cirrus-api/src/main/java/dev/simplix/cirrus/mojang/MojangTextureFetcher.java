@@ -20,15 +20,15 @@ public class MojangTextureFetcher {
   public static final String SERVICE_URL = "https://sessionserver.mojang.com/session/minecraft/profile/";
 
   private final LoadingCache<UUID, String> cache = new LoadingCache<>(
-          30,
-          TimeUnit.MINUTES,
-          new LoadingCache.CacheLoader<UUID, String>() {
-            @SneakyThrows
-            @Override
-            public String load(UUID uuid) {
-              return fetch0(uuid);
-            }
-          });
+      30,
+      TimeUnit.MINUTES,
+      new LoadingCache.CacheLoader<UUID, String>() {
+        @SneakyThrows
+        @Override
+        public String load(UUID uuid) {
+          return fetch0(uuid);
+        }
+      });
 
   public String getTextureHash(final UUID uuid) {
     return cache.get(uuid);
@@ -43,8 +43,8 @@ public class MojangTextureFetcher {
       }
     } catch (final Throwable throwable) {
       System.err.println(
-              "If you aren't in online mode, disable it in your settings.yml as well!"
-      );
+          "If you aren't in online mode, disable it in your settings.yml as well!"
+                        );
       System.err.println("Using Steve-Texture as default");
       throwable.printStackTrace();
     }
@@ -53,12 +53,12 @@ public class MojangTextureFetcher {
 
   private String fetch0(final UUID uuid) throws Exception {
     final URL url_1 = new URL(
-            SERVICE_URL + UUIDTypeAdapter
-                    .fromUUID(uuid)
-                    + "?unsigned=false");
+        SERVICE_URL + UUIDTypeAdapter
+            .fromUUID(uuid)
+        + "?unsigned=false");
     final InputStreamReader reader_1 = new InputStreamReader(url_1.openStream());
     final JsonObject textureProperty = new JsonParser().parse(reader_1).getAsJsonObject()
-            .get("properties").getAsJsonArray().get(0).getAsJsonObject();
+        .get("properties").getAsJsonArray().get(0).getAsJsonObject();
 
     return textureProperty.get("value").getAsString();
   }

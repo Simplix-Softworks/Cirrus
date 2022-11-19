@@ -74,12 +74,12 @@ public class MojangsonWriter extends JsonWriter {
 
   /**
    * Creates a new instance that writes a MOJANGSON-encoded stream to {@code out}. For best
-   * performance, ensure {@link Writer} is buffered; wrapping in {@link java.io.BufferedWriter
-   * BufferedWriter} if necessary.
+   * performance, ensure {@link Writer} is buffered; wrapping in
+   * {@link java.io.BufferedWriter BufferedWriter} if necessary.
    */
   public MojangsonWriter(Writer out) {
     super(out);
-    if (out==null) {
+    if (out == null) {
       throw new NullPointerException("out == null");
     }
     this.out = out;
@@ -87,8 +87,8 @@ public class MojangsonWriter extends JsonWriter {
   }
 
   /**
-   * Begins encoding a new array. Each call to this method must be paired with a call to {@link
-   * #endArray}.
+   * Begins encoding a new array. Each call to this method must be paired with a call to
+   * {@link #endArray}.
    *
    * @return this writer.
    */
@@ -109,8 +109,8 @@ public class MojangsonWriter extends JsonWriter {
   }
 
   /**
-   * Begins encoding a new object. Each call to this method must be paired with a call to {@link
-   * #endObject}.
+   * Begins encoding a new object. Each call to this method must be paired with a call to
+   * {@link #endObject}.
    *
    * @return this writer.
    */
@@ -144,17 +144,17 @@ public class MojangsonWriter extends JsonWriter {
    * Closes the current scope by appending any necessary whitespace and the given bracket.
    */
   private MojangsonWriter close(int empty, int nonempty, char closeBracket)
-          throws IOException {
+      throws IOException {
     int context = peek();
-    if (context!=nonempty && context!=empty) {
+    if (context != nonempty && context != empty) {
       throw new IllegalStateException("Nesting problem.");
     }
-    if (this.deferredName!=null) {
+    if (this.deferredName != null) {
       throw new IllegalStateException("Dangling name: " + this.deferredName);
     }
 
     this.stackSize--;
-    if (context==nonempty) {
+    if (context == nonempty) {
       newline();
     }
     this.out.write(closeBracket);
@@ -162,7 +162,7 @@ public class MojangsonWriter extends JsonWriter {
   }
 
   private void push(int newTop) {
-    if (this.stackSize==this.stack.length) {
+    if (this.stackSize == this.stack.length) {
       this.stack = Arrays.copyOf(this.stack, this.stackSize * 2);
     }
     this.stack[this.stackSize++] = newTop;
@@ -172,7 +172,7 @@ public class MojangsonWriter extends JsonWriter {
    * Returns the value on the top of the stack.
    */
   private int peek() {
-    if (this.stackSize==0) {
+    if (this.stackSize == 0) {
       throw new IllegalStateException("MojangsonWriter is closed.");
     }
     return this.stack[this.stackSize - 1];
@@ -193,13 +193,13 @@ public class MojangsonWriter extends JsonWriter {
    */
   @Override
   public MojangsonWriter name(String name) throws IOException {
-    if (name==null) {
+    if (name == null) {
       throw new NullPointerException("name == null");
     }
-    if (this.deferredName!=null) {
+    if (this.deferredName != null) {
       throw new IllegalStateException();
     }
-    if (this.stackSize==0) {
+    if (this.stackSize == 0) {
       throw new IllegalStateException("MojangsonWriter is closed.");
     }
     this.deferredName = name;
@@ -207,7 +207,7 @@ public class MojangsonWriter extends JsonWriter {
   }
 
   private void writeDeferredName() throws IOException {
-    if (this.deferredName!=null) {
+    if (this.deferredName != null) {
       beforeName();
       string(this.deferredName);
       this.deferredName = null;
@@ -222,7 +222,7 @@ public class MojangsonWriter extends JsonWriter {
    */
   @Override
   public MojangsonWriter value(String value) throws IOException {
-    if (value==null) {
+    if (value == null) {
       return nullValue();
     }
     writeDeferredName();
@@ -239,7 +239,7 @@ public class MojangsonWriter extends JsonWriter {
    */
   @Override
   public MojangsonWriter jsonValue(String value) throws IOException {
-    if (value==null) {
+    if (value == null) {
       return nullValue();
     }
     writeDeferredName();
@@ -255,7 +255,7 @@ public class MojangsonWriter extends JsonWriter {
    */
   @Override
   public MojangsonWriter nullValue() throws IOException {
-    if (this.deferredName!=null) {
+    if (this.deferredName != null) {
       if (this.serializeNulls) {
         writeDeferredName();
       } else {
@@ -277,7 +277,7 @@ public class MojangsonWriter extends JsonWriter {
   public MojangsonWriter value(boolean value) throws IOException {
     writeDeferredName();
     beforeValue();
-    this.out.write(value ? "true":"false");
+    this.out.write(value ? "true" : "false");
     return this;
   }
 
@@ -288,20 +288,20 @@ public class MojangsonWriter extends JsonWriter {
    */
   @Override
   public MojangsonWriter value(Boolean value) throws IOException {
-    if (value==null) {
+    if (value == null) {
       return nullValue();
     }
     writeDeferredName();
     beforeValue();
-    this.out.write(value ? "true":"false");
+    this.out.write(value ? "true" : "false");
     return this;
   }
 
   /**
    * Encodes {@code value}.
    *
-   * @param value a finite value. May not be {@link Double#isNaN() NaNs} or {@link
-   *              Double#isInfinite() infinities}.
+   * @param value a finite value. May not be {@link Double#isNaN() NaNs} or
+   *              {@link Double#isInfinite() infinities}.
    * @return this writer.
    */
   @Override
@@ -331,20 +331,20 @@ public class MojangsonWriter extends JsonWriter {
   /**
    * Encodes {@code value}.
    *
-   * @param value a finite value. May not be {@link Double#isNaN() NaNs} or {@link
-   *              Double#isInfinite() infinities}.
+   * @param value a finite value. May not be {@link Double#isNaN() NaNs} or
+   *              {@link Double#isInfinite() infinities}.
    * @return this writer.
    */
   @Override
   public MojangsonWriter value(Number value) throws IOException {
-    if (value==null) {
+    if (value == null) {
       return nullValue();
     }
 
     writeDeferredName();
     String string = value.toString();
     if (!this.lenient
-            && (string.equals("-Infinity") || string.equals("Infinity") || string.equals("NaN"))) {
+        && (string.equals("-Infinity") || string.equals("Infinity") || string.equals("NaN"))) {
       throw new IllegalArgumentException("Numeric values must be finite, but was " + value);
     }
     beforeValue();
@@ -357,7 +357,7 @@ public class MojangsonWriter extends JsonWriter {
    */
   @Override
   public void flush() throws IOException {
-    if (this.stackSize==0) {
+    if (this.stackSize == 0) {
       throw new IllegalStateException("MojangsonWriter is closed.");
     }
     this.out.flush();
@@ -373,14 +373,14 @@ public class MojangsonWriter extends JsonWriter {
     this.out.close();
 
     int size = this.stackSize;
-    if (size > 1 || size==1 && this.stack[size - 1]!=MojangsonScope.NONEMPTY_DOCUMENT) {
+    if (size > 1 || size == 1 && this.stack[size - 1] != MojangsonScope.NONEMPTY_DOCUMENT) {
       throw new IOException("Incomplete document");
     }
     this.stackSize = 0;
   }
 
   private void newline() throws IOException {
-    if (this.indent==null) {
+    if (this.indent == null) {
       return;
     }
 
@@ -396,9 +396,9 @@ public class MojangsonWriter extends JsonWriter {
    */
   private void beforeName() throws IOException {
     int context = peek();
-    if (context==MojangsonScope.NONEMPTY_OBJECT) { // first in object
+    if (context == MojangsonScope.NONEMPTY_OBJECT) { // first in object
       this.out.write(',');
-    } else if (context!=MojangsonScope.EMPTY_OBJECT) { // not in an object!
+    } else if (context != MojangsonScope.EMPTY_OBJECT) { // not in an object!
       throw new IllegalStateException("Nesting problem.");
     }
     newline();
@@ -415,7 +415,7 @@ public class MojangsonWriter extends JsonWriter {
       case MojangsonScope.NONEMPTY_DOCUMENT:
         if (!this.lenient) {
           throw new IllegalStateException(
-                  "JSON must have only one top-level value.");
+              "JSON must have only one top-level value.");
         }
         // fall-through
       case MojangsonScope.EMPTY_DOCUMENT: // first in document
@@ -444,7 +444,7 @@ public class MojangsonWriter extends JsonWriter {
 
   private void string(String value) throws IOException {
     boolean quotesNeeded = value.contains(" ")
-            || value.isEmpty();
+                           || value.isEmpty();
     for (char c : value.toCharArray()) {
       if (c > 0x7a || (c > 0x39 && c < 0x41) || c < 0x30 || (c > 0x5a && c < 0x61)) {
         quotesNeeded = true;

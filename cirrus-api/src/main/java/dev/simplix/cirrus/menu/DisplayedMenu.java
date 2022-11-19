@@ -6,17 +6,21 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public record DisplayedMenu(
-        Menu value,
-        Object nativeMenu,
-        CirrusPlayerWrapper player,
-        MenuBuildService menuBuildService,
-        Long id,
-        AtomicBoolean closed
+    Menu value,
+    Object nativeMenu,
+    CirrusPlayerWrapper player,
+    MenuBuildService menuBuildService,
+    Long id,
+    AtomicBoolean closed
 
 ) {
 
-
-  public DisplayedMenu(Menu value, Object nativeMenu, CirrusPlayerWrapper player, MenuBuildService menuBuildService, Long id) {
+  public DisplayedMenu(
+      Menu value,
+      Object nativeMenu,
+      CirrusPlayerWrapper player,
+      MenuBuildService menuBuildService,
+      Long id) {
     this(value, nativeMenu, player, menuBuildService, id, new AtomicBoolean(false));
     Menus.register(player.uuid(), this);
   }
@@ -36,10 +40,10 @@ public record DisplayedMenu(
 
   @Override
   public boolean equals(Object other) {
-    if (other==null) {
+    if (other == null) {
       return false;
     }
-    if (other==this) {
+    if (other == this) {
       return true;
     }
 

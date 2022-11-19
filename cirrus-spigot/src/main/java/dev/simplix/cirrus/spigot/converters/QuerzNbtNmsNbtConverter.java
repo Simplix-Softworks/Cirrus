@@ -21,8 +21,8 @@ public class QuerzNbtNmsNbtConverter implements Function<CompoundTag, Object> {
   static {
     try {
       nbtCompressedStreamToolAMethod = ReflectionClasses
-        .nbtCompressedStreamTools()
-        .getMethod("a", InputStream.class);
+          .nbtCompressedStreamTools()
+          .getMethod("a", InputStream.class);
     } catch (final Exception e) {
       e.printStackTrace();
     }

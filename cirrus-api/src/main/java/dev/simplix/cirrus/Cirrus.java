@@ -29,18 +29,18 @@ public class Cirrus {
   private static final Executor executor = Executors.newCachedThreadPool();
   private static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
   private static final Gson GSON = new GsonBuilder()
-          .registerTypeAdapter(CompoundTag.class, new TagSerializer())
-          .registerTypeAdapter(CompoundTag.class, new TagDeserializer())
-          .registerTypeAdapter(BaseItemStack.class, new ItemStackDeserializer())
-          .registerTypeAdapter(BaseItemStack.class, new ItemStackSerializer())
-          .registerTypeHierarchyAdapter(CirrusItem.class, new CirrusItemSerializer())
-          .registerTypeHierarchyAdapter(CirrusItem.class, new CirrusItemDeserializer())
-          .registerTypeAdapter(Color.class, new ColorSerializer())
-          .registerTypeAdapter(Color.class, new ColorDeserializer())
-          .registerTypeAdapterFactory(animationTypeAdapterFactory())
-          .registerTypeAdapterFactory(itemStackTypeAdapterFactory())
-          .setPrettyPrinting()
-          .create();
+      .registerTypeAdapter(CompoundTag.class, new TagSerializer())
+      .registerTypeAdapter(CompoundTag.class, new TagDeserializer())
+      .registerTypeAdapter(BaseItemStack.class, new ItemStackDeserializer())
+      .registerTypeAdapter(BaseItemStack.class, new ItemStackSerializer())
+      .registerTypeHierarchyAdapter(CirrusItem.class, new CirrusItemSerializer())
+      .registerTypeHierarchyAdapter(CirrusItem.class, new CirrusItemDeserializer())
+      .registerTypeAdapter(Color.class, new ColorSerializer())
+      .registerTypeAdapter(Color.class, new ColorDeserializer())
+      .registerTypeAdapterFactory(animationTypeAdapterFactory())
+      .registerTypeAdapterFactory(itemStackTypeAdapterFactory())
+      .setPrettyPrinting()
+      .create();
   // On normal platforms displaying menu async is not a problem.
   // Only Spigot based platforms seem to have issues with it.
   // We work around this by disabling async for Spigot.
@@ -80,7 +80,7 @@ public class Cirrus {
 
   public static <T> T service(Class<T> clazz) {
     T result = Protocolize.getService(clazz);
-    if (result==null) {
+    if (result == null) {
       throw new IllegalArgumentException("Could not find service for class " + clazz);
     }
     return result;
@@ -102,7 +102,6 @@ public class Cirrus {
     return canDisplayAsync;
   }
 
-
   public static void canUpdateAsync(boolean canDisplayAsync) {
     Cirrus.canUpdateAsync = canDisplayAsync;
   }
@@ -117,35 +116,35 @@ public class Cirrus {
 
   public static RuntimeTypeAdapterFactory<?> animationTypeAdapterFactory() {
     return RuntimeTypeAdapterFactory
-            .of(AbstractMenuEffect.class)
-            .registerSubtype(
-                    SpectrumEffect.class,
-                    SpectrumEffect.class.getSimpleName().toLowerCase())
-            .registerSubtype(
-                    WaveEffect.class,
-                    WaveEffect.class.getSimpleName().toLowerCase())
-            .registerSubtype(
-                    SimpleChangingItemEffect.class,
-                    SimpleChangingItemEffect.class.getSimpleName().toLowerCase());
+        .of(AbstractMenuEffect.class)
+        .registerSubtype(
+            SpectrumEffect.class,
+            SpectrumEffect.class.getSimpleName().toLowerCase())
+        .registerSubtype(
+            WaveEffect.class,
+            WaveEffect.class.getSimpleName().toLowerCase())
+        .registerSubtype(
+            SimpleChangingItemEffect.class,
+            SimpleChangingItemEffect.class.getSimpleName().toLowerCase());
   }
 
   public static RuntimeTypeAdapterFactory<?> itemStackTypeAdapterFactory() {
     return RuntimeTypeAdapterFactory
-            .of(BaseItemStack.class)
-            .registerSubtype(
-                    CirrusItem.class,
-                    CirrusItem.class.getSimpleName().toLowerCase())
-            .registerSubtype(
-                    ItemStack.class,
-                    ItemStack.class.getSimpleName().toLowerCase())
-       .registerSubtype(
+        .of(BaseItemStack.class)
+        .registerSubtype(
+            CirrusItem.class,
+            CirrusItem.class.getSimpleName().toLowerCase())
+        .registerSubtype(
+            ItemStack.class,
+            ItemStack.class.getSimpleName().toLowerCase())
+        .registerSubtype(
             BaseItemStack.class,
             BaseItemStack.class.getSimpleName().toLowerCase());
   }
 
   public MenuBuildService menuBuildService() {
 
-    if (menuBuildService==null) {
+    if (menuBuildService == null) {
       throw new IllegalArgumentException("MenuBuildService not initialized yet");
     }
 

@@ -21,7 +21,10 @@ public class ItemTypeMaterialConverter implements Function<ItemType, Material> {
     }
 
     CirrusItem.of(ItemType.ITEM_FRAME, "Test", "test321");
-    throw new IllegalArgumentException("Unsupported type " + src.name() + " on protocol version: " + ProtocolVersionUtil.serverProtocolVersion());
+    throw new IllegalArgumentException("Unsupported type "
+                                       + src.name()
+                                       + " on protocol version: "
+                                       + ProtocolVersionUtil.serverProtocolVersion());
   }
 
 }

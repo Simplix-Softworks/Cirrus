@@ -5,33 +5,33 @@ public class ReflectionClasses {
   public static Class<?> itemStackClass() throws ClassNotFoundException {
     if (ReflectionUtil.hasNewPackageStructure()) {
       return ReflectionUtil
-              .getClass("{nm}.world.item.ItemStack");
+          .getClass("{nm}.world.item.ItemStack");
 
     } else {
       return ReflectionUtil
-              .getClass("{nms}.ItemStack");
+          .getClass("{nms}.ItemStack");
     }
   }
 
   public static Class<?> nbtCompressedStreamTools() throws ClassNotFoundException {
     if (ReflectionUtil.hasNewPackageStructure()) {
       return ReflectionUtil
-              .getClass("{nm}.nbt.NBTCompressedStreamTools");
+          .getClass("{nm}.nbt.NBTCompressedStreamTools");
 
     } else {
       return ReflectionUtil
-              .getClass("{nms}.NBTCompressedStreamTools");
+          .getClass("{nms}.NBTCompressedStreamTools");
     }
   }
 
   public static Class<?> nbtTagCompound() throws ClassNotFoundException {
     if (ReflectionUtil.hasNewPackageStructure()) {
       return ReflectionUtil
-              .getClass("{nm}.nbt.NBTTagCompound");
+          .getClass("{nm}.nbt.NBTTagCompound");
 
     } else {
       return ReflectionUtil
-              .getClass("{nms}.NBTTagCompound");
+          .getClass("{nms}.NBTTagCompound");
     }
   }
 

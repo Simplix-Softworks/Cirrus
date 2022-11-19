@@ -8,6 +8,7 @@ import net.querz.nbt.tag.*;
 
 @UtilityClass
 public class Utils {
+
   private static final String STEVE_TEXTURE = "ewogICJ0aW1lc3RhbXAiIDogMTU5MTU3NDcyMzc4MywKICAicHJvZmlsZUlkIiA6ICI4NjY3YmE3MWI4NWE0MDA0YWY1NDQ1N2E5NzM0ZWVkNyIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdGV2ZSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS82ZDNiMDZjMzg1MDRmZmMwMjI5Yjk0OTIxNDdjNjlmY2Y1OWZkMmVkNzg4NWY3ODUwMjE1MmY3N2I0ZDUwZGUxIgogICAgfSwKICAgICJDQVBFIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS85NTNjYWM4Yjc3OWZlNDEzODNlNjc1ZWUyYjg2MDcxYTcxNjU4ZjIxODBmNTZmYmNlOGFhMzE1ZWE3MGUyZWQ2IgogICAgfQogIH0KfQ==";
 
 //  public void removeItalic(BaseComponent[] components) {
@@ -16,14 +17,13 @@ public class Utils {
 //    }
 //  }
 
-
   public Optional<UUID> fromString(final String uuidString) {
-    if (uuidString==null || uuidString.isEmpty()) {
+    if (uuidString == null || uuidString.isEmpty()) {
       return Optional.empty();
     }
 
     final String[] components = uuidString.split("-");
-    if (components.length!=5) {
+    if (components.length != 5) {
       return Optional.empty();
     }
 
@@ -32,24 +32,23 @@ public class Utils {
 
   public InventoryType calculateTypeForContent(final int size) {
 
-
     if (size <= 9) {
       return InventoryType.GENERIC_9X1;
     }
 
-    if (size <= 9*2) {
+    if (size <= 9 * 2) {
       return InventoryType.GENERIC_9X2;
     }
 
-    if (size <= 9*3) {
+    if (size <= 9 * 3) {
       return InventoryType.GENERIC_9X3;
     }
 
-    if (size <= 9*4) {
+    if (size <= 9 * 4) {
       return InventoryType.GENERIC_9X4;
     }
 
-    if (size <= 9*5) {
+    if (size <= 9 * 5) {
       return InventoryType.GENERIC_9X5;
     }
 
@@ -61,23 +60,23 @@ public class Utils {
       return 9;
     }
 
-    if (size <= 9*2) {
-      return 9*2;
+    if (size <= 9 * 2) {
+      return 9 * 2;
     }
 
-    if (size <= 9*3) {
-      return 9*3;
+    if (size <= 9 * 3) {
+      return 9 * 3;
     }
 
-    if (size <= 9*4) {
-      return 9*4;
+    if (size <= 9 * 4) {
+      return 9 * 4;
     }
 
-    if (size <= 9*5) {
-      return 9*5;
+    if (size <= 9 * 5) {
+      return 9 * 5;
     }
 
-    return 9*6;
+    return 9 * 6;
   }
 
   //public InventoryType
@@ -169,20 +168,20 @@ public class Utils {
 
     CompoundTag skullOwner = tag.getCompoundTag("SkullOwner");
 
-    if (skullOwner==null) {
+    if (skullOwner == null) {
       skullOwner = new CompoundTag();
     }
 
     skullOwner.put("Name", new StringTag(textureHash));
     CompoundTag properties = skullOwner.getCompoundTag("Properties");
-    if (properties==null) {
+    if (properties == null) {
       properties = new CompoundTag();
     }
 
     CompoundTag texture = new CompoundTag();
     texture.put(
-            "Value",
-            new StringTag(textureHash.isEmpty() ? STEVE_TEXTURE:textureHash));
+        "Value",
+        new StringTag(textureHash.isEmpty() ? STEVE_TEXTURE : textureHash));
     ListTag<CompoundTag> textures = new ListTag<>(CompoundTag.class);
     textures.add(texture);
     properties.put("textures", textures);

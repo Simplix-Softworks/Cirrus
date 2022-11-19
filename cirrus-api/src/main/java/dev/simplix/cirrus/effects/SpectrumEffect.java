@@ -19,7 +19,7 @@ public class SpectrumEffect extends AbstractMenuEffect<String> {
   private double step;
 
   private SpectrumEffect(
-          String input, int effectLength, double step, String colorSuffix, List<Color> colors) {
+      String input, int effectLength, double step, String colorSuffix, List<Color> colors) {
     super(Preconditions.checkNotNull(input, "input must not be null"), effectLength);
     this.step = step;
     this.colors = Preconditions.checkNotNull(colors, "colors must not be null");
@@ -32,7 +32,7 @@ public class SpectrumEffect extends AbstractMenuEffect<String> {
   }
 
   public static SpectrumEffect of(
-          String input, String colorSuffix, int effectLength, double step, Color... colors) {
+      String input, String colorSuffix, int effectLength, double step, Color... colors) {
     return new SpectrumEffect(input, effectLength, step, colorSuffix, Arrays.asList(colors));
   }
 
@@ -48,16 +48,16 @@ public class SpectrumEffect extends AbstractMenuEffect<String> {
 
   @Override
   public boolean equals(Object o) {
-    if (this==o) {
+    if (this == o) {
       return true;
     }
-    if (o==null || getClass()!=o.getClass()) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
     SpectrumEffect that = (SpectrumEffect) o;
 
-    if (Double.compare(that.step, this.step)!=0) {
+    if (Double.compare(that.step, this.step) != 0) {
       return false;
     }
     if (!this.colors.equals(that.colors)) {
@@ -83,17 +83,17 @@ public class SpectrumEffect extends AbstractMenuEffect<String> {
 
     for (int i = 0; i < this.colors.size(); i++) {
       final Color color = this.colors.get(i);
-      final int index = (this.colors.size()==i + 1) ? 0:(i + 1);
+      final int index = (this.colors.size() == i + 1) ? 0 : (i + 1);
       final Color color2 = this.colors.get(index);
 
       out.addAll(Collections.nCopies(
-              this.effectLength,
-              SERVICE.colorToString(color) + this.colorSuffix + this.input));
+          this.effectLength,
+          SERVICE.colorToString(color) + this.colorSuffix + this.input));
 
       for (Color between : ColorUtil.colorsInBetween(color, color2, this.step)) {
         out.addAll(Collections.nCopies(
-                this.effectLength,
-                SERVICE.colorToString(between) + this.colorSuffix + this.input));
+            this.effectLength,
+            SERVICE.colorToString(between) + this.colorSuffix + this.input));
       }
     }
 
@@ -103,12 +103,12 @@ public class SpectrumEffect extends AbstractMenuEffect<String> {
   @Override
   public String toString() {
     return ToStringUtil
-            .of(this)
-            .add("input", this.input)
-            .add("colors", this.colors)
-            .add("effectLength", this.effectLength)
-            .add("step", this.step)
-            .add("colorSuffix", this.colorSuffix)
-            .toString();
+        .of(this)
+        .add("input", this.input)
+        .add("colors", this.colors)
+        .add("effectLength", this.effectLength)
+        .add("step", this.step)
+        .add("colorSuffix", this.colorSuffix)
+        .toString();
   }
 }

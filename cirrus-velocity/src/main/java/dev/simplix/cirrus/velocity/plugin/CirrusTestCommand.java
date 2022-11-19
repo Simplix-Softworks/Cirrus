@@ -1,6 +1,5 @@
 package dev.simplix.cirrus.velocity.plugin;
 
-
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
 import dev.simplix.cirrus.menus.example.SelectMenu;

@@ -11,9 +11,9 @@ public final class TagSerializer implements JsonSerializer<Tag<?>> {
 
   @Override
   public JsonElement serialize(
-          @NonNull Tag<?> src,
-          @NonNull Type typeOfSrc,
-          @NonNull JsonSerializationContext context) {
+      @NonNull Tag<?> src,
+      @NonNull Type typeOfSrc,
+      @NonNull JsonSerializationContext context) {
     try {
       String json = SNBTUtil.toSNBT(src);
       return JsonParser.parseString(json);

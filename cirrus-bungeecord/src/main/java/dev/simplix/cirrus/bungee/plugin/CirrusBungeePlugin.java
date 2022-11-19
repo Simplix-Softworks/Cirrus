@@ -33,7 +33,9 @@ public class CirrusBungeePlugin extends Plugin implements Listener {
 
     if (chatEvent.getSender() instanceof ProxiedPlayer player) {
       final BungeePlayerWrapper playerWrapper = new BungeePlayerWrapper(player);
-      var displayedMenu = Cirrus.service(MenuBuildService.class).buildAndOpenMenu(selectMenu, playerWrapper);
+      var displayedMenu = Cirrus
+          .service(MenuBuildService.class)
+          .buildAndOpenMenu(selectMenu, playerWrapper);
     }
   }
 

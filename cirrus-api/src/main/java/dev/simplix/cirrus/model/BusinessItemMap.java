@@ -121,9 +121,9 @@ public class BusinessItemMap implements ConcurrentMap<String, CirrusItem> {
 
   @Override
   public boolean replace(
-          String key,
-          CirrusItem oldValue,
-          CirrusItem newValue) {
+      String key,
+      CirrusItem oldValue,
+      CirrusItem newValue) {
     return this.value.replace(key, oldValue, newValue);
   }
 
@@ -134,30 +134,30 @@ public class BusinessItemMap implements ConcurrentMap<String, CirrusItem> {
 
   @Override
   public CirrusItem computeIfAbsent(
-          String key,
-          @NonNull Function<? super String, ? extends CirrusItem> mappingFunction) {
+      String key,
+      @NonNull Function<? super String, ? extends CirrusItem> mappingFunction) {
     return this.value.computeIfAbsent(key, mappingFunction);
   }
 
   @Override
   public CirrusItem computeIfPresent(
-          String key,
-          @NonNull BiFunction<? super String, ? super CirrusItem, ? extends CirrusItem> remappingFunction) {
+      String key,
+      @NonNull BiFunction<? super String, ? super CirrusItem, ? extends CirrusItem> remappingFunction) {
     return this.value.computeIfPresent(key, remappingFunction);
   }
 
   @Override
   public CirrusItem compute(
-          String key,
-          @NonNull BiFunction<? super String, ? super CirrusItem, ? extends CirrusItem> remappingFunction) {
+      String key,
+      @NonNull BiFunction<? super String, ? super CirrusItem, ? extends CirrusItem> remappingFunction) {
     return this.value.compute(key, remappingFunction);
   }
 
   @Override
   public CirrusItem merge(
-          String key,
-          @NonNull CirrusItem value,
-          @NonNull BiFunction<? super CirrusItem, ? super CirrusItem, ? extends CirrusItem> remappingFunction) {
+      String key,
+      @NonNull CirrusItem value,
+      @NonNull BiFunction<? super CirrusItem, ? super CirrusItem, ? extends CirrusItem> remappingFunction) {
     return this.value.merge(key, value, remappingFunction);
   }
 

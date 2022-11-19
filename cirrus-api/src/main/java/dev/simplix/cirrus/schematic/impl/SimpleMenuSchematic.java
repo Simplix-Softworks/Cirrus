@@ -46,14 +46,14 @@ public class SimpleMenuSchematic implements MenuSchematic {
   @Override
   public MenuSchematic copy() {
     return SimpleMenuSchematic
-            .builder()
-            .title(this.title)
-            .placeholderItem(this.placeholderItem.copy())
-            .reservedSlots(new HashSet<>(this.reservedSlots))
-            .businessItems(this.businessItems.copy())
-            .type(this.type)
-            .rootItems(this.rootItems.copy())
-            .build();
+        .builder()
+        .title(this.title)
+        .placeholderItem(this.placeholderItem.copy())
+        .reservedSlots(new HashSet<>(this.reservedSlots))
+        .businessItems(this.businessItems.copy())
+        .type(this.type)
+        .rootItems(this.rootItems.copy())
+        .build();
   }
 
   @Override
@@ -85,7 +85,7 @@ public class SimpleMenuSchematic implements MenuSchematic {
   @Override
   public int centerSlot() {
     final int pos = this.typicalSize() / 2;
-    return this.typicalSize() % 2==1 ? pos:pos - 5;
+    return this.typicalSize() % 2 == 1 ? pos : pos - 5;
   }
 
   @Override
@@ -109,7 +109,7 @@ public class SimpleMenuSchematic implements MenuSchematic {
   @Override
   public MenuSchematic set(BaseItemStack item, int slot, @Nullable String actionHandler) {
     rootItems().put(slot, item);
-    if (actionHandler!=null) {
+    if (actionHandler != null) {
       actionHandlerStringMap.put(slot, actionHandler);
     }
 
@@ -154,7 +154,6 @@ public class SimpleMenuSchematic implements MenuSchematic {
     return Optional.empty();
   }
 
-
   @Override
   public Optional<String> actionHandlerString(int slot) {
     return Optional.ofNullable(actionHandlerStringMap.get(slot));
@@ -168,11 +167,11 @@ public class SimpleMenuSchematic implements MenuSchematic {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj==null) {
+    if (obj == null) {
       return false;
     }
 
-    if (obj==this) {
+    if (obj == this) {
       return true;
     }
 
@@ -181,12 +180,12 @@ public class SimpleMenuSchematic implements MenuSchematic {
     }
 
     SimpleMenuSchematic other = (SimpleMenuSchematic) obj;
-    return ((other.title==null && this.title()==null) || other.title().equals(title()))
-            && other.type()==type()
-            && other.placeholderItem().equals(placeholderItem())
-            && other.reservedSlots().equals(reservedSlots())
-            && other.businessItems().equals(businessItems())
-            && other.rootItems().equals(rootItems());
+    return ((other.title == null && this.title() == null) || other.title().equals(title()))
+           && other.type() == type()
+           && other.placeholderItem().equals(placeholderItem())
+           && other.reservedSlots().equals(reservedSlots())
+           && other.businessItems().equals(businessItems())
+           && other.rootItems().equals(rootItems());
   }
 }
 

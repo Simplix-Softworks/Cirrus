@@ -7,10 +7,11 @@ import dev.simplix.protocolize.data.inventory.InventoryType;
 import javax.annotation.Nullable;
 
 public record BrowserSchematic(
-        String title,
-        @Nullable CallResult standardResult,
-        @Nullable InventoryType fixedSize,
-        @Nullable MenuRow bottomRow,
-        @Nullable BusinessItemMap businessItemMap
+    String title,
+    @Nullable CallResult standardResult,
+    @Nullable InventoryType fixedSize,
+    @Nullable MenuRow bottomRow,
+    @Nullable BusinessItemMap businessItemMap
 ) {
+
 }

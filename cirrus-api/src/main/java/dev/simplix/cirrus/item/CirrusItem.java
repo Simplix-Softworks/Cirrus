@@ -228,7 +228,7 @@ public class CirrusItem extends ItemStack {
       return false;
     }
 
-    if(o.getClass() == ItemStack.class) {
+    if (o.getClass() == ItemStack.class) {
       return super.equals(o);
     }
 

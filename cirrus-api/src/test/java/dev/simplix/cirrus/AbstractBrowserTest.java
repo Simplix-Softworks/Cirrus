@@ -26,7 +26,7 @@ public class AbstractBrowserTest {
 
       @Override
       protected void interceptBottomRow(MenuRow bottomRow) {
-          bottomRow.get(0).set(CirrusItem.of(ItemType.ACACIA_BOAT, "next page"));
+        bottomRow.get(0).set(CirrusItem.of(ItemType.ACACIA_BOAT, "next page"));
       }
 
       @Override

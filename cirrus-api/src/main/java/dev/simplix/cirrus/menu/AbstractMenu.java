@@ -6,6 +6,7 @@ import lombok.*;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractMenu extends SimpleMenuSchematic implements Menu {
+
   protected final MenuSchematic schematic;
 
   protected AbstractMenu() {
@@ -22,18 +23,16 @@ public abstract class AbstractMenu extends SimpleMenuSchematic implements Menu {
     }
   }
 
-
   /**
-   * Only register action-handlers in this method.
-   * Also don't write any code that can't be run on the main thread.
-   * (Except in the action-handlers themselves)
+   * Only register action-handlers in this method. Also don't write any code that can't be run on
+   * the main thread. (Except in the action-handlers themselves)
    */
-  protected void registerActionHandlers(){}
+  protected void registerActionHandlers() {
+  }
 
   protected void handleDisplay0() {
 
   }
-
 
   @Override
   public int updateTicks() {

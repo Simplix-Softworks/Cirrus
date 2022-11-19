@@ -18,7 +18,6 @@ public class ItemStackDeserializer implements JsonDeserializer<BaseItemStack> {
       Type typeOfT,
       JsonDeserializationContext context) throws JsonParseException {
 
-
     final JsonObject asJsonObject = json.getAsJsonObject();
     final ItemType type = ItemType.valueOf(asJsonObject.get("type").getAsString());
     final int amount = asJsonObject.get("amount").getAsInt();

@@ -27,7 +27,7 @@ public class TextureService {
     final String hash = MojangTextureFetcher.getTextureHash(uuid);
     log.debug("Received hash '" + hash + "'");
 
-    if (hash==null || hash.isEmpty()) {
+    if (hash == null || hash.isEmpty()) {
       return Optional.empty();
     }
 

@@ -27,10 +27,10 @@ public class SimpleMenu extends AbstractMenu {
   }
 
   public void registerActionHandler(String actionHandlerString, Consumer<Click> clickConsumer) {
-      this.actionHandlers.add(new RegisteredActionHandler(actionHandlerString, click -> {
-          clickConsumer.accept(click);
-          return CallResult.DENY_GRABBING;
-      }));
+    this.actionHandlers.add(new RegisteredActionHandler(actionHandlerString, click -> {
+      clickConsumer.accept(click);
+      return CallResult.DENY_GRABBING;
+    }));
   }
 
   public void registerActionHandler(String actionHandlerString, ActionHandler actionHandler) {

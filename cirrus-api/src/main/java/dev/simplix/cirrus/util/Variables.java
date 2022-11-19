@@ -43,5 +43,4 @@ public class Variables {
     Variables.isEnabled = isEnabled;
   }
 
-
 }

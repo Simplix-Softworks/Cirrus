@@ -8,8 +8,11 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 
 public class ColorSerializer implements JsonSerializer<Color> {
+
   @Override
   public JsonElement serialize(Color src, Type typeOfSrc, JsonSerializationContext context) {
-    return new JsonPrimitive(Objects.requireNonNull(Cirrus.service(ColorConvertService.class)).colorToString(src));
+    return new JsonPrimitive(Objects
+        .requireNonNull(Cirrus.service(ColorConvertService.class))
+        .colorToString(src));
   }
 }

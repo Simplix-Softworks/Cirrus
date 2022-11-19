@@ -28,11 +28,13 @@ public class BukkitItemStackConverter implements Function<ItemStack, dev.simplix
   public dev.simplix.protocolize.api.item.ItemStack apply(@NonNull ItemStack src) {
     try {
       dev.simplix.protocolize.api.item.ItemStack out = new dev.simplix.protocolize.api.item.ItemStack(
-        Cirrus.service(MaterialDataItemTypeConverter.class).apply(src.getData()),
-        src.getAmount(),
-        src.getDurability());
+          Cirrus.service(MaterialDataItemTypeConverter.class).apply(src.getData()),
+          src.getAmount(),
+          src.getDurability());
       Object handle = ReflectionUtil.fieldValue(craftItemStackClass, src, "handle");
-      out.nbtData(Cirrus.service(NmsNbtQuerzNbtConverter.class).apply(itemStackNMSClass.getMethod("getTag").invoke(handle)));
+      out.nbtData(Cirrus
+          .service(NmsNbtQuerzNbtConverter.class)
+          .apply(itemStackNMSClass.getMethod("getTag").invoke(handle)));
       return out;
     } catch (Exception exception) {
       throw new IllegalArgumentException("Could not convert item stack", exception);

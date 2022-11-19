@@ -5,9 +5,9 @@ import com.google.common.collect.Iterators;
 import java.util.Iterator;
 
 /**
-* Menus should have effects/animation.
-* For instance a RGB-effect for the displayname of an {@link dev.simplix.cirrus.item.CirrusItem}
-*/
+ * Menus should have effects/animation. For instance a RGB-effect for the displayname of an
+ * {@link dev.simplix.cirrus.item.CirrusItem}
+ */
 public abstract class AbstractMenuEffect<T> implements MenuEffect<T> {
 
   protected final T input;

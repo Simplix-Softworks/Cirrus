@@ -120,9 +120,9 @@ public class MenuContent implements ConcurrentMap<Integer, BaseItemStack> {
 
   @Override
   public boolean replace(
-          Integer key,
-          BaseItemStack oldValue,
-          BaseItemStack newValue) {
+      Integer key,
+      BaseItemStack oldValue,
+      BaseItemStack newValue) {
     return this.value.replace(key, oldValue, newValue);
   }
 
@@ -133,30 +133,30 @@ public class MenuContent implements ConcurrentMap<Integer, BaseItemStack> {
 
   @Override
   public BaseItemStack computeIfAbsent(
-          Integer key,
-          @NonNull Function<? super Integer, ? extends BaseItemStack> mappingFunction) {
+      Integer key,
+      @NonNull Function<? super Integer, ? extends BaseItemStack> mappingFunction) {
     return this.value.computeIfAbsent(key, mappingFunction);
   }
 
   @Override
   public BaseItemStack computeIfPresent(
-          Integer key,
-          @NonNull BiFunction<? super Integer, ? super BaseItemStack, ? extends BaseItemStack> remappingFunction) {
+      Integer key,
+      @NonNull BiFunction<? super Integer, ? super BaseItemStack, ? extends BaseItemStack> remappingFunction) {
     return this.value.computeIfPresent(key, remappingFunction);
   }
 
   @Override
   public BaseItemStack compute(
-          Integer key,
-          @NonNull BiFunction<? super Integer, ? super BaseItemStack, ? extends BaseItemStack> remappingFunction) {
+      Integer key,
+      @NonNull BiFunction<? super Integer, ? super BaseItemStack, ? extends BaseItemStack> remappingFunction) {
     return this.value.compute(key, remappingFunction);
   }
 
   @Override
   public BaseItemStack merge(
-          Integer key,
-          @NonNull BaseItemStack value,
-          @NonNull BiFunction<? super BaseItemStack, ? super BaseItemStack, ? extends BaseItemStack> remappingFunction) {
+      Integer key,
+      @NonNull BaseItemStack value,
+      @NonNull BiFunction<? super BaseItemStack, ? super BaseItemStack, ? extends BaseItemStack> remappingFunction) {
     return this.value.merge(key, value, remappingFunction);
   }
 

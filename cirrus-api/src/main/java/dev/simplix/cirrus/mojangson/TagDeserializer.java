@@ -16,10 +16,10 @@ public final class TagDeserializer implements JsonDeserializer<Tag<?>> {
 
   @Override
   public Tag<?> deserialize(
-          @NonNull JsonElement json,
-          @NonNull Type typeOfT,
-          @NonNull JsonDeserializationContext context)
-          throws JsonParseException {
+      @NonNull JsonElement json,
+      @NonNull Type typeOfT,
+      @NonNull JsonDeserializationContext context)
+      throws JsonParseException {
     if (!json.isJsonObject()) {
       throw new IllegalArgumentException("Expected json object!");
     }

@@ -15,9 +15,9 @@ public class CirrusItemSerializer implements JsonSerializer<CirrusItem> {
       JsonSerializationContext context) {
     final JsonObject jsonObject = new JsonObject();
 
-
-    jsonObject.add(RuntimeTypeAdapterFactory.TYPE,
-            new JsonPrimitive(src.getClass().getSimpleName().toLowerCase()));
+    jsonObject.add(
+        RuntimeTypeAdapterFactory.TYPE,
+        new JsonPrimitive(src.getClass().getSimpleName().toLowerCase()));
 
     final String displayName = src.displayName();
     AbstractMenuEffect<String> effect = src.displayNameEffect();

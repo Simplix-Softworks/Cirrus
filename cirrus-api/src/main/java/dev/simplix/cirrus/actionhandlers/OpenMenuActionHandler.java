@@ -1,6 +1,5 @@
 package dev.simplix.cirrus.actionhandlers;
 
-
 import dev.simplix.cirrus.actionhandler.ActionHandler;
 import dev.simplix.cirrus.menu.Menu;
 import dev.simplix.cirrus.model.CallResult;
@@ -11,6 +10,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class OpenMenuActionHandler implements ActionHandler {
+
   private Menu menuToOpen;
 
   public static OpenMenuActionHandler of(Menu menuToOpen) {

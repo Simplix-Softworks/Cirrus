@@ -5,15 +5,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import javax.annotation.Nullable;
 
 /**
- * Copied from Guava because BungeeCord relies on a very old version of it,
- * and we don't want to have to use reflection to access the class.
+ * Copied from Guava because BungeeCord relies on a very old version of it, and we don't want to
+ * have to use reflection to access the class.
  */
 public final class ToStringUtil {
+
   private final String className;
   private ValueHolder holderHead = new ValueHolder();
   private ValueHolder holderTail = holderHead;
   private boolean omitNullValues = false;
-
 
   public static ToStringUtil of(Object self) {
     return new ToStringUtil(self.getClass().getSimpleName());
@@ -32,9 +32,9 @@ public final class ToStringUtil {
   }
 
   /**
-   * Configures the {@link ToStringUtil} so {@link #toString()} will ignore
-   * properties with null value. The order of calling this method, relative
-   * to the {@code add()}/{@code addValue()} methods, is not significant.
+   * Configures the {@link ToStringUtil} so {@link #toString()} will ignore properties with null
+   * value. The order of calling this method, relative to the {@code add()}/{@code addValue()}
+   * methods, is not significant.
    *
    * @since 12.0
    */
@@ -44,18 +44,16 @@ public final class ToStringUtil {
   }
 
   /**
-   * Adds a name/value pair to the formatted output in {@code name=value}
-   * format. If {@code value} is {@code null}, the string {@code "null"}
-   * is used, unless {@link #omitNullValues()} is called, in which case this
-   * name/value pair will not be added.
+   * Adds a name/value pair to the formatted output in {@code name=value} format. If {@code value}
+   * is {@code null}, the string {@code "null"} is used, unless {@link #omitNullValues()} is called,
+   * in which case this name/value pair will not be added.
    */
   public ToStringUtil add(String name, @Nullable Object value) {
     return addHolder(name, value);
   }
 
   /**
-   * Adds a name/value pair to the formatted output in {@code name=value}
-   * format.
+   * Adds a name/value pair to the formatted output in {@code name=value} format.
    *
    * @since 11.0 (source-compatible since 2.0)
    */
@@ -64,8 +62,7 @@ public final class ToStringUtil {
   }
 
   /**
-   * Adds a name/value pair to the formatted output in {@code name=value}
-   * format.
+   * Adds a name/value pair to the formatted output in {@code name=value} format.
    *
    * @since 11.0 (source-compatible since 2.0)
    */
@@ -74,8 +71,7 @@ public final class ToStringUtil {
   }
 
   /**
-   * Adds a name/value pair to the formatted output in {@code name=value}
-   * format.
+   * Adds a name/value pair to the formatted output in {@code name=value} format.
    *
    * @since 11.0 (source-compatible since 2.0)
    */
@@ -84,8 +80,7 @@ public final class ToStringUtil {
   }
 
   /**
-   * Adds a name/value pair to the formatted output in {@code name=value}
-   * format.
+   * Adds a name/value pair to the formatted output in {@code name=value} format.
    *
    * @since 11.0 (source-compatible since 2.0)
    */
@@ -94,8 +89,7 @@ public final class ToStringUtil {
   }
 
   /**
-   * Adds a name/value pair to the formatted output in {@code name=value}
-   * format.
+   * Adds a name/value pair to the formatted output in {@code name=value} format.
    *
    * @since 11.0 (source-compatible since 2.0)
    */
@@ -104,8 +98,7 @@ public final class ToStringUtil {
   }
 
   /**
-   * Adds a name/value pair to the formatted output in {@code name=value}
-   * format.
+   * Adds a name/value pair to the formatted output in {@code name=value} format.
    *
    * @since 11.0 (source-compatible since 2.0)
    */
@@ -199,10 +192,9 @@ public final class ToStringUtil {
    * Returns a string in the format specified by {@link
    *
    * <p>After calling this method, you can keep adding more properties to later
-   * call toString() again and get a more complete representation of the
-   * same object; but properties cannot be removed, so this only allows
-   * limited reuse of the helper instance. The helper allows duplication of
-   * properties (multiple name/value pairs with the same name can be added).
+   * call toString() again and get a more complete representation of the same object; but properties
+   * cannot be removed, so this only allows limited reuse of the helper instance. The helper allows
+   * duplication of properties (multiple name/value pairs with the same name can be added).
    */
   @Override
   public String toString() {
@@ -210,14 +202,15 @@ public final class ToStringUtil {
     boolean omitNullValuesSnapshot = omitNullValues;
     String nextSeparator = "";
     StringBuilder builder = new StringBuilder(32).append(className)
-            .append('{');
-    for (ValueHolder valueHolder = holderHead.next; valueHolder!=null;
-         valueHolder = valueHolder.next) {
-      if (!omitNullValuesSnapshot || valueHolder.value!=null) {
+        .append('{');
+    for (
+        ValueHolder valueHolder = holderHead.next; valueHolder != null;
+        valueHolder = valueHolder.next) {
+      if (!omitNullValuesSnapshot || valueHolder.value != null) {
         builder.append(nextSeparator);
         nextSeparator = ", ";
 
-        if (valueHolder.name!=null) {
+        if (valueHolder.name != null) {
           builder.append(valueHolder.name).append('=');
         }
         builder.append(valueHolder.value);
@@ -246,6 +239,7 @@ public final class ToStringUtil {
   }
 
   private static final class ValueHolder {
+
     String name;
     Object value;
     ValueHolder next;

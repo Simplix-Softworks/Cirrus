@@ -13,6 +13,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 
 @RequiredArgsConstructor
 public class CirrusBungee {
+
   private final Plugin plugin;
 
   public void init() {
@@ -22,16 +23,16 @@ public class CirrusBungee {
       String version = Protocolize.version();
     } catch (Throwable throwable) {
       plugin.getLogger().severe(
-              "Protocolize-Plugin required to run CirrusBungee"
-      );
+          "Protocolize-Plugin required to run CirrusBungee"
+                               );
       return;
     }
 
     ProxyServer.getInstance().getPluginManager().registerListener(plugin, new QuitListener());
     ProxyServer
-            .getInstance()
-            .getScheduler()
-            .schedule(plugin, new MenuUpdateTask(), 0L, 50L, TimeUnit.MILLISECONDS);
+        .getInstance()
+        .getScheduler()
+        .schedule(plugin, new MenuUpdateTask(), 0L, 50L, TimeUnit.MILLISECONDS);
     Cirrus.registerService(MenuBuildService.class, new BungeeMenuBuildService());
   }
 }

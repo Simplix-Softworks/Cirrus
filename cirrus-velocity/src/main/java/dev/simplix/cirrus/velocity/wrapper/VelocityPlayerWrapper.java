@@ -11,6 +11,7 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 @RequiredArgsConstructor
 public class VelocityPlayerWrapper implements CirrusPlayerWrapper {
+
   private final Player player;
 
   @Override

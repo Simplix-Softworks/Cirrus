@@ -21,10 +21,10 @@ public final class Click {
   private final int slot;
 
   public Click(
-          @NonNull ClickType clickType,
-          @NonNull DisplayedMenu clickedMenu,
-          @Nullable BaseItemStack clickedItem,
-          int slot) {
+      @NonNull ClickType clickType,
+      @NonNull DisplayedMenu clickedMenu,
+      @Nullable BaseItemStack clickedItem,
+      int slot) {
     this.clickType = clickType;
     this.clickedMenu = clickedMenu;
     this.clickedItem = clickedItem;
@@ -44,7 +44,7 @@ public final class Click {
   }
 
   public List<String> arguments() {
-    if (this.clickedItem!=null && this.clickedItem instanceof CirrusItem) {
+    if (this.clickedItem != null && this.clickedItem instanceof CirrusItem) {
       return ((CirrusItem) this.clickedItem).actionArguments();
     }
     return new ArrayList<>();

@@ -31,7 +31,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 @Slf4j
 public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.inventory.ItemStack> {
 
-
   private static Class<?> craftItemStackClass;
   private static Class<?> nbtTagCompoundClass;
   private static Class<?> itemStackNMSClass;
@@ -45,14 +44,13 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
       nbtTagCompoundClass = ReflectionClasses.nbtTagCompound();
       itemStackNMSClass = ReflectionClasses.itemStackClass();
       nmsCopyMethod = craftItemStackClass.getMethod(
-        "asNMSCopy",
-        org.bukkit.inventory.ItemStack.class);
+          "asNMSCopy",
+          org.bukkit.inventory.ItemStack.class);
       bukkitCopyMethod = craftItemStackClass.getMethod("asBukkitCopy", itemStackNMSClass);
     } catch (Exception exception) {
       exception.printStackTrace();
     }
   }
-
 
   @Override
   public org.bukkit.inventory.ItemStack apply(BaseItemStack protocolizeItemStack) {
@@ -61,20 +59,20 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
     }
 
     Material material = Cirrus
-      .service(ItemTypeMaterialConverter.class).apply(protocolizeItemStack.itemType());
+        .service(ItemTypeMaterialConverter.class).apply(protocolizeItemStack.itemType());
     org.bukkit.inventory.ItemStack itemStack;
 
     if (ProtocolVersionUtil.serverProtocolVersion() < MINECRAFT_1_13) {
       itemStack = new org.bukkit.inventory.ItemStack(
-        material,
-        protocolizeItemStack.amount(),
-        protocolizeItemStack.durability(),
-        (byte) 0);
+          material,
+          protocolizeItemStack.amount(),
+          protocolizeItemStack.durability(),
+          (byte) 0);
     } else {
       itemStack = new org.bukkit.inventory.ItemStack(
-        Cirrus.service(ItemTypeMaterialConverter.class).apply(protocolizeItemStack.itemType()),
-        protocolizeItemStack.amount(),
-        protocolizeItemStack.durability());
+          Cirrus.service(ItemTypeMaterialConverter.class).apply(protocolizeItemStack.itemType()),
+          protocolizeItemStack.amount(),
+          protocolizeItemStack.durability());
     }
 
     if (protocolizeItemStack.nbtData() == null) {
@@ -83,7 +81,10 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
 
     String textureHashToInsert = null;
 
-    if (protocolizeItemStack.nbtData() != null && !protocolizeItemStack.nbtData().keySet().isEmpty()) {
+    if (protocolizeItemStack.nbtData() != null && !protocolizeItemStack
+        .nbtData()
+        .keySet()
+        .isEmpty()) {
       CompoundTag tag = protocolizeItemStack.nbtData();
       if (tag.containsKey("SkullOwner") && tag.get("SkullOwner") instanceof CompoundTag) {
 
@@ -92,7 +93,7 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
 
         if (propertiesRaw instanceof CompoundTag) {
           final ListTag<CompoundTag> textures = (ListTag<CompoundTag>) ((CompoundTag) propertiesRaw)
-            .getListTag("textures");
+              .getListTag("textures");
           textureHashToInsert = textures.get(0).getString("Value");
         }
       }
@@ -103,7 +104,10 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
     // Finalizing the itemstack by inserting nbt material & hiding attributes
     try {
       Object nmsItemStack = nmsCopyMethod.invoke(null, itemStack);
-      if (protocolizeItemStack.nbtData() != null && !protocolizeItemStack.nbtData().keySet().isEmpty()) {
+      if (protocolizeItemStack.nbtData() != null && !protocolizeItemStack
+          .nbtData()
+          .keySet()
+          .isEmpty()) {
         try {
 
           Method setTag = setTagMethod();
@@ -120,7 +124,7 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
       }
 
       final ItemStack result = (org.bukkit.inventory.ItemStack) bukkitCopyMethod
-        .invoke(null, nmsItemStack);
+          .invoke(null, nmsItemStack);
 
       final ItemMeta itemMeta = result.getItemMeta();
       mutateMetaDataToHideAttributes(itemMeta);
@@ -141,7 +145,6 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
       throw new IllegalStateException("Could not fully execute copying operations ", exception);
     }
   }
-
 
   private Method setTagMethod() throws NoSuchMethodException {
     if (setTagMethod != null) {
@@ -172,8 +175,8 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
   private GameProfile makeProfile(@NonNull String textureHash) {
     // random uuid based on the textureHash string
     UUID id = new UUID(
-      textureHash.substring(textureHash.length() - 20).hashCode(),
-      textureHash.substring(textureHash.length() - 10).hashCode()
+        textureHash.substring(textureHash.length() - 20).hashCode(),
+        textureHash.substring(textureHash.length() - 10).hashCode()
     );
     GameProfile profile = new GameProfile(id, "Player");
     profile.getProperties().put("textures", new Property("textures", textureHash));
@@ -183,8 +186,8 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
   private void mutateItemMetaForTextureHash(SkullMeta meta, String textureHash) {
     try {
       Method metaSetProfileMethod = meta
-        .getClass()
-        .getDeclaredMethod("setProfile", GameProfile.class);
+          .getClass()
+          .getDeclaredMethod("setProfile", GameProfile.class);
       metaSetProfileMethod.setAccessible(true);
       metaSetProfileMethod.invoke(meta, makeProfile(textureHash));
     } catch (NoSuchMethodException | IllegalAccessException |
@@ -210,8 +213,9 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
         ComponentHelper.removeItalic(baseComponents);
         setDisplayNameTag(stack.nbtData(), ComponentSerializer.toString(baseComponents));
       } else {
-        setDisplayNameTag(stack.nbtData(),
-          TextComponent.toLegacyText(stack.displayName(false)));
+        setDisplayNameTag(
+            stack.nbtData(),
+            TextComponent.toLegacyText(stack.displayName(false)));
       }
     }
 
@@ -234,9 +238,9 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
   }
 
   private void setLoreTag(
-    @NonNull CompoundTag nbtData,
-    @NonNull List<BaseComponent[]> lore,
-    int protocolVersion) {
+      @NonNull CompoundTag nbtData,
+      @NonNull List<BaseComponent[]> lore,
+      int protocolVersion) {
     CompoundTag display = (CompoundTag) nbtData.get("display");
     if (display == null) {
       display = new CompoundTag();
@@ -244,7 +248,7 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
     final ListTag<StringTag> tag = new ListTag<>(StringTag.class);
     if (protocolVersion < MINECRAFT_1_14) {
       tag.addAll(lore.stream().map(i -> new StringTag(TextComponent.toLegacyText(i))).collect(
-        Collectors.toList()));
+          Collectors.toList()));
     } else {
       tag.addAll(lore.stream().map(components -> {
         for (BaseComponent component : components) {

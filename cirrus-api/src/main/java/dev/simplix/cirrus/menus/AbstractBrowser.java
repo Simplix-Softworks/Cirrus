@@ -18,13 +18,10 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
-
 /**
- * Abstract implementation of a browser
- * Represent a menu with a list of items that are browsable.
- * Menu is paginated and the size of the pages are automatically defined
- * This behavior can be overridden using {@link #fixedSize}
- *
+ * Abstract implementation of a browser Represent a menu with a list of items that are browsable.
+ * Menu is paginated and the size of the pages are automatically defined This behavior can be
+ * overridden using {@link #fixedSize}
  *
  * @param <T> Type of the elements to be displayed
  */
@@ -57,9 +54,8 @@ public abstract class AbstractBrowser<T> {
   @NonNull
   private String title;
   /**
-   * If this is set to null, the fixedSize of the menu will be determined automatically
-   * based on the amount of items the menu will contain.
-   * Must at least be capable of holding 18 items.
+   * If this is set to null, the fixedSize of the menu will be determined automatically based on the
+   * amount of items the menu will contain. Must at least be capable of holding 18 items.
    */
   private InventoryType fixedSize = null;
 
@@ -80,7 +76,6 @@ public abstract class AbstractBrowser<T> {
     return currentPage().display(player);
   }
 
-
   // ----------------------------------------------------------------------------------------------------
   // API
   // ----------------------------------------------------------------------------------------------------
@@ -98,16 +93,16 @@ public abstract class AbstractBrowser<T> {
 
   public void loadFrom(BrowserSchematic browserSchematic) {
     this.title = browserSchematic.title();
-    if (browserSchematic.bottomRow()!=null) {
+    if (browserSchematic.bottomRow() != null) {
       this.bottomRow = browserSchematic.bottomRow();
     }
-    if (browserSchematic.standardResult()!=null) {
+    if (browserSchematic.standardResult() != null) {
       this.standardResult = browserSchematic.standardResult();
     }
-    if(browserSchematic.fixedSize()!=null) {
+    if (browserSchematic.fixedSize() != null) {
       this.fixedSize = browserSchematic.fixedSize();
     }
-    if(browserSchematic.businessItemMap()!=null) {
+    if (browserSchematic.businessItemMap() != null) {
       this.businessItemMap = browserSchematic.businessItemMap();
     }
   }
@@ -135,7 +130,6 @@ public abstract class AbstractBrowser<T> {
   public boolean hasPreviousPage() {
     return currentPageIndex.get() > 0;
   }
-
 
   // ----------------------------------------------------------------------------------------------------
   // Methods that might be overridden by subclasses
@@ -176,13 +170,16 @@ public abstract class AbstractBrowser<T> {
   private void build() {
     registerActionHandlers();
 
-    int maximumSizeOfAllMenus = fixedSize==null ? Utils.calculateSizeForContent(elements().size()):Utils.sizeOfType(fixedSize);
-    int maximumItemsPerPage = maximumSizeOfAllMenus - 9; // Exclude the bottom row since its populated using the MenuRow property
+    int maximumSizeOfAllMenus = fixedSize == null
+        ? Utils.calculateSizeForContent(elements().size())
+        : Utils.sizeOfType(fixedSize);
+    int maximumItemsPerPage = maximumSizeOfAllMenus
+                              - 9; // Exclude the bottom row since its populated using the MenuRow property
     currentPageIndex.set(0);
     List<List<CirrusItem>> pages = Lists.partition(elements()
-            .stream()
-            .map(this::mapAndPut)
-            .collect(Collectors.toList()), maximumItemsPerPage);
+        .stream()
+        .map(this::mapAndPut)
+        .collect(Collectors.toList()), maximumItemsPerPage);
 
     for (List<CirrusItem> page : pages) {
       Menu menu = currentPage();
@@ -197,7 +194,7 @@ public abstract class AbstractBrowser<T> {
 
       menu.type(Utils.calculateTypeForContent(size));
       final String stringToAdd = titleAddon(pages);
-      menu.title(this.title() + (addPageNumberToTitle() ? stringToAdd: ""));
+      menu.title(this.title() + (addPageNumberToTitle() ? stringToAdd : ""));
 
       currentPageIndex.incrementAndGet();
     }
@@ -207,15 +204,14 @@ public abstract class AbstractBrowser<T> {
 
   private BrowserPage currentPage() {
     int index = Math.max(currentPageIndex.get(), 0);
-    BrowserPage got = pages.size() > index ? pages.get(index):null;
-    if (got==null) {
+    BrowserPage got = pages.size() > index ? pages.get(index) : null;
+    if (got == null) {
       got = new BrowserPage();
       registerActionHandlersForMenu(got); // Initialize action handlers
       pages.add(got);
     }
     return got;
   }
-
 
   private CirrusItem mapAndPut(T element) {
     final CirrusItem result = map(element);
@@ -228,7 +224,7 @@ public abstract class AbstractBrowser<T> {
   private void registerActionHandlersForMenu(Menu menu) {
     menu.registerActionHandler(CLICK_ACTION_HANDLER, (click) -> {
       final T t = mapped.get(click.arguments().get(0));
-      if (t!=null) {
+      if (t != null) {
         this.handleClick(click, t);
       }
     });
@@ -251,7 +247,6 @@ public abstract class AbstractBrowser<T> {
     }
   }
 
-
   @RequiredArgsConstructor
   private class BrowserPage extends SimpleMenu {
 
@@ -267,7 +262,9 @@ public abstract class AbstractBrowser<T> {
         int absoluteIndex = contentSize + rowIndex;
 
         MenuElement menuElement = bottomRow.get(rowIndex);
-        menuElement.item().ifPresent(baseItemStack -> menuElement.applyChanges(this, absoluteIndex));
+        menuElement
+            .item()
+            .ifPresent(baseItemStack -> menuElement.applyChanges(this, absoluteIndex));
       }
     }
 

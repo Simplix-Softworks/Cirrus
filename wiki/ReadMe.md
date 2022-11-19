@@ -8,29 +8,34 @@ __Menu Framework__
 
 Cirrus is a powerful and versatile menu development framework for Protocolize.
 
-Cirrus was created to make menu development easy and fun for everyone, whether you're a experienced developer or just getting started. Cirrus is built on top of Protocolize, so it benefits from all the features that Protocolize provides.
-That enables you to quickly and easily create platform-independent menus for use in Minecraft. Cirrus is designed to be highly compatible with all major 1.16+ Minecraft platforms, including Spigot but also Velocity, BungeeCord.
+Cirrus was created to make menu development easy and fun for everyone, whether you're a experienced
+developer or just getting started. Cirrus is built on top of Protocolize, so it benefits from all
+the features that Protocolize provides.
+That enables you to quickly and easily create platform-independent menus for use in Minecraft.
+Cirrus is designed to be highly compatible with all major 1.16+ Minecraft platforms, including
+Spigot but also Velocity, BungeeCord.
 
 # TODO
+
 - playing sounds on menu opening
 - return home button
 - bottomrow
 - work on serialization of menus, replacements so they work like in 2.5
 - --> Add replacements -> replace them just before displaying (in the menubuildservice)
 - --> Better support for configuration of abstractbrowser
-- Use runWaterFall 
+- Use runWaterFall
 - Documentation
--- Create overview of class-hierarchy
--- List important classes
+  -- Create overview of class-hierarchy
+  -- List important classes
 - AbstractSearchableBrowser
 
 # 3.5
-- Make use of protocolize.api.Inventory everywhere -> even in API
---> Use Converter to convert for Spigot
--> Replace actionhandlers with better concept.
--> Replace CirrusItem with ItemBuilder
--> Create concept of Buttoms (which can have animations etc & extend BaseItemStack)
 
+- Make use of protocolize.api.Inventory everywhere -> even in API
+  --> Use Converter to convert for Spigot
+  -> Replace actionhandlers with better concept.
+  -> Replace CirrusItem with ItemBuilder
+  -> Create concept of Buttoms (which can have animations etc & extend BaseItemStack)
 
 ### Menus as JSON
 
@@ -84,7 +89,6 @@ Feel free to open a pull request! See: Contributing__
 ### Contributing:
 
 CodeStyle: https://google.github.io/styleguide/javaguide.html
-
 
 ### Developer mode.
 

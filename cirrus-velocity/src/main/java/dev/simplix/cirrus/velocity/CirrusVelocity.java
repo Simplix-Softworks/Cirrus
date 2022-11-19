@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class CirrusVelocity {
+
   private final Object plugin;
   private final ProxyServer proxyServer;
   private final CommandManager commandManager;
@@ -22,9 +23,9 @@ public class CirrusVelocity {
     Cirrus.registerService(MenuBuildService.class, new VelocityMenuBuildService());
 
     proxyServer
-            .getScheduler()
-            .buildTask(plugin, new MenuUpdateTask())
-            .repeat(50, TimeUnit.MILLISECONDS)
-            .schedule();
+        .getScheduler()
+        .buildTask(plugin, new MenuUpdateTask())
+        .repeat(50, TimeUnit.MILLISECONDS)
+        .schedule();
   }
 }

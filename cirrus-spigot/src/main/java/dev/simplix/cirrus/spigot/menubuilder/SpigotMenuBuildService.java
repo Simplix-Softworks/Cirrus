@@ -25,9 +25,18 @@ import static dev.simplix.protocolize.data.inventory.InventoryType.*;
 @Slf4j
 @RequiredArgsConstructor
 public class SpigotMenuBuildService implements MenuBuildService {
+
   private final JavaPlugin plugin;
 
   private final Set<Long> usedIDs = new HashSet<>();
+
+  private static boolean isChest(dev.simplix.protocolize.data.inventory.InventoryType type) {
+    if (type == GENERIC_3X3) {
+      return false;
+    } else {
+      return type.name().startsWith("GENERIC") || type.name().contains("CHEST");
+    }
+  }
 
   @Override
   public DisplayedMenu openAndBuildMenu0(Menu menu, CirrusPlayerWrapper playerWrapper) {
@@ -42,7 +51,12 @@ public class SpigotMenuBuildService implements MenuBuildService {
     player.openInventory(top);
 
     final long id = generateID();
-    final DisplayedMenu displayedMenu = new DisplayedMenu(menu, inventoryView, playerWrapper, this, id);
+    final DisplayedMenu displayedMenu = new DisplayedMenu(
+        menu,
+        inventoryView,
+        playerWrapper,
+        this,
+        id);
     return displayedMenu;
   }
 
@@ -51,7 +65,10 @@ public class SpigotMenuBuildService implements MenuBuildService {
     InventoryView inventoryView = (InventoryView) displayedMenu.nativeMenu();
     Inventory top = inventoryView.getTopInventory();
 
-    if (top.getSize() == displayedMenu.value().type().getTypicalSize(ProtocolVersionUtil.serverProtocolVersion())) {
+    if (top.getSize() == displayedMenu
+        .value()
+        .type()
+        .getTypicalSize(ProtocolVersionUtil.serverProtocolVersion())) {
       buildMenuIntoInventory(top, displayedMenu.value());
     } else {
       buildAndOpenMenu(displayedMenu.value(), displayedMenu.player());
@@ -78,15 +95,15 @@ public class SpigotMenuBuildService implements MenuBuildService {
     Inventory bottom = player.getInventory();
     if (isChest(menu.type())) {
       result = Bukkit.createInventory(
-        player,
-        menu.type().getTypicalSize(ProtocolVersionUtil.serverProtocolVersion()),
-        menu.title()
-      );
+          player,
+          menu.type().getTypicalSize(ProtocolVersionUtil.serverProtocolVersion()),
+          menu.title()
+                                     );
     } else {
       result = Bukkit.createInventory(
-        player,
-        Cirrus.service(SpigotInventoryTypeConverter.class).apply(menu.type()),
-        menu.title());
+          player,
+          Cirrus.service(SpigotInventoryTypeConverter.class).apply(menu.type()),
+          menu.title());
     }
 
     return new ModernInventoryView(menu, player, result, bottom);
@@ -99,13 +116,5 @@ public class SpigotMenuBuildService implements MenuBuildService {
     }
     usedIDs.add(id);
     return id;
-  }
-
-  private static boolean isChest(dev.simplix.protocolize.data.inventory.InventoryType type) {
-    if (type == GENERIC_3X3) {
-      return false;
-    } else {
-      return type.name().startsWith("GENERIC") || type.name().contains("CHEST");
-    }
   }
 }

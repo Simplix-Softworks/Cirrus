@@ -13,38 +13,38 @@ import net.md_5.bungee.chat.ComponentSerializer;
  */
 public final class SimpleComponentConverterProvider implements ComponentConverterProvider {
 
+  @Override
+  public ComponentConverter<?> platformConverter() {
+    return SimpleComponentConverter.INSTANCE;
+  }
+
+  public static class SimpleComponentConverter implements ComponentConverter<BaseComponent[]> {
+
+    static SimpleComponentConverter INSTANCE = new SimpleComponentConverter();
+
+    private SimpleComponentConverter() {
+    }
+
     @Override
-    public ComponentConverter<?> platformConverter() {
-        return SimpleComponentConverter.INSTANCE;
+    public String toLegacyText(BaseComponent[] components) {
+      return new TextComponent(components).toLegacyText();
     }
 
-    public static class SimpleComponentConverter implements ComponentConverter<BaseComponent[]> {
-
-        static SimpleComponentConverter INSTANCE = new SimpleComponentConverter();
-
-        private SimpleComponentConverter() {
-        }
-
-        @Override
-        public String toLegacyText(BaseComponent[] components) {
-            return new TextComponent(components).toLegacyText();
-        }
-
-        @Override
-        public String toJson(BaseComponent[] components) {
-            return ComponentSerializer.toString(components);
-        }
-
-        @Override
-        public BaseComponent[] fromLegacyText(String legacyText) {
-            return TextComponent.fromLegacyText("§r" + legacyText);
-        }
-
-        @Override
-        public BaseComponent[] fromJson(String json) {
-            return ComponentSerializer.parse(json);
-        }
-
+    @Override
+    public String toJson(BaseComponent[] components) {
+      return ComponentSerializer.toString(components);
     }
+
+    @Override
+    public BaseComponent[] fromLegacyText(String legacyText) {
+      return TextComponent.fromLegacyText("§r" + legacyText);
+    }
+
+    @Override
+    public BaseComponent[] fromJson(String json) {
+      return ComponentSerializer.parse(json);
+    }
+
+  }
 
 }

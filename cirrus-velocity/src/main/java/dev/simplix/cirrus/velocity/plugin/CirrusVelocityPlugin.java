@@ -13,9 +13,10 @@ import dev.simplix.cirrus.velocity.wrapper.VelocityPlayerWrapper;
 import org.slf4j.Logger;
 
 @Plugin(id = "cirrusplugin", name = "CirrusPlugin", version = "3.0.0-SNAPSHOT",
-        authors = {"SimplixSoft"}, dependencies = @Dependency(id =
-        "protocolize"))
+    authors = {"SimplixSoft"}, dependencies = @Dependency(id =
+    "protocolize"))
 public class CirrusVelocityPlugin {
+
   private final ProxyServer server;
   private final Logger logger;
 

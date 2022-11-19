@@ -36,15 +36,14 @@ public class ItemTypeBrowser extends AbstractBrowser<ItemType> {
   protected void interceptBottomRow(MenuRow bottomRow) {
 
     bottomRow.get(8).set(
-            CirrusItem
-                    .of(ItemType.ACACIA_DOOR,
-                            "§7Back",
-                            "§7Go back to the previous menu")
-                    .actionHandler("back")
-    );
+        CirrusItem
+            .of(
+                ItemType.ACACIA_DOOR,
+                "§7Back",
+                "§7Go back to the previous menu")
+            .actionHandler("back")
+                        );
   }
-
-
 
   @Override
   protected void handleClick(Click click, ItemType value) {
@@ -54,12 +53,12 @@ public class ItemTypeBrowser extends AbstractBrowser<ItemType> {
   @Override
   protected Collection<ItemType> elements() {
     return Arrays.stream(ItemType.values()).filter(item -> {
-      return Protocolize.mappingProvider().mapping(item, protocolVersion)!=null;
+      return Protocolize.mappingProvider().mapping(item, protocolVersion) != null;
     }).toList();
   }
 
   @Override
   protected CirrusItem map(ItemType element) {
-    return Items.withWaveEffect(element,  element.name());
+    return Items.withWaveEffect(element, element.name());
   }
 }

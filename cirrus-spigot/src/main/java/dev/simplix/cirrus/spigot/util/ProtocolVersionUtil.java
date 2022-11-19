@@ -1,6 +1,5 @@
 package dev.simplix.cirrus.spigot.util;
 
-
 import dev.simplix.protocolize.api.util.ProtocolVersions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +15,7 @@ public final class ProtocolVersionUtil {
 
   /**
    * Returns the protocol-version int of the server. E.G: 755 for 1.17.1
+   *
    * @return the protocol-version int.
    */
   public int serverProtocolVersion() {
@@ -28,7 +28,8 @@ public final class ProtocolVersionUtil {
 
   /**
    * Returns the major server version E.G: "1.18.1"
-  * @return the major server version.
+   *
+   * @return the major server version.
    */
   public String versionString() {
     if (versionString != null) {
@@ -36,14 +37,14 @@ public final class ProtocolVersionUtil {
     }
 
     return versionString = ReflectionUtil
-      .serverVersion()
-      .substring(1, ReflectionUtil.serverVersion().indexOf('_', 3));
+        .serverVersion()
+        .substring(1, ReflectionUtil.serverVersion().indexOf('_', 3));
   }
 
   private int detectVersion() {
     String majorVersion = ReflectionUtil
-      .serverVersion()
-      .substring(1, ReflectionUtil.serverVersion().indexOf('_', 3));
+        .serverVersion()
+        .substring(1, ReflectionUtil.serverVersion().indexOf('_', 3));
     try {
       Field field = ProtocolVersions.class.getField("MINECRAFT_" + majorVersion);
       return field.getInt(null);

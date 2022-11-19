@@ -25,7 +25,6 @@ public class BungeePlayerWrapper implements CirrusPlayerWrapper {
     return (T) handle;
   }
 
-
   @Override
   public void sendMessage(String message) {
     handle.sendMessage(Utils.colorize(message));

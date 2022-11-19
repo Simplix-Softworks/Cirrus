@@ -12,30 +12,30 @@ public class SelectMenu extends SimpleMenu {
     title("select item");
 
     set(Items.withSpectrumEffect(
-                    ItemType.STONE,
-                    "Next Menu",
-                    "§7Click here to go",
-                    "§7to the next menu")
-            .slot(12)
-            .actionHandler("next")
-    );
+            ItemType.STONE,
+            "Next Menu",
+            "§7Click here to go",
+            "§7to the next menu")
+        .slot(12)
+        .actionHandler("next")
+       );
 
     set(Items.withSpectrumEffect(
-                    ItemType.STONE,
-                    "Item Type Browser",
-                    "§7Click here to go",
-                    "§7to the item-type menu")
-            .actionHandler("browser")
-            .slot(14)
-    );
+            ItemType.STONE,
+            "Item Type Browser",
+            "§7Click here to go",
+            "§7to the item-type menu")
+        .actionHandler("browser")
+        .slot(14)
+       );
   }
 
   @Override
   protected void registerActionHandlers() {
     registerActionHandler("next", ActionHandlers.openMenu(new NextMenu()));
     registerActionHandler(
-            "browser",
-            ActionHandlers.openMenu(new ItemTypeBrowser(ProtocolVersions.MINECRAFT_1_17)));
+        "browser",
+        ActionHandlers.openMenu(new ItemTypeBrowser(ProtocolVersions.MINECRAFT_1_17)));
   }
 
   @Override

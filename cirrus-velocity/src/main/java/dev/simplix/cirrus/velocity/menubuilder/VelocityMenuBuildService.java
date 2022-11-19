@@ -42,21 +42,25 @@ public class VelocityMenuBuildService implements MenuBuildService {
 
     inventoryClick.cancelled(true);
     Menus
-            .of(inventoryClick.player().uniqueId())
-            .ifPresent(menu -> menu.value().actionHandler(inventoryClick.slot())
-                    .ifPresent(actionHandler ->
-                            inventoryClick.cancelled(handle(inventoryClick, menu, actionHandler)!=CallResult.ALLOW_GRABBING))
-            );
+        .of(inventoryClick.player().uniqueId())
+        .ifPresent(menu -> menu.value().actionHandler(inventoryClick.slot())
+                .ifPresent(actionHandler ->
+                    inventoryClick.cancelled(handle(inventoryClick, menu, actionHandler)
+                                             != CallResult.ALLOW_GRABBING))
+                  );
 
   };
 
   @Nullable
-  private static CallResult handle(InventoryClick inventoryClick, DisplayedMenu menu, ActionHandler actionHandler) {
+  private static CallResult handle(
+      InventoryClick inventoryClick,
+      DisplayedMenu menu,
+      ActionHandler actionHandler) {
     CallResult result = null;
 
     try {
       result = actionHandler.handle(new Click(inventoryClick.clickType(), menu,
-              inventoryClick.clickedItem(), inventoryClick.slot()));
+          inventoryClick.clickedItem(), inventoryClick.slot()));
     } catch (Exception exception) {
       log.warn("Exception caught in clickhandler", exception);
     }
@@ -65,13 +69,14 @@ public class VelocityMenuBuildService implements MenuBuildService {
   }
 
   private static void setInventoryTitle(String title, Inventory inventory) {
-    if (title!=null) {
-      Component titleComponent = ComponentHelper.removeItalic(LegacyComponentSerializer.legacy('§').deserialize(title));
+    if (title != null) {
+      Component titleComponent = ComponentHelper.removeItalic(LegacyComponentSerializer
+          .legacy('§')
+          .deserialize(title));
 
       inventory.title(titleComponent);
     }
   }
-
 
   @Override
   public DisplayedMenu openAndBuildMenu0(Menu menu, CirrusPlayerWrapper playerWrapper) {
@@ -81,7 +86,9 @@ public class VelocityMenuBuildService implements MenuBuildService {
     buildMenuIntoInventory(inventory, menu);
     long id = generateID();
 
-    final ProtocolizePlayer protocolizePlayer = Protocolize.playerProvider().player(player.getUniqueId());
+    final ProtocolizePlayer protocolizePlayer = Protocolize
+        .playerProvider()
+        .player(player.getUniqueId());
     sendInventoryToPlayer(menu, protocolizePlayer, inventory);
 
     return new DisplayedMenu(menu, inventory, playerWrapper, this, id);
@@ -90,11 +97,13 @@ public class VelocityMenuBuildService implements MenuBuildService {
   @Override
   public void updateMenu(DisplayedMenu displayedMenu) {
     Inventory inventory = (Inventory) displayedMenu.nativeMenu();
-    final ProtocolizePlayer player = Protocolize.playerProvider().player(displayedMenu.player().uuid());
+    final ProtocolizePlayer player = Protocolize
+        .playerProvider()
+        .player(displayedMenu.player().uuid());
     if (displayedMenu.closed().get()) {
       return;
     }
-    if (inventory.type()==displayedMenu.value().type()) {
+    if (inventory.type() == displayedMenu.value().type()) {
       buildMenuIntoInventory(inventory, displayedMenu.value());
       openOrUpdateInventory(player, inventory);
 
@@ -108,9 +117,10 @@ public class VelocityMenuBuildService implements MenuBuildService {
     Protocolize.playerProvider().player(displayedMenu.player().uuid()).closeInventory();
   }
 
-  private void sendInventoryToPlayer(Menu menu,
-                                     ProtocolizePlayer player,
-                                     Inventory inventory) {
+  private void sendInventoryToPlayer(
+      Menu menu,
+      ProtocolizePlayer player,
+      Inventory inventory) {
     protocolizeBuildMap.put(player.uniqueId(), inventory);
     openOrUpdateInventory(player, inventory);
   }
@@ -149,20 +159,19 @@ public class VelocityMenuBuildService implements MenuBuildService {
     return id;
   }
 
-
   private void openOrUpdateInventory(ProtocolizePlayer player, Inventory inventory) {
     boolean alreadyOpen = false;
     int windowId = -1;
 
     for (Integer id : player.registeredInventories().keySet()) {
       Inventory val = player.registeredInventories().get(id);
-      if (val==inventory) {
+      if (val == inventory) {
         windowId = id;
         alreadyOpen = true;
         break;
       }
     }
-    if (windowId==-1) {
+    if (windowId == -1) {
       windowId = player.generateWindowId();
       player.registerInventory(windowId, inventory);
     }
@@ -174,13 +183,17 @@ public class VelocityMenuBuildService implements MenuBuildService {
       protocolVersion = 47;
     }
 
-    final List<BaseItemStack> itemStacks = inventory.itemsIndexed(protocolVersion).stream().map((item) -> (BaseItemStack) item).toList();
+    final List<BaseItemStack> itemStacks = inventory
+        .itemsIndexed(protocolVersion)
+        .stream()
+        .map((item) -> (BaseItemStack) item)
+        .toList();
     if (!alreadyOpen) {
       player.sendPacket(new OpenWindow(windowId, inventory.type(), inventory.titleJson()));
 
       for (int i = 0; i < itemStacks.size(); i++) {
         final ItemStack itemStack = (ItemStack) itemStacks.get(i);
-        if (itemStack==null) {
+        if (itemStack == null) {
           continue;
         }
         final SetSlot set = new SetSlot((byte) windowId, (short) i, itemStack, 1);

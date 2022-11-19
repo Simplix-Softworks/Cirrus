@@ -27,9 +27,7 @@ public class MenuUpdateTask implements Runnable {
   }
 
   /**
-   * 20 ticks = 1s = 1000ms
-   * 1 tick = 50ms
-   * 1ms = 0,02ticks .
+   * 20 ticks = 1s = 1000ms 1 tick = 50ms 1ms = 0,02ticks .
    */
 
   private void run0(DisplayedMenu menu) {

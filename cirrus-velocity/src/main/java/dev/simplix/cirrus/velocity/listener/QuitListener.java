@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class QuitListener {
+
   @Subscribe
   public void onQuit(DisconnectEvent event) {
     Menus.remove(event.getPlayer().getUniqueId());
