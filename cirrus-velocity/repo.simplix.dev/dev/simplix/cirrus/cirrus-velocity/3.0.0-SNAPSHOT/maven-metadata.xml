@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>dev.simplix.cirrus</groupId>
+  <artifactId>cirrus-velocity</artifactId>
+  <version>3.0.0-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20221119.214613</timestamp>
+      <buildNumber>2</buildNumber>
+    </snapshot>
+    <lastUpdated>20221119214613</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>3.0.0-20221119.214613-2</value>
+        <updated>20221119214613</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>module</extension>
+        <value>3.0.0-20221119.214613-2</value>
+        <updated>20221119214613</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <classifier>all</classifier>
+        <extension>jar</extension>
+        <value>3.0.0-20221119.214613-2</value>
+        <updated>20221119214613</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>3.0.0-20221119.214613-2</value>
+        <updated>20221119214613</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

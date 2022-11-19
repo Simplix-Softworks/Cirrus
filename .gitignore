@@ -1,0 +1,64 @@
+*.class 
+# Project exclude paths
+/.gradle/
+/build/
+/cirrus-api/build/
+/cirrus-api/build/classes/java/main/
+/cirrus-bungeecord/build/
+/cirrus-bungeecord/src/build/
+/cirrus-bungeecord/src/main/build/
+/cirrus-bungeecord/src/main/cirrus-velocity/build/
+/cirrus-spigot/build/
+/cirrus-velocity/build/
+bin/
+lib/
+
+
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+*.DS_
+*.DS_Store
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Minecraft ###
+/cirrus-spigot/run/
+/cirrus-bungeecord/run/
+/cirrus-velocity/run/
+
+### Fleet ###
+/.fleet/
+
+### Misc ###
+LinesCounter.py

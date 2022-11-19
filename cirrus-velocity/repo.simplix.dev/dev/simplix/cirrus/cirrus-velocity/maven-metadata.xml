@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>dev.simplix.cirrus</groupId>
+  <artifactId>cirrus-velocity</artifactId>
+  <versioning>
+    <latest>3.0.0-SNAPSHOT</latest>
+    <versions>
+      <version>3.0.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20221119214613</lastUpdated>
+  </versioning>
+</metadata>
