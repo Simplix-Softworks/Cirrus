@@ -6,7 +6,7 @@ import dev.simplix.cirrus.menu.Menus;
 import dev.simplix.cirrus.menu.DisplayedMenu;
 import dev.simplix.cirrus.model.CallResult;
 import dev.simplix.cirrus.model.Click;
-import dev.simplix.cirrus.spigot.converters.SpigotClickTypeConverter;
+import dev.simplix.cirrus.spigot.services.converters.SpigotClickTypeConverter;
 import dev.simplix.protocolize.api.ClickType;
 
 import java.util.Optional;

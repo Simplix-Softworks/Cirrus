@@ -1,12 +1,13 @@
 package dev.simplix.cirrus.menus.example;
 
+import dev.simplix.cirrus.Cirrus;
 import dev.simplix.cirrus.actionhandler.ActionHandlers;
 import dev.simplix.cirrus.item.CirrusItem;
 import dev.simplix.cirrus.item.Items;
 import dev.simplix.cirrus.menu.MenuRow;
 import dev.simplix.cirrus.menus.AbstractBrowser;
 import dev.simplix.cirrus.model.Click;
-import dev.simplix.protocolize.api.Protocolize;
+import dev.simplix.cirrus.service.ItemService;
 import dev.simplix.protocolize.data.ItemType;
 import java.util.Arrays;
 import java.util.Collection;
@@ -41,8 +42,7 @@ public class ItemTypeBrowser extends AbstractBrowser<ItemType> {
                 ItemType.ACACIA_DOOR,
                 "§7Back",
                 "§7Go back to the previous menu")
-            .actionHandler("back")
-                        );
+            .actionHandler("back"));
   }
 
   @Override
@@ -52,9 +52,7 @@ public class ItemTypeBrowser extends AbstractBrowser<ItemType> {
 
   @Override
   protected Collection<ItemType> elements() {
-    return Arrays.stream(ItemType.values()).filter(item -> {
-      return Protocolize.mappingProvider().mapping(item, protocolVersion) != null;
-    }).toList();
+    return Arrays.stream(ItemType.values()).filter(type -> Cirrus.service(ItemService.class).isItemAvailable(type, protocolVersion)).toList();
   }
 
   @Override

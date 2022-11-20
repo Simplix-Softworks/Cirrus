@@ -7,7 +7,9 @@ import dev.simplix.cirrus.menus.SimpleMenu;
 import dev.simplix.protocolize.data.ItemType;
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import java.util.Iterator;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class NextMenu extends SimpleMenu {
 
   private final Iterator<ItemType> iterator = Iterators.cycle(
@@ -16,8 +18,7 @@ public class NextMenu extends SimpleMenu {
       ItemType.BONE_BLOCK,
       ItemType.IRON_BLOCK,
       ItemType.FIRE_CORAL_BLOCK,
-      ItemType.COPPER_BLOCK
-                                                             );
+      ItemType.COPPER_BLOCK);
 
   public NextMenu() {
     title("Next");
@@ -35,7 +36,6 @@ public class NextMenu extends SimpleMenu {
 
     registerActionHandler(
         "click",
-        ActionHandlers.changeClickedItemType(iterator.next())
-                         );
+        ActionHandlers.changeClickedItemType(iterator::next));
   }
 }

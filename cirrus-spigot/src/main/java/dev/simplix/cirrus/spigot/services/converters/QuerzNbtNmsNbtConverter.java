@@ -1,4 +1,4 @@
-package dev.simplix.cirrus.spigot.converters;
+package dev.simplix.cirrus.spigot.services.converters;
 
 import dev.simplix.cirrus.spigot.util.ReflectionClasses;
 import lombok.NonNull;

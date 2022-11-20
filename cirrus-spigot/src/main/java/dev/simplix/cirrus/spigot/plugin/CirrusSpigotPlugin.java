@@ -6,12 +6,16 @@ import dev.simplix.cirrus.item.CirrusItem;
 import dev.simplix.cirrus.item.Items;
 import dev.simplix.cirrus.menus.AbstractBrowser;
 import dev.simplix.cirrus.menus.SimpleMenu;
+import dev.simplix.cirrus.menus.example.SelectMenu;
 import dev.simplix.cirrus.model.Click;
 import dev.simplix.cirrus.service.MenuBuildService;
 import dev.simplix.cirrus.spigot.CirrusSpigot;
 import dev.simplix.cirrus.spigot.util.ProtocolVersionUtil;
 import dev.simplix.cirrus.spigot.wrapper.SpigotPlayerWrapper;
+import dev.simplix.protocolize.api.SoundCategory;
+import dev.simplix.protocolize.api.player.ProtocolizePlayer;
 import dev.simplix.protocolize.data.ItemType;
+import dev.simplix.protocolize.data.Sound;
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import java.util.Collection;
 import lombok.extern.slf4j.Slf4j;
@@ -51,83 +55,5 @@ public class CirrusSpigotPlugin extends JavaPlugin implements Listener {
           .buildAndOpenMenu(exampleMenu, playerWrapper);
 
     });
-  }
-
-  static class ExampleBrowser extends AbstractBrowser<ItemType> {
-
-    @Override
-    protected void handleClick(Click click, ItemType value) {
-
-    }
-
-    @Override
-    protected Collection<ItemType> elements() {
-      return null;
-    }
-
-    @Override
-    protected CirrusItem map(ItemType element) {
-      return null;
-    }
-  }
-
-  static class ActionMenu extends SimpleMenu {
-
-    public ActionMenu() {
-      title("Action");
-      set(
-          Items.withWaveEffect(
-                  ItemType.EMERALD_BLOCK,
-                  "Back",
-                  "§7Get back to the main menu")
-              .slot(13)
-              .actionHandler("back")
-         );
-    }
-
-    @Override
-    protected void registerActionHandlers() {
-      registerActionHandler("back", ActionHandlers.openMenu(new SelectMenu()));
-    }
-
-    @Override
-    public int updateTicks() {
-      return 6;
-    }
-  }
-
-  static class SelectMenu extends SimpleMenu {
-
-    public SelectMenu() {
-      title("Select Menu");
-      type(InventoryType.GENERIC_9X5);
-      set(
-          Items.withSpectrumEffect(
-                  ItemType.STONE,
-                  "Click to open the browser menu",
-                  "§7Open the action menu")
-              .actionHandler("browser")
-              .slot(0)
-         );
-
-      set(Items.withSpectrumEffect(
-              ItemType.DIAMOND_BLOCK,
-              "Action menu",
-              "§7Open the action menu")
-          .actionHandler("select")
-          .slot(2)
-         );
-    }
-
-    @Override
-    protected void registerActionHandlers() {
-      registerActionHandler("select", ActionHandlers.openMenu(new ActionMenu()));
-      registerActionHandler("browser", ActionHandlers.openMenu(new ExampleBrowser()));
-    }
-
-    @Override
-    public int updateTicks() {
-      return 2;
-    }
   }
 }

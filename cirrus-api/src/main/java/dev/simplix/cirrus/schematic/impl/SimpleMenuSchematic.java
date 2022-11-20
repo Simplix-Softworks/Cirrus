@@ -9,6 +9,7 @@ import dev.simplix.cirrus.menu.MenuRow;
 import dev.simplix.cirrus.model.*;
 import dev.simplix.cirrus.schematic.MenuSchematic;
 import dev.simplix.cirrus.service.CapacityService;
+import dev.simplix.protocolize.api.SoundCategory;
 import dev.simplix.protocolize.api.item.BaseItemStack;
 import dev.simplix.protocolize.data.Sound;
 import dev.simplix.protocolize.data.inventory.InventoryType;
@@ -41,7 +42,7 @@ public class SimpleMenuSchematic implements MenuSchematic {
   @Builder.Default
   private MenuContent rootItems = new MenuContent();
   @Builder.Default
-  private Sound soundOnOpen = null;
+  private SimpleSound soundOnOpen = new SimpleSound(Sound.BLOCK_NOTE_BLOCK_HAT, SoundCategory.AMBIENT, .4f, 1.5f);
 
   @Override
   public MenuSchematic copy() {

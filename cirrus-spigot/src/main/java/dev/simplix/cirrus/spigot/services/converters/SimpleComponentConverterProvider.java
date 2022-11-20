@@ -1,4 +1,4 @@
-package dev.simplix.cirrus.spigot.converters;
+package dev.simplix.cirrus.spigot.services.converters;
 
 import dev.simplix.protocolize.api.ComponentConverter;
 import dev.simplix.protocolize.api.providers.ComponentConverterProvider;

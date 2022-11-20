@@ -140,6 +140,10 @@ public interface MenuSchematic {
     return row(0);
   }
 
+  default MenuRow bottomRow() {
+    return row(typicalSize()/9);
+  }
+
   default MenuRow middleRow() {
     if (typicalSize() == 9) {
       return row(1);
@@ -272,5 +276,5 @@ public interface MenuSchematic {
   }
 
   @Nullable
-  Sound soundOnOpen();
+  SimpleSound soundOnOpen();
 }

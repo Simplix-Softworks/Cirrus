@@ -17,9 +17,8 @@ Spigot but also Velocity, BungeeCord.
 
 # TODO
 
-- playing sounds on menu opening
 - return home button
-- bottomrow
+- making actionhandlers stackable
 - work on serialization of menus, replacements so they work like in 2.5
 - --> Add replacements -> replace them just before displaying (in the menubuildservice)
 - --> Better support for configuration of abstractbrowser

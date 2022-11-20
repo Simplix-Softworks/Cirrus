@@ -3,9 +3,13 @@ package dev.simplix.cirrus.menus.example;
 import dev.simplix.cirrus.actionhandler.ActionHandlers;
 import dev.simplix.cirrus.item.Items;
 import dev.simplix.cirrus.menus.SimpleMenu;
+import dev.simplix.cirrus.model.SimpleSound;
 import dev.simplix.protocolize.api.util.ProtocolVersions;
 import dev.simplix.protocolize.data.ItemType;
+import dev.simplix.protocolize.data.Sound;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class SelectMenu extends SimpleMenu {
 
   public SelectMenu() {

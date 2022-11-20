@@ -19,4 +19,4 @@ A SimpleMenu is a menu that is based on a MenuSchematic.
 It provides the simplest way to create a menu.
 
 ### AbstractBrowser
-
+Abstract implementation of a browser Represent a menu with a list of items that are browsable.

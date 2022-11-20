@@ -1,4 +1,4 @@
-package dev.simplix.cirrus.spigot.converters;
+package dev.simplix.cirrus.spigot.services.converters;
 
 import dev.simplix.protocolize.data.inventory.InventoryType;
 import lombok.NonNull;

@@ -1,9 +1,8 @@
-package dev.simplix.cirrus.spigot.converters;
+package dev.simplix.cirrus.spigot.services.converters;
 
 import dev.simplix.cirrus.Cirrus;
 import dev.simplix.cirrus.spigot.util.ReflectionClasses;
 import dev.simplix.cirrus.spigot.util.ReflectionUtil;
-import dev.simplix.protocolize.api.Protocolize;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.bukkit.inventory.ItemStack;

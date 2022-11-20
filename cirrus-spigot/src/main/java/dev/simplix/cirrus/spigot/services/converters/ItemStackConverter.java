@@ -1,4 +1,4 @@
-package dev.simplix.cirrus.spigot.converters;
+package dev.simplix.cirrus.spigot.services.converters;
 
 import static dev.simplix.protocolize.api.util.ProtocolVersions.MINECRAFT_1_13;
 import static dev.simplix.protocolize.api.util.ProtocolVersions.MINECRAFT_1_14;
@@ -127,6 +127,8 @@ public class ItemStackConverter implements Function<BaseItemStack, org.bukkit.in
           .invoke(null, nmsItemStack);
 
       final ItemMeta itemMeta = result.getItemMeta();
+
+
       mutateMetaDataToHideAttributes(itemMeta);
 
       // Apply special 'precautions' against NMS.

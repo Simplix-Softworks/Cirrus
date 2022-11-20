@@ -1,6 +1,7 @@
 package dev.simplix.cirrus.bungee.wrapper;
 
 import dev.simplix.cirrus.Utils;
+import dev.simplix.cirrus.model.SimpleSound;
 import dev.simplix.cirrus.player.CirrusPlayerWrapper;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.util.ProtocolVersions;
@@ -28,6 +29,11 @@ public class BungeePlayerWrapper implements CirrusPlayerWrapper {
   @Override
   public void sendMessage(String message) {
     handle.sendMessage(Utils.colorize(message));
+  }
+
+  @Override
+  public void play(SimpleSound sound) {
+    Protocolize.playerProvider().player(uuid()).playSound(sound.sound(), sound.soundCategory(), sound.volume(), sound.pitch());
   }
 
   @Override

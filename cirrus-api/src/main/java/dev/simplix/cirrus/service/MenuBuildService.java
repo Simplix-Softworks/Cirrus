@@ -10,6 +10,9 @@ public interface MenuBuildService {
       Menu menu,
       CirrusPlayerWrapper playerWrapper) {
     menu.handleDisplay();
+    if (menu.soundOnOpen() != null) {
+      playerWrapper.play(menu.soundOnOpen());
+    }
     return openAndBuildMenu0(menu, playerWrapper);
   }
 
