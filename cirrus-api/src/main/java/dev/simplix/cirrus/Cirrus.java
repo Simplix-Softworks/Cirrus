@@ -11,6 +11,7 @@ import dev.simplix.cirrus.mojang.UUIDNameService;
 import dev.simplix.cirrus.mojangson.TagDeserializer;
 import dev.simplix.cirrus.mojangson.TagSerializer;
 import dev.simplix.cirrus.service.ColorConvertService;
+import dev.simplix.cirrus.service.ItemService;
 import dev.simplix.cirrus.service.MenuBuildService;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.item.BaseItemStack;
@@ -40,17 +41,20 @@ public class Cirrus {
       .registerTypeAdapterFactory(animationTypeAdapterFactory())
       .registerTypeAdapterFactory(itemStackTypeAdapterFactory())
       .setPrettyPrinting()
+      .serializeNulls()
       .create();
   // On normal platforms displaying menu async is not a problem.
   // Only Spigot based platforms seem to have issues with it.
   // We work around this by disabling async for Spigot.
   private static boolean canDisplayAsync = true;
   private static boolean canUpdateAsync = true;
+  private static boolean isSpigot = false;
   private static MenuBuildService menuBuildService;
 
   public static void init() {
     Cirrus.registerService(TextureService.class, new TextureService());
     Cirrus.registerService(UUIDNameService.class, new UUIDNameService());
+    Cirrus.registerService(ItemService.class, new ItemService());
     Cirrus.registerService(ColorConvertService.class, new ColorConvertService() {
       @Override
       public String colorToString(Color color) {
@@ -140,6 +144,28 @@ public class Cirrus {
         .registerSubtype(
             BaseItemStack.class,
             BaseItemStack.class.getSimpleName().toLowerCase());
+  }
+
+  /**
+   * Spigot behaves very differently from Velocity & BungeeCord. So we need to know if we are
+   * running on Spigot or not.
+   *
+   * @return True if Spigot, false otherwise
+   */
+  public static boolean isSpigot() {
+    return isSpigot;
+  }
+
+  /**
+   * Set whether we are running on Spigot or not.
+   * <p>
+   * Spigot behaves very differently from Velocity & BungeeCord. * So we need to know if we are
+   * running on Spigot or not.
+   *
+   * @param isSpigot True if Spigot, false otherwise
+   */
+  public static void isSpigot(boolean isSpigot) {
+    Cirrus.isSpigot = isSpigot;
   }
 
   public MenuBuildService menuBuildService() {

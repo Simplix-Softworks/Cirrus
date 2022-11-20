@@ -2,11 +2,13 @@ package dev.simplix.cirrus.spigot;
 
 import dev.simplix.cirrus.Cirrus;
 import dev.simplix.cirrus.menu.MenuUpdateTask;
+import dev.simplix.cirrus.service.ItemService;
 import dev.simplix.cirrus.service.MenuBuildService;
 import dev.simplix.cirrus.service.RunSyncService;
-import dev.simplix.cirrus.spigot.converters.*;
 import dev.simplix.cirrus.spigot.listener.SpigotMenuListener;
 import dev.simplix.cirrus.spigot.menubuilder.SpigotMenuBuildService;
+import dev.simplix.cirrus.spigot.services.SpigotItemService;
+import dev.simplix.cirrus.spigot.services.converters.*;
 import dev.simplix.protocolize.api.providers.ComponentConverterProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ public class CirrusSpigot {
     Cirrus.canDisplayAsync(false);
     Cirrus.isSpigot(true);
 
+    Cirrus.registerService(ItemService.class, new SpigotItemService());
     Cirrus.registerService(BukkitItemStackConverter.class, new BukkitItemStackConverter());
     Cirrus.registerService(ItemStackConverter.class, new ItemStackConverter());
     Cirrus.registerService(ItemTypeMaterialConverter.class, new ItemTypeMaterialConverter());
