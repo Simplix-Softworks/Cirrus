@@ -176,10 +176,19 @@ public abstract class AbstractBrowser<T> {
     int maximumItemsPerPage = maximumSizeOfAllMenus
                               - 9; // Exclude the bottom row since its populated using the MenuRow property
     currentPageIndex.set(0);
-    List<List<CirrusItem>> pages = Lists.partition(elements()
+    if (elements() == null) {
+      return;
+    }
+
+    final List<CirrusItem> collect = elements()
         .stream()
         .map(this::mapAndPut)
-        .collect(Collectors.toList()), maximumItemsPerPage);
+        .collect(Collectors.toList());
+
+    if (maximumItemsPerPage == 0) {
+      return;
+    }
+    List<List<CirrusItem>> pages = Lists.partition(collect, maximumItemsPerPage);
 
     for (List<CirrusItem> page : pages) {
       Menu menu = currentPage();
