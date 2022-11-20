@@ -21,7 +21,8 @@ public class CirrusSpigot {
 
   public void init() {
     Cirrus.init();
-    Cirrus.canDisplayAsync(false); // Spigot is gay
+    Cirrus.canDisplayAsync(false);
+    Cirrus.isSpigot(true);
 
     Cirrus.registerService(BukkitItemStackConverter.class, new BukkitItemStackConverter());
     Cirrus.registerService(ItemStackConverter.class, new ItemStackConverter());
