@@ -9,11 +9,23 @@ import javax.annotation.Nullable;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@NoArgsConstructor
+/**
+ * The MenuContent class is a concurrent map implementation that is used to store items in a menu.
+ * It extends the {@link ConcurrentMap} interface and delegates its methods to an internal
+ * {@link Map} instance. It has a default no-args constructor and a constructor that takes a map of
+ * items as an argument, which it uses to initialize its internal Map instance. It has additional
+ * convenience methods, such as {@link #size()} and {@link #isEmpty()}, that provide information
+ * about the contents of the map.
+ */
+@NoArgsConstructor //Constructs a new, empty MenuContent instance
 public class MenuContent implements ConcurrentMap<Integer, BaseItemStack> {
-
   private final Map<Integer, BaseItemStack> value = new ConcurrentHashMap<>();
 
+  /**
+   * Constructs a new MenuContent with the specified items.
+   *
+   * @param items The items to add to the menu.
+   */
   public MenuContent(Map<Integer, BaseItemStack> items) {
     this.value.putAll(items);
   }

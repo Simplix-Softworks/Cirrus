@@ -12,13 +12,22 @@ import dev.simplix.protocolize.data.inventory.InventoryType;
 import java.util.*;
 import javax.annotation.Nullable;
 
+/**
+ * An interface representing a menu schematic, which is a blueprint for a menu. It defines the
+ * structure and content of a menu, such as its title, size, and items. It also provides methods for
+ * accessing and modifying the menu schematic, such as getting the title, setting the title, and
+ * adding items to the menu. Furthermore, it has methods to calculate the center slot and element of the menu,
+ * as well as methods to get a specific row or element in the menu. Additionally, it has a
+ * forceBusinessItem method to retrieve a specific BusinessItem from the menu.
+ */
 public interface MenuSchematic {
 
   /**
-   * Get a business-item with the given key or a exception is thrown See {@link BusinessItemMap}
+   * Returns a business-item with the given key, or throws an exception if it does not exist.
    *
-   * @param keyword key to get the business-item
-   * @return business-item
+   * @param keyword the key for the business-item
+   * @return the business-item with the given key
+   * @throws NullPointerException if the business-item does not exist
    */
   default CirrusItem forceBusinessItem(String keyword) {
     return Preconditions.checkNotNull(
@@ -102,8 +111,15 @@ public interface MenuSchematic {
   MenuContent rootItems();
 
   /**
-   * Calculates the center element's slot The center element is the element in the middle of the
-   * menu
+   * Calculates the center slot for a menu The center slot is the slot in the middle of the menu.
+   *
+   * <p>
+   * It typically does this by first calculating the typical size of the menu and dividing it by 2
+   * to find the middle position. Then, it checks whether the typical size is odd or even by
+   * checking the remainder when divided by 2. If the typical size is odd, it returns the middle
+   * position as the center slot. Otherwise, if the typical size is even, it returns the middle
+   * position minus 5 as the center slot. This ensures that the center slot is always in the middle
+   * of the menu, regardless of whether the typical size is odd or even.
    * <p>
    * <a href="https://www.spigotmc.org/threads/get-the-center-slot-of-a-menu.379586/">...</a>
    *
@@ -134,16 +150,48 @@ public interface MenuSchematic {
   MenuRow row(int row);
 
   /**
-   * Return the first row of the menu using the given row-index <p>
+   * Returns the first row of a menu. It typically does this by calling the row() method with a row
+   * index of 0, which is the index of the first row in the menu.
+   *
+   * @return the first row of the menu
    */
   default MenuRow firstRow() {
     return row(0);
   }
 
+  /**
+   * Returns the bottom row of a menu.
+   * <p>
+   * It typically does this by calling the row() method with the row index of the last row in the
+   * menu, which is calculated by dividing the typical size of the menu by 9. This is because the
+   * typical size of a menu is typically a multiple of 9, and each row in the menu consists of 9
+   * slots.
+   * <p>
+   * The bottom row of a menu is the row that is at the bottom of the menu when the menu is
+   * displayed to the user.
+   * <p>
+   *
+   * @return the bottom row of the menu
+   */
   default MenuRow bottomRow() {
-    return row(typicalSize()/9);
+    return row(typicalSize() / 9);
   }
 
+  /**
+   * Returns the middle row of a menu.
+   * <p>
+   * It does this by checking the typical size of the menu and using it to determine the index of
+   * the middle row. If the typical size is 9, which is the smallest possible size for a menu, it
+   * returns the second row of the menu (the first row has an index of 0) by calling the row()
+   * method with a row index of 1. Otherwise, if the typical size is greater than 9, it returns the
+   * middle row by calling the row() method with the row index of the middle row, which is
+   * calculated by dividing the typical size of the menu by 18. This is because the typical size of
+   * a menu is typically a multiple of 9, and each row in the menu consists of 9 slots, so dividing
+   * the typical size by 18 gives the index of the middle row.
+   * </p>
+   *
+   * @return the middle row of the menu
+   */
   default MenuRow middleRow() {
     if (typicalSize() == 9) {
       return row(1);
@@ -275,6 +323,12 @@ public interface MenuSchematic {
     return add(item, item.actionHandler());
   }
 
+  /**
+   * Returns the sound that will be played when the menu is opened. If no sound is set, returns
+   * null.
+   *
+   * @return the sound that will be played when the menu is opened, or null if no sound is set
+   */
   @Nullable
   SimpleSound soundOnOpen();
 }

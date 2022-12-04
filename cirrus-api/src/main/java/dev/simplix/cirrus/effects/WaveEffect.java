@@ -1,9 +1,7 @@
 package dev.simplix.cirrus.effects;
 
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import dev.simplix.cirrus.Cirrus;
-import dev.simplix.cirrus.color.ColorUtil;
 import dev.simplix.cirrus.effect.AbstractMenuEffect;
 import dev.simplix.cirrus.service.ColorConvertService;
 import dev.simplix.cirrus.util.ToStringUtil;
@@ -12,8 +10,14 @@ import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Will generate: <a
- * href="https://media3.giphy.com/media/bvuK2KpLTip6vtemxY/giphy.gif?cid=790b7611af638e257a5f310fdd6d3015bfb9ee3119298826&rid=giphy.gif&ct=g">...</a>
+ * The `WaveEffect` class is used to generate an animated "wave" effect on a given input string. The
+ * effect is created by alternating the colors of the characters in the input string between a set
+ * of given colors. The direction of the wave (forward or backward) and the number of transitions
+ * between the two colors can be specified. The `calculate` method is used to generate the animation
+ * frames for the effect.
+ * <p>
+ * Will generate:
+ * <a href="https://media3.giphy.com/media/bvuK2KpLTip6vtemxY/giphy.gif?cid=790b7611af638e257a5f310fdd6d3015bfb9ee3119298826&rid=giphy.gif&ct=g">...</a>
  */
 @Slf4j
 public class WaveEffect extends AbstractMenuEffect<String> {
@@ -24,10 +28,25 @@ public class WaveEffect extends AbstractMenuEffect<String> {
   protected boolean reverse = false;
   protected int transitionCount = 0;
 
+  /**
+   * Constructs a new `WaveEffect` with the specified input string and colors.
+   *
+   * @param input  The input string to apply the effect to
+   * @param colors The colors to use in the effect
+   */
   public WaveEffect(String input, Color[] colors) {
     this(input, "§l", colors, 2);
   }
 
+  /**
+   * Constructs a new `WaveEffect` with the specified input string, color suffix, colors, and effect
+   * length.
+   *
+   * @param input        The input string to apply the effect to
+   * @param colorSuffix  The color suffix to use for the effect
+   * @param colors       The colors to use in the effect
+   * @param effectLength The length of the effect
+   */
   public WaveEffect(
       String input,
       String colorSuffix,
@@ -39,6 +58,14 @@ public class WaveEffect extends AbstractMenuEffect<String> {
     Preconditions.checkArgument(colors.length > 0, "colors must not be empty");
   }
 
+  /**
+   * Creates a new `WaveEffect` with the specified input string and colors, using a default color
+   * suffix of "§l" and an effect length of 2.
+   *
+   * @param input  The input string to apply the effect to
+   * @param colors The colors to use in the effect
+   * @return A new `WaveEffect` instance
+   */
   public static WaveEffect fat(String input, Color... colors) {
     return new WaveEffect(input, "§l", colors, 2);
   }
@@ -63,8 +90,6 @@ public class WaveEffect extends AbstractMenuEffect<String> {
         .reverse(this.reverse)
         .transitionCount(this.transitionCount);
   }
-
-  boolean smooth = false;
 
   @Override
   public List<String> calculate() {

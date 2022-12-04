@@ -1,6 +1,5 @@
 package dev.simplix.cirrus.effects;
 
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import dev.simplix.cirrus.Cirrus;
 import dev.simplix.cirrus.color.ColorUtil;
@@ -10,6 +9,36 @@ import dev.simplix.cirrus.util.ToStringUtil;
 import java.awt.Color;
 import java.util.*;
 
+/**
+ * The {@code SpectrumEffect} class is a menu effect that is used to create a color spectrum effect
+ * for a given input string. The effect will cycle through the given colors, adding the specified
+ * suffix to each color. The resulting list of strings can be used to display the effect in a menu.
+ * <p>To create a new {@code SpectrumEffect}, use one of the provided static factory methods:
+ * <ul>
+ * <li>{@link SpectrumEffect#fat(String, Color...)} to create a "fat" spectrum effect with the
+ * <p>
+ * default color suffix and effect length.
+ * <li>{@link SpectrumEffect#of(String, String, int, double, Color...)} to create a custom spectrum
+ * <p>
+ * effect with the specified input string, color suffix, effect length, and step size. The
+ * <p>
+ * {@code step} parameter determines how quickly the colors will transition from one to the
+ * <p>
+ * next. The {@code effectLength} parameter determines how many times the input string will be
+ * <p>
+ * repeated for each color in the spectrum.
+ * </ul>
+ * <p>Once a {@code SpectrumEffect} has been created, its properties can be customized using the
+ * following methods:
+ * <ul>
+ * <li>{@link SpectrumEffect#step(int)} to set the step size for the effect.
+ * <li>{@link SpectrumEffect#colorSuffix(String)} to set the color suffix to use for each color in
+ * <p>
+ * the spectrum.
+ * </ul>
+ * <p>Finally, to generate the list of strings representing the spectrum effect, call the
+ * {@link SpectrumEffect#calculate()} method.
+ */
 public class SpectrumEffect extends AbstractMenuEffect<String> {
 
   private static final ColorConvertService SERVICE = Cirrus.service(ColorConvertService.class);
@@ -77,6 +106,15 @@ public class SpectrumEffect extends AbstractMenuEffect<String> {
     return result;
   }
 
+  /**
+   * Calculates the resulting list of colored strings by iterating over the list of colors provided
+   * to the constructor. For each color, it adds the specified number of colored strings to the
+   * output list using the color, color suffix, and input string provided to the constructor. It
+   * also calculates intermediate colors between the current color and the next color in the list
+   * and adds them to the output list in the same way. This results in a gradient.
+   *
+   * @return A list of colored strings
+   */
   @Override
   public List<String> calculate() {
     final List<String> out = new ArrayList<>();

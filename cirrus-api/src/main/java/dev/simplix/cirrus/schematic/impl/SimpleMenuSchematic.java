@@ -42,7 +42,11 @@ public class SimpleMenuSchematic implements MenuSchematic {
   @Builder.Default
   private MenuContent rootItems = new MenuContent();
   @Builder.Default
-  private SimpleSound soundOnOpen = new SimpleSound(Sound.BLOCK_NOTE_BLOCK_HAT, SoundCategory.AMBIENT, .4f, 1.5f);
+  private SimpleSound soundOnOpen = new SimpleSound(
+      Sound.BLOCK_NOTE_BLOCK_HAT,
+      SoundCategory.AMBIENT,
+      .4f,
+      1.5f);
 
   @Override
   public MenuSchematic copy() {
@@ -83,6 +87,16 @@ public class SimpleMenuSchematic implements MenuSchematic {
     return Optional.ofNullable(this.placeholderItem);
   }
 
+  /**
+   * returns the center slot for a menu. It does this by first calculating the typical size of the
+   * menu and dividing it by 2 to find the middle position. Then, it checks whether the typical size
+   * is odd or even by checking the remainder when divided by 2. If the typical size is odd, it
+   * returns the middle position as the center slot. Otherwise, if the typical size is even, it
+   * returns the middle position minus 5 as the center slot. This ensures that the center slot is
+   * always in the middle of the menu, regardless of whether the typical size is odd or even.
+   *
+   * @return
+   */
   @Override
   public int centerSlot() {
     final int pos = this.typicalSize() / 2;

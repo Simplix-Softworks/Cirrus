@@ -11,16 +11,18 @@ import java.util.function.BiConsumer;
 import lombok.experimental.UtilityClass;
 
 /**
- * Makes use of {@link dev.simplix.cirrus.color.StandardColorConfiguration} to create Items making
- * use of the defined accent-colors.
+ * The Items class is a utility class that provides methods for creating menu items with special
+ * effects that make use of the accent colors defined in the `StandardColorConfiguration` class.
  *
- * @see dev.simplix.cirrus.effect
  * @see dev.simplix.cirrus.effects
  * @see dev.simplix.cirrus.color.StandardColorConfiguration
  */
 @UtilityClass
 public class Items {
 
+  /**
+   * A {@link BiConsumer} that is used to provide the default bottom row for an AbstractBrowser.
+   */
   public BiConsumer<AbstractBrowser<?>, MenuRow> defaultBottomRowProvider = (abstractBrowser, bottomRow) -> {
 
     // Previous page
@@ -60,6 +62,16 @@ public class Items {
     }
   };
 
+  /**
+   * Creates a  {@link CirrusItem} with the  {@link SpectrumEffect}` applied to the item's name. The
+   * {@link SpectrumEffect} animates the color of the item name using the accent colors defined in
+   * {@link StandardColorConfiguration}
+   *
+   * @param itemType The type of the item
+   * @param name     The name of the item
+   * @param lores    The descriptive text displayed below the item name
+   * @return A `CirrusItem` with the `SpectrumEffect` applied to the item's name
+   */
   public CirrusItem withSpectrumEffect(ItemType itemType, String name, String... lores) {
     SpectrumEffect animation = SpectrumEffect.fat(
         name,
@@ -68,6 +80,16 @@ public class Items {
     return CirrusItem.of(itemType, animation, lores);
   }
 
+  /**
+   * Creates a {@link CirrusItem} with the {@link WaveEffect} applied to the item's name. The
+   * {@link WaveEffect} animates the color of the item name in a wave-like pattern between white and
+   * the accent color defined in {@link StandardColorConfiguration}
+   *
+   * @param itemType The type of the item
+   * @param name     The name of the item
+   * @param lores    The descriptive text displayed below the item name
+   * @return A {@link CirrusItem} with the {@link WaveEffect} applied to the item's name
+   */
   public CirrusItem withWaveEffect(ItemType itemType, String name, String... lores) {
     WaveEffect animation = WaveEffect
         .fat(name, Color.WHITE, StandardColorConfiguration.accentColor);

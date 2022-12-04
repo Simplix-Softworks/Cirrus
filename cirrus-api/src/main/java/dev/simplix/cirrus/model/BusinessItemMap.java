@@ -9,6 +9,14 @@ import javax.annotation.Nullable;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+/**
+ * The BusinessItemMap is a concurrent map implementation that is used to store {@link CirrusItem} instances
+ * with business names as keys. It extends the {@link ConcurrentMap} interface and delegates its methods to
+ * an internal {@link Map} instance. It has a default no-args constructor and a constructor that takes a map
+ * of items as an argument, which it uses to initialize its internal map. It has additional convenience
+ * methods, such as {@link #size()} and {@link #isEmpty()}, that provide information about the contents of
+ * the map.
+ */
 @NoArgsConstructor
 public class BusinessItemMap implements ConcurrentMap<String, CirrusItem> {
 
