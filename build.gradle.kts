@@ -12,10 +12,10 @@ allprojects {
         toolchain.languageVersion.set(JavaLanguageVersion.of(17))
         disableAutoTargetJvm()
         withSourcesJar()
+        withJavadocJar()
     }
 
     afterEvaluate {
-
         configurations.all {
             if (name.contains("plugin-yml")) {
                 extendsFrom.clear()
