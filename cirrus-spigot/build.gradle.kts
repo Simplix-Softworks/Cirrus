@@ -1,5 +1,3 @@
-import dev.simplix.helper.paper
-import dev.simplix.helper.papermc
 
 plugins {
     id("java")
@@ -8,7 +6,7 @@ plugins {
     // https://github.com/jpenilla/run-paper
     id("xyz.jpenilla.run-paper") version "2.0.0"
     // https://plugins.gradle.org/plugin/dev.simplix.helper.bukkit
-    id("dev.simplix.helper.bukkit") version "1.0.4"
+    id("net.minecrell.plugin-yml.bukkit") version "0.5.2"
     // Authenticated Maven publishing
     id("org.hibernate.build.maven-repo-auth") version "3.0.3"
 }
@@ -42,13 +40,12 @@ publishing {
 
 repositories {
     mavenCentral()
-    papermc()
     maven(url = "https://repo.papermc.io/repository/maven-public/")
     maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }
 
 dependencies {
-    compileOnly(paper())
+    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
     implementation(project(":cirrus-api"))
     implementation("dev.simplix:protocolize-api:2.2.2") // Needs to be shaded in this case
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
@@ -73,9 +70,6 @@ tasks {
     }
 
 }
-
-
-
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
