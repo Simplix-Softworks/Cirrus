@@ -11,6 +11,7 @@ allprojects {
     java {
         toolchain.languageVersion.set(JavaLanguageVersion.of(17))
         disableAutoTargetJvm()
+        withSourcesJar()
     }
 
     afterEvaluate {

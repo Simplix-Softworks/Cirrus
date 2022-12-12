@@ -3,7 +3,7 @@ import org.gradle.internal.impldep.org.eclipse.jgit.lib.ObjectChecker.author
 plugins {
     id("java")
     // https://plugins.gradle.org/plugin/dev.simplix.helper.bukkit
-    id("dev.simplix.helper.bungee") version "1.0.3"
+    id("dev.simplix.helper.bungee") version "1.0.4"
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("xyz.jpenilla.run-waterfall") version "2.0.0"
     // Authenticated Maven publishing

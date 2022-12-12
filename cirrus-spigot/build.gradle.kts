@@ -8,7 +8,7 @@ plugins {
     // https://github.com/jpenilla/run-paper
     id("xyz.jpenilla.run-paper") version "2.0.0"
     // https://plugins.gradle.org/plugin/dev.simplix.helper.bukkit
-    id("dev.simplix.helper.bukkit") version "1.0.3"
+    id("dev.simplix.helper.bukkit") version "1.0.4"
     // Authenticated Maven publishing
     id("org.hibernate.build.maven-repo-auth") version "3.0.3"
 }
