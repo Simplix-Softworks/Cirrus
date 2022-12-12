@@ -73,8 +73,15 @@ allprojects {
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     }
 
-    tasks.getByName<Test>("test") {
-        useJUnitPlatform()
+    tasks {
+        test{
+            useJUnitPlatform()
+        }
+        javadoc {
+            options {
+                (this as CoreJavadocOptions).addStringOption("Xdoclint:none", "-quiet")
+            }
+        }
     }
 }
 

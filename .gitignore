@@ -13,7 +13,7 @@
 bin/
 lib/
 
-
+*.jar
 HELP.md
 .gradle
 build/
@@ -21,6 +21,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+**/repo.simplix.dev/**
 *.DS_
 *.DS_Store
 
