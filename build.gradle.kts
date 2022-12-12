@@ -13,6 +13,15 @@ allprojects {
         disableAutoTargetJvm()
     }
 
+    afterEvaluate {
+
+        configurations.all {
+            if (name.contains("plugin-yml")) {
+                extendsFrom.clear()
+            }
+        }
+    }
+
     repositories {
         mavenLocal()
         mavenCentral()
