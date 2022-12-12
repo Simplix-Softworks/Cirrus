@@ -15,7 +15,7 @@ import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * The `ActionHandlers` class is a utility class that provides a set of common {@link ActionHandler}
+ * The ActionHandlers` class is a utility class that provides a set of common {@link ActionHandler}
  * implementations that can be used to handle menu item clicks. An {@link ActionHandler} is a
  * functional interface that is used to specify the behavior of a menu item when it is clicked.
  *
