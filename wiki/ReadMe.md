@@ -22,7 +22,6 @@ Spigot but also Velocity, BungeeCord.
 - work on serialization of menus, replacements so they work like in 2.5
 - --> Add replacements -> replace them just before displaying (in the menubuildservice)
 - --> Better support for configuration of abstractbrowser
-- Use runWaterFall
 - Documentation
   -- Create overview of class-hierarchy
   -- List important classes
@@ -34,7 +33,6 @@ Spigot but also Velocity, BungeeCord.
   --> Use Converter to convert for Spigot
   -> Replace actionhandlers with better concept.
   -> Replace CirrusItem with ItemBuilder
-  -> Create concept of Buttoms (which can have animations etc & extend BaseItemStack)
 
 ### Menus as JSON
 
