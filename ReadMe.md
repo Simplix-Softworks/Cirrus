@@ -4,7 +4,10 @@ Cirrus
 
 __Menu Framework__
 
-[![Build Status](http://ci.exceptionflug.de/buildStatus/icon?job=Cirrus)](http://ci.exceptionflug.de/job/Cirrus/) [![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/15194-cirrus-tooling)](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling) [![Discord](https://img.shields.io/discord/752533664696369204?label=Discord)](https://discord.simplixsoft.com/) ![GitHub](https://img.shields.io/github/license/Exceptionflug/Protocolize)
+[![Build Status](http://ci.exceptionflug.de/buildStatus/icon?job=cirrusv3)](http://ci.exceptionflug.de/job/cirrusv3/) 
+[![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/15194-cirrus-tooling)](https://plugins.jetbrains.com/plugin/15194-cirrus-tooling) 
+[![Discord](https://img.shields.io/discord/752533664696369204?label=Discord)](https://discord.simplixsoft.com/)
+![GitHub](https://img.shields.io/github/license/Exceptionflug/Protocolize)
 
 Cirrus is a powerful and versatile menu development framework for Protocolize.
 
@@ -15,24 +18,13 @@ That enables you to quickly and easily create platform-independent menus for use
 Cirrus is designed to be highly compatible with all major 1.16+ Minecraft platforms, including
 Spigot but also Velocity, BungeeCord.
 
-# TODO
 
-- return home button
-- making actionhandlers stackable
-- work on serialization of menus, replacements so they work like in 2.5
-- --> Add replacements -> replace them just before displaying (in the menubuildservice)
-- --> Better support for configuration of abstractbrowser
-- Documentation
-  -- Create overview of class-hierarchy
-  -- List important classes
-- AbstractSearchableBrowser
+### JavaDoc:
+https://ci.exceptionflug.de/job/cirrusv3/13/javadoc/
 
-# 3.5
 
-- Make use of protocolize.api.Inventory everywhere -> even in API
-  --> Use Converter to convert for Spigot
-  -> Replace actionhandlers with better concept.
-  -> Replace CirrusItem with ItemBuilder
+### Project setup
+See wiki/project setup
 
 ### Menus as JSON
 
