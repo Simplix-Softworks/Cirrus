@@ -1,4 +1,3 @@
-
 plugins {
     id("java")
     // https://github.com/johnrengelman/shadow
@@ -67,6 +66,10 @@ tasks {
 
     shadowJar {
         exclude("**/registries/**")
+        relocate("net.querz", "dev.simplix.cirrus.spigot.lib")
+        relocate(
+                "dev.simplix.protocolize",
+                "dev.simplix.cirrus.spigot.lib.protocolize")
     }
 
 }
