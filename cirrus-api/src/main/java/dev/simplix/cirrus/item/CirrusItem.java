@@ -227,7 +227,7 @@ public class CirrusItem extends ItemStack {
   /**
    * Returns the display name of this item.
    *
-   * <p>This method overrides the {@link super#displayName()} method and always uses the more
+   * <p>This method overrides the super#displayName() method and always uses the more
    * concise 'legacy' string format.
    *
    * <p>The display name may include special effects, such as a scrolling or blinking effect, if the
@@ -344,7 +344,7 @@ public class CirrusItem extends ItemStack {
   /**
    * Sets the amount of this item to the specified value.
    *
-   * <p>This method overrides the {@link super#amount(byte)} method and returns this CirrusItem.
+   * <p>This method overrides the super#amount(byte) method and returns this CirrusItem.
    *
    * @param amount the amount of this item
    * @return this CirrusItem

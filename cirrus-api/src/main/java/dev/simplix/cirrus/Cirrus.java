@@ -147,7 +147,7 @@ public class Cirrus {
   }
 
   /**
-   * Spigot behaves very differently from Velocity & BungeeCord. So we need to know if we are
+   * Spigot behaves very differently from Velocity, BungeeCord. So we need to know if we are
    * running on Spigot or not.
    *
    * @return True if Spigot, false otherwise
@@ -159,7 +159,7 @@ public class Cirrus {
   /**
    * Set whether we are running on Spigot or not.
    * <p>
-   * Spigot behaves very differently from Velocity & BungeeCord. * So we need to know if we are
+   * Spigot behaves very differently from Velocity, BungeeCord. * So we need to know if we are
    * running on Spigot or not.
    *
    * @param isSpigot True if Spigot, false otherwise

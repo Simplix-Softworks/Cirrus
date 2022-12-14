@@ -189,7 +189,6 @@ public final class ToStringUtil {
   }
 
   /**
-   * Returns a string in the format specified by {@link
    *
    * <p>After calling this method, you can keep adding more properties to later
    * call toString() again and get a more complete representation of the same object; but properties

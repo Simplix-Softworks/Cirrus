@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 /**
  * Represents a row of a menu Using {@link MenuElement} as a wrapper for the ItemStack,
- * actionHandler & slot
+ * actionHandler, slot
  */
 public class MenuRow implements Iterable<MenuElement> {
 
