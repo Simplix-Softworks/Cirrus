@@ -3,7 +3,6 @@ package dev.simplix.cirrus.menus;
 import dev.simplix.cirrus.Cirrus;
 import dev.simplix.cirrus.item.CirrusItem;
 import dev.simplix.cirrus.menu.MenuRow;
-import dev.simplix.cirrus.model.CallResult;
 import dev.simplix.cirrus.model.SearchConversation;
 import dev.simplix.cirrus.service.SearchConversationHandleService;
 import dev.simplix.protocolize.api.item.BaseItemStack;
