@@ -40,8 +40,6 @@ allprojects {
                     return@java
                 }
                 println("Removing plugin-specifics for ${project.name}")
-                exclude("")
-//                exclude("dev/simplix/cirrus/menus/example/**")
                 exclude("dev/simplix/cirrus/spigot/plugin/CirrusSpigotPlugin.java")
                 exclude("dev/simplix/cirrus/bungee/plugin/CirrusBungeePlugin/**")
                 exclude("dev/simplix/cirrus/velocity/plugin/CirrusVelocityPlugin/**")
