@@ -22,9 +22,43 @@ Spigot but also Velocity, BungeeCord.
 ### JavaDoc:
 https://ci.exceptionflug.de/job/cirrusv3/13/javadoc/
 
+### Compatibility
+
+Java: 17+
+
+| Platform    | Supported? |
+|-------------|------------|
+| Spigot      | ✅          |
+| Paper       | ✅          |
+| BungeeCord  | ✅          |
+| Waterfall   | ✅          |
+| Velocity    | ✅          |
+
+| Versions    | Supported? | Note(s)                            |
+|-------------|------------|------------------------------------|
+| 1.8-1.13    | ❌          | Untested, items will likely break  |
+| 1.14-1.16.4 | ❎          | Partial support without guarantees |
+| 1.16.5-1.19 | ✅          | Latest                             |
+
+__You would like to add support for legacy versions?
+Feel free to open a pull request! See: Contributing__
+
+### Repository:
+`https://repo.simplix.dev/repository/simplixsoft-public/`
+
+### Dependency
+
+| Platform   | Supported?                                   |
+|------------|----------------------------------------------|
+| Spigot     | dev.simplix.cirrus:cirrus-spigot:VERSION     |
+| BungeeCord | dev.simplix.cirrus:cirrus-bungeecord:VERSION |
+| Velocity   | dev.simplix.cirrus:cirrus-velocity:VERSION   |
+
+For more details see: wiki/DependenciesAndRepository
 
 ### Project setup
 See wiki/project setup
+
 
 ### Menus as JSON
 
@@ -53,27 +87,6 @@ See wiki/project setup
   "action-arguments": []
 }
 ```
-
-### Compatibility
-
-Java: 17+
-
-| Platform    | Supported? |
-|-------------|------------|
-| Spigot      | ✅          |
-| Paper       | ✅          |
-| BungeeCord  | ✅          |
-| Waterfall   | ✅          |
-| Velocity    | ✅          |
-
-| Versions    | Supported? | Note(s)                            |
-|-------------|------------|------------------------------------|
-| 1.8-1.13    | ❌          | Untested, items will likely break  |
-| 1.14-1.16.4 | ❎          | Partial support without guarantees |
-| 1.16.5-1.19 | ✅          | Latest                             |
-
-__You would like to add support for legacy versions?
-Feel free to open a pull request! See: Contributing__
 
 ### Contributing:
 

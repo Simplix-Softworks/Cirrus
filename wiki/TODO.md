@@ -1,5 +1,6 @@
 # TODO
 
+- wiki: displaying the first menu
 - return home button
 - deploy to maven central. framework must be very mature before.
 - making actionhandlers stackable

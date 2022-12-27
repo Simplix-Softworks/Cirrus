@@ -1,43 +1,13 @@
-# Maven dependencies
-You need to add some dependencies in order to work with Cirrus. Please ensure you are using the latest version of the dependencies. This article may not contain up-to-date version numbers of dependencies.
+For dependencies and the repository see:
+wiki/DependenciesAndRepository
 
-Replace ```VERSION``` with the latest Cirrus version.
-
-## Repositories:
-```xml
-<repository>
-  <id>simplixsoft-public</id>
-  <url>https://repo.simplix.dev/repository/simplixsoft-public/</url>
-</repository>
-```
-For Spigot also add:
-```xml
-<repository>
-  <id>exceptionflug</id>
-  <url>https://mvn.exceptionflug.de/repository/exceptionflug-public/</url>
-</repository>
-```
-## Dependencies & Initialization
-### Spigot
-```xml
-<dependency>  
-  <groupId>dev.simplix.cirrus</groupId>
-  <artifactId>cirrus-spigot</artifactId>
-  <version>VERSION</version>
-´</dependency>
-<dependency>  
-  <groupId>dev.simplix</groupId>  
-  <artifactId>protocolize-api</artifactId>  
-  <version>2.1.0</version>  
-</dependency>
-```
 
 ```java
 import dev.simplix.cirrus.spigot.CirrusSpigot;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ExamplePlugin extends JavaPlugin {
-  
+
   public void onEnable() {
     CirrusSpigot.init(this);
   }
@@ -45,16 +15,8 @@ public class ExamplePlugin extends JavaPlugin {
 
 ```
 
-A full Spigot-Cirrus setup can be found [here](https://github.com/Simplix-Softworks/Cirrus/tree/master/cirrus-spigot-example).
 
 ### BungeeCord
-```xml
-<dependency>  
-  <groupId>dev.simplix.cirrus</groupId>
-  <artifactId>cirrus-bungeecord</artifactId>
-  <version>VERSION</version>
-</dependency>
-```
 
 ```java
 
@@ -70,16 +32,8 @@ public class ExamplePlugin extends Plugin {
 
 ```
 
-Full BungeeCord-Cirrus setup [here](https://github.com/Simplix-Softworks/Cirrus/tree/master/cirrus-bungeecord-example).
 
 ### Velocity
-```xml
-<dependency>  
-  <groupId>dev.simplix.cirrus</groupId>
-  <artifactId>cirrus-velocity</artifactId>
-  <version>VERSION</version>
-</dependency>
-```
 
 ```java
   @Inject
@@ -97,5 +51,51 @@ Full BungeeCord-Cirrus setup [here](https://github.com/Simplix-Softworks/Cirrus/
 
 ```
 
+
+### Example menu
+
+A full list of example menus can be found [here](https://github.com/Simplix-Softworks/Cirrus/tree/v3/cirrus-api/src/main/java/dev/simplix/cirrus/menus/example).
+    
+```java
+import com.google.common.collect.Iterators;
+import dev.simplix.cirrus.actionhandler.ActionHandlers;
+import dev.simplix.cirrus.item.CirrusItem;
+import dev.simplix.cirrus.menus.SimpleMenu;
+import dev.simplix.protocolize.data.ItemType;
+import dev.simplix.protocolize.data.inventory.InventoryType;
+import java.util.Iterator;
+import lombok.extern.slf4j.Slf4j;
+
+public class NextMenu extends SimpleMenu {
+
+  private final Iterator<ItemType> iterator = Iterators.cycle(
+      ItemType.STONE,
+      ItemType.EMERALD_BLOCK,
+      ItemType.BONE_BLOCK,
+      ItemType.IRON_BLOCK,
+      ItemType.FIRE_CORAL_BLOCK,
+      ItemType.COPPER_BLOCK);
+
+  public NextMenu() {
+    title("Next");
+    type(InventoryType.GENERIC_9X5);
+
+    set(CirrusItem.of(iterator.next(), "§aClick").slot(9 * 2 + 4).actionHandler("click"));
+
+    row(5).get(8).set(CirrusItem.of(ItemType.DARK_OAK_DOOR, "§7Back").actionHandler("back"));
+
+  }
+
+  @Override
+  protected void registerActionHandlers() {
+    registerActionHandler("back", ActionHandlers.openMenu(new SelectMenu()));
+
+    registerActionHandler(
+        "click",
+        ActionHandlers.changeClickedItemType(iterator::next));
+  }
+}
+
+```
 
 
