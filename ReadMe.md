@@ -62,6 +62,8 @@ See wiki/project setup
 
 ### Menus as JSON
 
+Cirrus provides full support for serializing MenuSchematics into JSON strings so you can configure your menu using them.
+
 ```JSON
 {
   "display-name-effect": {
