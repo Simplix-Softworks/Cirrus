@@ -88,7 +88,7 @@
         </repository>
         <repository>
             <id>velocity</id>
-            <url>https://repo.velocitypowered.com/snapshots/</url>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
             <id>spigot-repo</id>
