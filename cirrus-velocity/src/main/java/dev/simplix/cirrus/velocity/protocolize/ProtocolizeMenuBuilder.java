@@ -14,7 +14,9 @@ import dev.simplix.cirrus.common.model.CallResult;
 import dev.simplix.cirrus.common.model.Click;
 import dev.simplix.cirrus.velocity.VelocityPlayerWrapper;
 import dev.simplix.protocolize.api.ClickType;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.api.inventory.Inventory;
+import dev.simplix.protocolize.api.item.BaseItemStack;
 import dev.simplix.protocolize.api.item.ItemStack;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +43,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             String title = Replacer.of(menu.title()).replaceAll((Object[]) menu.replacements().get())
                     .replacedMessageJoined();
             final Inventory inventory = (Inventory) prebuild;
-            if (!GsonComponentSerializer.gson().serialize(inventory.title())
+            if (!GsonComponentSerializer.gson().serialize((Component) inventory.title().asComponent())
                     .equals(GsonComponentSerializer.gson().serialize(Component.text(title))) ||
                     inventory.type().getTypicalSize(menu.player().protocolVersion()) != menu
                             .topContainer()
@@ -69,7 +71,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
     private void buildContainer(@NonNull Inventory inventory, @NonNull Container container) {
         for (int i = container.baseSlot(); i < container.baseSlot() + container.capacity(); i++) {
             InventoryMenuItemWrapper item = container.itemMap().get(i);
-            ItemStack currentStack = inventory.item(i);
+            BaseItemStack currentStack = inventory.item(i);
             if (item == null) {
                 if (currentStack != null) {
                     inventory.item(i, ItemStack.NO_DATA);
@@ -93,7 +95,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
 
     private Inventory makeInv(@NonNull Menu menu) {
         Inventory inventory = new Inventory(menu.inventoryType());
-        inventory.title(menu.title());
+        inventory.title(ChatElement.ofLegacyText(menu.title()));
 
         inventory.onClose(inventoryClose -> {
             Entry<Menu, Long> lastBuild = lastBuildOfPlayer(inventoryClose.player().uniqueId());

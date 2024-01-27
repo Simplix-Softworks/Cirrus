@@ -15,7 +15,9 @@ import dev.simplix.cirrus.common.menu.MenuBuilder;
 import dev.simplix.cirrus.common.model.CallResult;
 import dev.simplix.cirrus.common.model.Click;
 import dev.simplix.protocolize.api.ClickType;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.api.inventory.Inventory;
+import dev.simplix.protocolize.api.item.BaseItemStack;
 import dev.simplix.protocolize.api.item.ItemStack;
 import dev.simplix.protocolize.api.player.ProtocolizePlayer;
 import dev.simplix.protocolize.data.packets.OpenWindow;
@@ -30,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class ProtocolizeMenuBuilder implements MenuBuilder {
 
@@ -54,7 +57,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             for (BaseComponent baseComponent : component) {
                 baseComponent.setItalic(false); // Wir kommen nicht aus Italien
             }
-            if (!ComponentSerializer.toString((BaseComponent[]) inventory.title())
+            if (!ComponentSerializer.toString((BaseComponent[]) inventory.title().asComponent())
                     .equals(ComponentSerializer.toString(component)) ||
                     inventory.type().getTypicalSize(menu.player().protocolVersion()) != menu
                             .topContainer()
@@ -82,7 +85,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
     private void buildContainer(@NonNull Inventory inventory, @NonNull Container container) {
         for (int i = container.baseSlot(); i < container.baseSlot() + container.capacity(); i++) {
             InventoryMenuItemWrapper item = container.itemMap().get(i);
-            ItemStack currentStack = inventory.item(i);
+            BaseItemStack currentStack = inventory.item(i);
             if (item == null) {
                 if (currentStack != null) {
                     inventory.item(i, ItemStack.NO_DATA);
@@ -123,7 +126,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
                 component.setItalic(false); // Resolve client side behavior
             }
         }
-        inventory.title(textComponent);
+        inventory.title(ChatElement.of(textComponent));
 
         inventory.onClose(inventoryClose -> {
             Map.Entry<Menu, Long> lastBuild = lastBuildOfPlayer(inventoryClose.player().uniqueId());
@@ -235,7 +238,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             }
 
             if (!alreadyOpen) {
-                protocolizePlayer.sendPacket(new OpenWindow(windowId, inventory.type(), inventory.titleJson()));
+                protocolizePlayer.sendPacket(new OpenWindow(windowId, inventory.type(), inventory.title()));
             }
             int protocolVersion;
             try {
@@ -243,20 +246,7 @@ public class ProtocolizeMenuBuilder implements MenuBuilder {
             } catch (Throwable t) {
                 protocolVersion = 47;
             }
-            List<ItemStack> items = Lists.newArrayList(inventory.itemsIndexed(protocolVersion));
-            for (ItemStack item : items) {
-                if (item == null) {
-                    continue;
-                }
-                List<BaseComponent[]> lore = item.lore();
-                for (BaseComponent[] baseComponents : lore) {
-                    Utils.removeItalic(baseComponents);
-                }
-                item.lore(lore, false);
-                BaseComponent[] display = item.displayName();
-                Utils.removeItalic(display);
-                item.displayName(display);
-            }
+            List<BaseItemStack> items = Lists.newArrayList(inventory.itemsIndexed(protocolVersion));
             protocolizePlayer.sendPacket(new WindowItems((short) windowId, items, 0));
         }
     }

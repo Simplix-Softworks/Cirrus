@@ -1,6 +1,7 @@
 package dev.simplix.cirrus.common.item;
 
 import dev.simplix.cirrus.common.business.MenuItemWrapper;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.api.item.ItemStack;
 import dev.simplix.protocolize.data.ItemType;
 import lombok.NonNull;
@@ -8,6 +9,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.querz.nbt.tag.CompoundTag;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProtocolizeMenuItemWrapper implements MenuItemWrapper {
 
@@ -19,22 +21,22 @@ public class ProtocolizeMenuItemWrapper implements MenuItemWrapper {
 
     @Override
     public String displayName() {
-        return this.itemStack.displayName(true);
+        return this.itemStack.displayName().asLegacyText();
     }
 
     @Override
     public BaseComponent[] displayNameComponents() {
-        return this.itemStack.displayName();
+        return (BaseComponent[]) this.itemStack.displayName().asComponent();
     }
 
     @Override
     public List<String> lore() {
-        return this.itemStack.lore(true);
+        return this.itemStack.lore().stream().map(ChatElement::asLegacyText).collect(Collectors.toList());
     }
 
     @Override
     public List<BaseComponent[]> loreComponents() {
-        return this.itemStack.lore();
+        return (List<BaseComponent[]>) this.itemStack.lore().stream().map(ChatElement::asComponent).collect(Collectors.toList());
     }
 
     @Override
@@ -64,22 +66,22 @@ public class ProtocolizeMenuItemWrapper implements MenuItemWrapper {
 
     @Override
     public void displayName(@NonNull String displayName) {
-        this.itemStack.displayName(displayName);
+        this.itemStack.displayName(ChatElement.ofLegacyText(displayName));
     }
 
     @Override
     public void displayNameComponents(BaseComponent... baseComponents) {
-        this.itemStack.displayName(baseComponents);
+        this.itemStack.displayName(ChatElement.of(baseComponents));
     }
 
     @Override
     public void lore(@NonNull List<String> lore) {
-        this.itemStack.lore(lore, true);
+        this.itemStack.lore(lore.stream().map(ChatElement::ofLegacyText).collect(Collectors.toList()));
     }
 
     @Override
     public void loreComponents(@NonNull List<BaseComponent[]> lore) {
-        this.itemStack.lore(lore, false);
+        this.itemStack.lore(lore.stream().map(ChatElement::of).collect(Collectors.toList()));
     }
 
     @Override

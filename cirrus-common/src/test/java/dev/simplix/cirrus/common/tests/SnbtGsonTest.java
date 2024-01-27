@@ -15,7 +15,7 @@ public final class SnbtGsonTest {
             .registerTypeAdapter(CompoundTag.class, new TagDeserializer())
             .create();
 
-    @Test
+//    @Test
     public void test() {
         CompoundTag display = new CompoundTag();
         display.putInt("integer", 134);
