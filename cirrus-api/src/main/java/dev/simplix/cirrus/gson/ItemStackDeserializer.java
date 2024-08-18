@@ -2,12 +2,15 @@ package dev.simplix.cirrus.gson;
 
 import com.google.gson.*;
 import dev.simplix.cirrus.item.CirrusItem;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.api.item.BaseItemStack;
 import dev.simplix.protocolize.api.item.ItemStack;
 import dev.simplix.protocolize.data.ItemType;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
 import net.querz.nbt.tag.CompoundTag;
 
 public class ItemStackDeserializer implements JsonDeserializer<BaseItemStack> {
@@ -34,11 +37,11 @@ public class ItemStackDeserializer implements JsonDeserializer<BaseItemStack> {
         ? context.deserialize(asJsonObject.get("lore"), List.class)
         : null;
 
-    final ItemStack itemStack = new ItemStack(type, amount, durability)
-        .displayName(displayName)
+    final ItemStack itemStack = (ItemStack) new ItemStack(type, amount, durability)
+        .displayName(ChatElement.ofLegacyText(displayName))
         .nbtData(nbt);
 
-    itemStack.lore(lore, true);
+    itemStack.lore(lore.stream().map(ChatElement::ofLegacyText).collect(Collectors.toList()));
     itemStack.hideFlags(hideflags);
 
     return itemStack;

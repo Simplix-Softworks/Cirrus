@@ -5,6 +5,7 @@ import dev.simplix.cirrus.item.CirrusItem;
 import dev.simplix.protocolize.api.item.BaseItemStack;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemStackSerializer implements JsonSerializer<BaseItemStack> {
 
@@ -26,13 +27,13 @@ public class ItemStackSerializer implements JsonSerializer<BaseItemStack> {
     jsonObject.add("hide-flags", new JsonPrimitive(src.hideFlags()));
     jsonObject.add("nbt", context.serialize(src.nbtData()));
     jsonObject.add("display-name", new JsonPrimitive(src.getClass().getSimpleName()));
-    final Object obj = src.displayName(true);
-    if (obj instanceof String) {
-      jsonObject.add("display-name", new JsonPrimitive((String) obj));
+    final String obj = src.displayName().asLegacyText();
+    if (obj != null) {
+      jsonObject.add("display-name", new JsonPrimitive(obj));
     }
 
-    final List<String> lores = src.lore(true);
-    if (lores != null && !lores.isEmpty()) {
+    final List<String> lores = src.lore().stream().map(s -> s.asLegacyText()).collect(Collectors.toList());
+    if (!lores.isEmpty()) {
       jsonObject.add("lore", context.serialize(lores));
     }
 

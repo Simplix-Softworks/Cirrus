@@ -3,6 +3,7 @@ package dev.simplix.cirrus.item;
 import dev.simplix.cirrus.Utils;
 import dev.simplix.cirrus.effect.AbstractMenuEffect;
 import dev.simplix.cirrus.util.ToStringUtil;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.api.item.BaseItemStack;
 import dev.simplix.protocolize.api.item.ItemStack;
 import dev.simplix.protocolize.data.ItemType;
@@ -147,9 +148,9 @@ public class CirrusItem extends ItemStack {
    */
   public static CirrusItem of(
       @NonNull ItemType itemType,
-      @NonNull String displayName,
-      @NonNull List<String> lore) {
-    return new CirrusItem(itemType).displayName(displayName).lore(lore);
+      @NonNull ChatElement<?> displayName,
+      @NonNull List<ChatElement<?>> lore) {
+    return new CirrusItem(itemType).displayName(displayName).loreElements(lore);
   }
 
   /**
@@ -161,8 +162,8 @@ public class CirrusItem extends ItemStack {
    */
   public static CirrusItem of(
       @NonNull ItemType itemType,
-      @NonNull String displayName,
-      @NonNull String... lore) {
+      @NonNull ChatElement<?> displayName,
+      @NonNull ChatElement<?>... lore) {
     return new CirrusItem(itemType).displayName(displayName).lore(lore);
   }
 
@@ -177,7 +178,7 @@ public class CirrusItem extends ItemStack {
   public static CirrusItem of(
       @NonNull ItemType itemType,
       @NonNull AbstractMenuEffect<String> displayNameEffect,
-      @NonNull String... lore) {
+      @NonNull ChatElement<?>... lore) {
     return new CirrusItem(itemType).displayNameEffect(displayNameEffect).lore(lore);
   }
 
@@ -195,11 +196,20 @@ public class CirrusItem extends ItemStack {
    * @param lore the list of strings to set as the lore of this item
    * @return this CirrusItem
    */
-  public CirrusItem lore(@Nullable List<String> lore) {
+  public CirrusItem loreElements(@Nullable List<ChatElement<?>> lore) {
     if (lore == null) {
       return this;
     }
-    this.lore(Utils.colorize(lore), true);
+    this.lore(lore);
+    return this;
+  }
+
+  @Override
+  public CirrusItem displayName(@Nullable ChatElement<?> displayName) {
+    if (displayName == null) {
+      return this;
+    }
+    this.displayName(displayName);
     return this;
   }
 
@@ -213,11 +223,11 @@ public class CirrusItem extends ItemStack {
    * @param lore the varargs of strings to set as the lore of this item
    * @return this CirrusItem
    */
-  public CirrusItem lore(@NonNull String... lore) {
+  public CirrusItem lore(@NonNull ChatElement<?>... lore) {
     if (lore == null) {
       return this;
     }
-    this.lore(Arrays.asList(lore), true);
+    super.lore(Arrays.asList(lore));
     return this;
   }
   // ----------------------------------------------------------------------------------------------------
@@ -242,8 +252,8 @@ public class CirrusItem extends ItemStack {
   // We really don't want crappy adventure components
   @Override
   @SuppressWarnings("unchecked")
-  public String displayName() {
-    return this.displayName(true);
+  public ChatElement<?> displayName() {
+    return super.displayName();
   }
 
   /**
@@ -260,57 +270,8 @@ public class CirrusItem extends ItemStack {
   // We really don't want crappy adventure components
   @Override
   @SuppressWarnings("unchecked")
-  public List<String> lore() {
-    return super.lore(true);
-  }
-  /**
-   * Returns the display name of this item, using the specified string format.
-   *
-   * <p>This method overrides the {@link super#displayName(boolean)} method and may include special effects, such as a
-   * scrolling or blinking effect, if the {@link #displayNameEffect} field is set.
-   *
-   * <p>If the specified format is true, the legacy string format is used. Otherwise, the result could be
-   * a TextComponent or a Component object.
-   *
-   * <p>Note: this method suppresses the "unchecked" warning, as it uses a generic type that may not match the expected type.
-   *
-   * @param legacyString the format to use for the display name
-   * @return the display name of this item
-   */
-  // We still really don't want crappy adventure components
-  @Override
-  @SuppressWarnings("unchecked")
-  public <T> T displayName(boolean legacyString) {
-    if (this.displayNameEffect != null) {
-      final String next = this.displayNameEffect.nextFrame();
-      return (T) (legacyString ? next : CONVERTER.fromLegacyText(next));
-    }
-
-    return super.displayName(legacyString);
-  }
-
-  /**
-   * Sets the display name of this item to the specified legacy name.
-   *
-   * <p>This method overrides the {@link super#displayName(String)} method and applies color codes to the legacy name
-   * before setting it as the display name of the item.
-   *
-   * <p>Important: If the specified legacy name is null or empty, this method does nothing and returns this CirrusItem.
-   *
-   * @param legacyName the legacy name to set as the display name of this item
-   * @return this CirrusItem
-   */
-  @Override
-  public CirrusItem displayName(@Nullable String legacyName) {
-    if (legacyName == null || legacyName.isEmpty()) {
-      return this;
-    }
-    return (CirrusItem) super.displayName(Utils.colorize(legacyName));
-  }
-
-  @Override
-  public CirrusItem displayName(Object displayName) {
-    return (CirrusItem) super.displayName(displayName);
+  public List<ChatElement<?>> lore() {
+    return super.lore();
   }
 
   @Override
@@ -560,6 +521,6 @@ public class CirrusItem extends ItemStack {
         this.durability,
         this.nbtData,
         this.actionHandler(),
-        this.loreJson());
+        this.lore());
   }
 }

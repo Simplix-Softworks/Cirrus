@@ -3,6 +3,7 @@ package dev.simplix.cirrus;
 import dev.simplix.protocolize.api.ComponentConverter;
 import dev.simplix.protocolize.api.Protocolize;
 import dev.simplix.protocolize.api.providers.ComponentConverterProvider;
+import net.querz.nbt.tag.Tag;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
@@ -25,7 +26,12 @@ public class CirrusTestExtension implements BeforeAllCallback {
             return o.toString();
           }
 
-          @Override
+            @Override
+            public Tag<?> toNbt(Object o) {
+                return null;
+            }
+
+            @Override
           public Object fromLegacyText(String s) {
             return s;
           }
@@ -34,6 +40,16 @@ public class CirrusTestExtension implements BeforeAllCallback {
           public Object fromJson(String s) {
             return s;
           }
+
+            @Override
+            public Object fromNbt(Tag<?> tag) {
+                return null;
+            }
+
+            @Override
+            public Object disableItalic(Object o) {
+                return null;
+            }
         });
   }
 }

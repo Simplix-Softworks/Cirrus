@@ -60,7 +60,7 @@ allprojects {
         lib("com.google.code.gson:gson:2.10")
         lib("org.slf4j:slf4j-api:1.8.0-beta4")
 
-        lib("dev.simplix:protocolize-api:2.2.2")
+        lib("dev.simplix:protocolize-api:2.4.1")
         lib("com.mojang:authlib:1.5.21")
 
         annotationProcessor("org.projectlombok:lombok:1.18.24")

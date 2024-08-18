@@ -6,6 +6,7 @@ import dev.simplix.cirrus.menu.MenuRow;
 import dev.simplix.cirrus.menus.AbstractBrowser;
 import dev.simplix.cirrus.model.CallResult;
 import dev.simplix.cirrus.model.Click;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.api.item.BaseItemStack;
 import dev.simplix.protocolize.data.ItemType;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,7 +27,7 @@ public class AbstractBrowserTest {
 
       @Override
       protected void interceptBottomRow(MenuRow bottomRow) {
-        bottomRow.get(0).set(CirrusItem.of(ItemType.ACACIA_BOAT, "next page"));
+        bottomRow.get(0).set(CirrusItem.of(ItemType.ACACIA_BOAT, ChatElement.ofLegacyText("next page")));
       }
 
       @Override
@@ -47,7 +48,7 @@ public class AbstractBrowserTest {
 
       @Override
       protected CirrusItem map(String element) {
-        return CirrusItem.of(ItemType.STONE, element, "this is a test");
+        return CirrusItem.of(ItemType.STONE, ChatElement.ofLegacyText(element), ChatElement.ofLegacyText("this is a test"));
       }
     };
 

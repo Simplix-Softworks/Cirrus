@@ -8,6 +8,7 @@ import dev.simplix.cirrus.menu.MenuRow;
 import dev.simplix.cirrus.menus.AbstractBrowser;
 import dev.simplix.cirrus.model.Click;
 import dev.simplix.cirrus.service.ItemService;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.data.ItemType;
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,8 +41,8 @@ public class ItemTypeBrowser extends AbstractBrowser<ItemType> {
         CirrusItem
             .of(
                 ItemType.ACACIA_DOOR,
-                "§7Back",
-                "§7Go back to the previous menu")
+                ChatElement.ofLegacyText("§7Back"),
+                ChatElement.ofLegacyText("§7Go back to the previous menu"))
             .actionHandler("back"));
   }
 

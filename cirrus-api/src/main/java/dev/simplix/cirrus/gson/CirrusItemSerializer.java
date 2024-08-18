@@ -3,8 +3,11 @@ package dev.simplix.cirrus.gson;
 import com.google.gson.*;
 import dev.simplix.cirrus.effect.AbstractMenuEffect;
 import dev.simplix.cirrus.item.CirrusItem;
+import dev.simplix.protocolize.api.chat.ChatElement;
+
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CirrusItemSerializer implements JsonSerializer<CirrusItem> {
 
@@ -19,7 +22,7 @@ public class CirrusItemSerializer implements JsonSerializer<CirrusItem> {
         RuntimeTypeAdapterFactory.TYPE,
         new JsonPrimitive(src.getClass().getSimpleName().toLowerCase()));
 
-    final String displayName = src.displayName();
+    final String displayName = src.displayName().asLegacyText();
     AbstractMenuEffect<String> effect = src.displayNameEffect();
     // Only add displayName is present and no displayName effect is applied
     if (displayName != null && effect == null) {
@@ -32,7 +35,7 @@ public class CirrusItemSerializer implements JsonSerializer<CirrusItem> {
     }
 
     jsonObject.add("type", context.serialize(src.itemType()));
-    final List<String> lores = src.lore();
+    final List<String> lores = src.lore().stream().map(ChatElement::asLegacyText).collect(Collectors.toList());
     if (lores != null) {
       jsonObject.add("lore", lores.isEmpty() ? new JsonArray() : context.serialize(lores));
     }

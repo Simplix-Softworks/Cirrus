@@ -3,9 +3,12 @@ package dev.simplix.cirrus.gson;
 import com.google.gson.*;
 import dev.simplix.cirrus.effect.AbstractMenuEffect;
 import dev.simplix.cirrus.item.CirrusItem;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.data.ItemType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import net.querz.nbt.tag.CompoundTag;
 
 public class CirrusItemDeserializer implements JsonDeserializer<CirrusItem> {
@@ -48,13 +51,13 @@ public class CirrusItemDeserializer implements JsonDeserializer<CirrusItem> {
     return new CirrusItem(type)
         .amount(amount)
         .nbtData(nbt)
-        .displayName(displayName)
+        .displayName(ChatElement.ofLegacyText(displayName))
         .displayNameEffect(effect)
         .durability(durability)
         .hideFlags(hideflags)
         .actionArguments(actionArguments)
         .actionHandler(actionHandler)
-        .lore(lore);
+        .lore((ChatElement<?>) lore.stream().map(ChatElement::ofLegacyText).collect(Collectors.toSet()));
 
   }
 }

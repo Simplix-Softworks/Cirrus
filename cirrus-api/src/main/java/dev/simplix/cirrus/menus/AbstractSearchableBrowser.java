@@ -5,6 +5,7 @@ import dev.simplix.cirrus.item.CirrusItem;
 import dev.simplix.cirrus.menu.MenuRow;
 import dev.simplix.cirrus.model.SearchConversation;
 import dev.simplix.cirrus.service.SearchConversationHandleService;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.api.item.BaseItemStack;
 import dev.simplix.protocolize.data.ItemType;
 import java.util.Collection;
@@ -54,7 +55,7 @@ public abstract class AbstractSearchableBrowser<T> extends AbstractBrowser<T> {
   protected BaseItemStack searchItemStack() {
     return CirrusItem
         .of(ItemType.COMPASS)
-        .displayName("&6Search")
+        .displayName(ChatElement.ofLegacyText("&6Search"))
         .lore(compassLore())
         .actionHandler("Search");
   }
@@ -62,9 +63,9 @@ public abstract class AbstractSearchableBrowser<T> extends AbstractBrowser<T> {
   /**
    * Defines the lore our compass should have
    */
-  protected String[] compassLore() {
-    return new String[]{
-        "&7Search for a value",
+  protected ChatElement<?>[] compassLore() {
+    return new ChatElement[]{
+        ChatElement.ofLegacyText("&7Search for a value"),
     };
   }
 

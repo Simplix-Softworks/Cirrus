@@ -4,6 +4,7 @@ import dev.simplix.cirrus.actionhandler.ActionHandlers;
 import dev.simplix.cirrus.item.Items;
 import dev.simplix.cirrus.menus.SimpleMenu;
 import dev.simplix.cirrus.model.SimpleSound;
+import dev.simplix.protocolize.api.chat.ChatElement;
 import dev.simplix.protocolize.api.util.ProtocolVersions;
 import dev.simplix.protocolize.data.ItemType;
 import dev.simplix.protocolize.data.Sound;
@@ -16,10 +17,9 @@ public class SelectMenu extends SimpleMenu {
     title("select item");
 
     set(Items.withSpectrumEffect(
-            ItemType.STONE,
-            "Next Menu",
-            "§7Click here to go",
-            "§7to the next menu")
+            ItemType.STONE, "Next Menu",
+            ChatElement.ofLegacyText("§7Click here to go"),
+            ChatElement.ofLegacyText("§7to the next menu"))
         .slot(12)
         .actionHandler("next")
        );
@@ -27,8 +27,8 @@ public class SelectMenu extends SimpleMenu {
     set(Items.withSpectrumEffect(
             ItemType.STONE,
             "Item Type Browser",
-            "§7Click here to go",
-            "§7to the item-type menu")
+            ChatElement.ofLegacyText("§7Click here to go"),
+            ChatElement.ofLegacyText("§7to the item-type menu"))
         .actionHandler("browser")
         .slot(14)
        );
