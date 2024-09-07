@@ -57,7 +57,7 @@ public class CirrusItemDeserializer implements JsonDeserializer<CirrusItem> {
         .hideFlags(hideflags)
         .actionArguments(actionArguments)
         .actionHandler(actionHandler)
-        .lore((ChatElement<?>) lore.stream().map(ChatElement::ofLegacyText).collect(Collectors.toSet()));
+        .loreElements(lore.stream().map(ChatElement::ofLegacyText).collect(Collectors.toList()));
 
   }
 }

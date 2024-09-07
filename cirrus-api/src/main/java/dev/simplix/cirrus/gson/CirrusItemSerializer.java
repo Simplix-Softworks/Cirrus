@@ -22,7 +22,7 @@ public class CirrusItemSerializer implements JsonSerializer<CirrusItem> {
         RuntimeTypeAdapterFactory.TYPE,
         new JsonPrimitive(src.getClass().getSimpleName().toLowerCase()));
 
-    final String displayName = src.displayName().asLegacyText();
+    final String displayName = src.displayName() == null ? null : src.displayName().asLegacyText();
     AbstractMenuEffect<String> effect = src.displayNameEffect();
     // Only add displayName is present and no displayName effect is applied
     if (displayName != null && effect == null) {

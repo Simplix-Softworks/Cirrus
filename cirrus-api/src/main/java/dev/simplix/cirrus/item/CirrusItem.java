@@ -209,7 +209,7 @@ public class CirrusItem extends ItemStack {
     if (displayName == null) {
       return this;
     }
-    this.displayName(displayName);
+    super.displayName(displayName);
     return this;
   }
 
